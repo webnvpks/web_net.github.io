@@ -1,0 +1,699 @@
+<title>PHP Сессии</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+   <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+      <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+         <path fill="#ffffff"
+            d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+         </path>
+      </svg>
+   </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+   <p class="name">
+      Проектирование, разработка и оптимизация веб-приложений
+   </p>
+   <div class="links">
+      <a href="../../../index.html" class="link">Главная</a>
+      <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+      <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+      <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+      <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+   </div>
+</div>
+<div class="content">
+   <h1>Сессии в PHP</h1>
+
+   <p>С самого начала PHP все приняли на ура, но как
+      только на этом языке стали создавать достаточно крупные проекты,
+      разработчики столкнулись с новой проблемой - в PHP отсутствовало
+      понятие глобальных переменных! То есть, выполнялся некий скрипт,
+      посылал сгенерированную страницу клиенту, и все ресурсы,
+      используемые этим скриптом уничтожались. Попробую проиллюстрировать:
+      предположим есть две страницы одного сайта, index.php и
+      dothings.php. Исходники к этим страницам выглядят так:</p>
+   <p><b>index.php</b></p>
+   <pre
+      class="adb"><code class="language-html xml"><span class="pi">&lt;?php
+$a = "Меня задали на index.php";
+?&gt;</span>
+<span class="tag">&lt;<span class="title">html</span>&gt;</span><span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="pi">&lt;?php
+echo $a;
+?&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span><span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+   <p><b>dothings.php</b></p>
+   <pre
+      class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span><span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="pi">&lt;?php
+echo $a;
+?&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span><span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+   <p>Если выполнить эти два скрипта, то на первой странице мы увидим надпись
+      "Меня задали на index.php", а вторая страница будет пустой.</p>
+   <p>Разработчики web-сайтов, недолго думая, стали
+      использовать cookie для хранения глобальных переменных на стороне
+      клиента. Процесс выглядел примерно так: пользователь приходит на
+      главную страницу сайта, делает какие-то действия, и вся информация,
+      связанная с этим пользователем, которая может потребоваться на
+      других страницах сайта, будет храниться у него в браузере в виде
+      cookie. Этот метод имеет довольно серьезные минусы, из-за которых от
+      PHP в своё время отвернулось немало разработчиков. Например, нам
+      нужно авторизовать пользователя, чтобы разрешить ему доступ к
+      закрытым (или принадлежащим только ему) разделам сайта. Придется
+      отправлять пользователю cookie, который будет служит его последующим
+      идентификатором на сайте. Такой подход
+      становится очень громоздким и не удобным, как только сайт начинает
+      собирать всё больше и больше сведений о поведении пользователя, ведь
+      всю информацию, посылаемую пользователю, желательно кодировать,
+      чтобы её нельзя было подделать. Ещё совсем недавно подделкой
+      cookie можно было "уложить" не один чат, а порой и пробраться в
+      чужую почту. К тому же есть ещё на свете странные люди, у которых
+      браузер cookie не поддерживает.</p>
+   <p>При использовании сессий вся информация хранится не
+      на стороне клиента, а на стороне сервера, и потому лучше защищена от
+      манипуляций злоумышленников. Да и работать с
+      сессиями куда проще и удобнее, так как все данные автоматически
+      проходят через алгоритмы криптографии модуля PHP. В броузере
+      клиента, лишь хранится уникальный идентификатор номера сессии, либо
+      в форме cookie, либо в виде переменной в адресной строке броузера,
+      какой из двух способов использовать для передачи идентификатора
+      сессии между страницами интерпретатор PHP выбирает сам. Это на 100%
+      безопасно, так как идентификатор сессии уникален, и подделать его
+      практически невозможно (об этом чуть далее, в разделе <a href="#protect">о безопасности
+         сессий</a>).</p>
+
+   <h4>Как работать с сессиями?</h4>
+   <p>Если вы будете тестировать примеры выше (или
+      ваши скрипты) на каком-либо коммерческом хостинге, проблем с работой
+      с сессиями быть не должно. Если же вы сами настраивали ваш сервер
+      (будь то реальный сервер, или эмулятор), могут появляться ошибки
+      примерно такого содержания: </p>
+   <p>"Warning: open(/var/state/php/sess_6f71d1dbb52fa88481e752af7f384db0, O_RDWR) failed: No such file or directory
+      (2)".</p>
+   <p>Это значит всего лишь, что у вас неправильно
+      настроен PHP. Решить эту проблему можно, прописав правильный путь
+      (на существующую директорию) для сохранения сессий в файле php.ini и
+      перезапустить сервер.</p>
+   <p>Любой скрипт, который будет использовать переменные
+      (данные) из сессий, должен содержать следующую
+      строчку:</p>
+   <pre
+      class="adb"><code class="language-html sql">session_<span class="operator"><span class="keyword">start</span>();</span></code></pre>
+   <p>Эта команда говорит серверу, что данная страница
+      нуждается во всех переменных, которые связаны с данным пользователем
+      (браузером). Сервер берёт эти переменные из файла и
+      делает их доступными. Очень важно открыть сессию до того, как
+      какие-либо данные будут посылаться пользователю; на практике это
+      значит, что функцию session_start()</a> желательно вызывать в самом
+      начале страницы, например так:</p>
+   <pre class="adb"><code class="language-html javascript">session_start();
+?&gt;
+<span class="xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+ <span class="tag">&lt;<span class="title">head</span>&gt;</span>
+ <span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+ ...</span></code></pre>
+   <p>Для задания директории в которой будут сохраняться файлы сессий используется функция session_save_path():</p>
+   <pre class="adb"><code class="language-html sql">session_save_path($_SERVER['DOCUMENT_ROOT'].'/session');
+session_<span class="operator"><span class="keyword">start</span>();</span></code></pre>
+
+   <p>После начала сессии можно задавать глобальные переменные.
+      Ари присвоении какого-либо значения любому полю массива $_SESSION,
+      переменная с таким же именем автоматически регистрируется, как
+      переменная сессии.
+      Этот массив доступен на всех страницах, использующих сессию. Для примера разберем програму:</p>
+   <p><b>index.php</b></p>
+   <pre class="adb"><code class="language-php"><span class="preprocessor">&lt;?php</span>
+ <span class="comment">// открываем сессию</span>
+ session_start();
+ <span class="comment">// задаём значение переменной</span>
+ <span class="variable">$_SESSION</span>[<span class="string">'a'</span>] = <span class="string">"Меня задали на index.php"</span>;
+ <span class="preprocessor">?&gt;</span>
+ &lt;html&gt;
+ &lt;body&gt;
+ Всё ОК. Сессию загрузили!
+ Пройдём, посмотрим что &lt;a href=<span class="string">"dothings.php"</span>&gt;там:&lt;/a&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+   <p><b>dothings.php</b></p>
+   <pre class="adb"><code class="language-php"><span class="preprocessor">&lt;?php</span>
+ <span class="comment">// открываем сессию</span>
+ session_start();
+ <span class="preprocessor">?&gt;</span>
+&lt;html&gt;
+ &lt;body&gt;
+ <span class="preprocessor">&lt;?php</span>
+ <span class="keyword">echo</span> <span class="variable">$_SESSION</span>[<span class="string">'a'</span>];
+ <span class="preprocessor">?&gt;</span>
+ &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+   <p>При последовательном запуске этих файлов, первый скрипт "index.php" выдаст следующий результат:</p>
+   <p><i>Всё ОК. Сессию загрузили! Пройдём, посмотрим что там:</i></p>
+   <p>А второй "dothings.php" вот это:</p>
+   <p><i>Меня задали на index.php</i></p>
+   <p>Переменная $a теперь доступна на всех страницах данного сайта, которые запустили сессии.</p>
+   <p>Другие полезные функции и приемы для работы с сессиями:
+   </p>
+   <ul>
+      <li><b>unset($_SESSION['a'])</b> - сессия "забывает" значение заданной сессионой переменной;
+      </li>
+      <li><b>session_destroy</a>()</b> - сессия уничтожается (например, если
+         пользователь покинул систему, нажав кнопку "выход");
+      </li>
+      <li><b>session_set_cookie_params</a>(int lifetime [, string path [, string domain]])</b> -
+         с помощью этой функции можно установить, как долго
+         будет "жить" сессия, задав unix_timestamp определяющий время "смерти" сессии.
+         По умолчанию, сессия "живёт" до тех пор, пока клиент не закроет окно браузера.</li>
+      <li><b>session_write_close</a>()</b> - запись переменных сесии и закрытие ее.
+         Это необходимо для открытия сайта в новом окне, если страница выполняет длительную обработу и заблокировала для
+         вашего браузера файл сессий.</li>
+   </ul>
+
+   <h3>Примеры</h3>
+   <p>Теперь обратимся к практическому применению механизма сессий. Здесь мы рассмотрим пару
+      довольно простых и в то же время полезных примеров.</p>
+
+   <h4>Авторизация Пользователя</h4>
+   <p>Вопросы по авторизации пользователей с помощью PHP-сессий постоянно задаются в конференциях по
+      web-программированию. Механизм авторизации пользователей в системе с помощью сессий довольно хорош
+      с точки зрения безопасности (см.раздел <a href="#protect">Безопасность</a>). </p>
+   <p>Наш пример будет состоять из трёх файлов: index.php, authorize.php и secretplace.php.
+      Файл index.php содержит форму, где пользователь введёт свой логин и пароль. Эта форма передаст данные
+      файлу authorize.php, который в случае успешной авторизации допустит
+      пользователя к файлу secretplace.php, а в противном случае выдаст сообщение об ошибке.</p>
+   <p>Примеры: <b>index.php</b></p>
+   <pre class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+ <span class="tag">&lt;<span class="title">head</span>&gt;</span>
+     <span class="tag">&lt;<span class="title">title</span>&gt;</span>Вводи пароль<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+ <span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+ <span class="tag">&lt;<span class="title">body</span>&gt;</span>
+ <span class="tag">&lt;<span class="title">form</span> <span class="attribute">action</span>=<span class="value">"authorize.php"</span> <span class="attribute">method</span>=<span class="value">"post"</span>&gt;</span>
+     Логин: <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">"user_name"</span>&gt;</span><span class="tag">&lt;<span class="title">br</span>&gt;</span>
+     Пароль: <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">name</span>=<span class="value">"user_pass"</span>&gt;</span><span class="tag">&lt;<span class="title">br</span>&gt;</span>
+     <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">name</span>=<span class="value">"Submit"</span>&gt;</span>
+ <span class="tag">&lt;/<span class="title">form</span>&gt;</span>
+ <span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+ <span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+   <p><b>authorize.php</b></p>
+   <pre class="adb"><code class="language-php"><span class="preprocessor">&lt;?php</span>
+ <span class="comment">// открываем сессию</span>
+ session_start();
+ <span class="comment">// данные были отправлены формой?</span>
+ <span class="keyword">if</span>(<span class="variable">$_POST</span>[<span class="string">'Submit'</span>]){
+     <span class="comment">// проверяем данные на правильность... в данном случае я</span>
+     <span class="comment">// вписал имя пользователя и пароль прямо в код, целесообразней</span>
+     <span class="comment">// было бы проверить логин/пароль в базе данных и при сов-</span>
+     <span class="comment">// падении дать доступ пользователю...</span>
+     <span class="keyword">if</span>((<span class="variable">$_POST</span>[<span class="string">'user_name'</span>]==<span class="string">"cleo"</span>)&amp;&amp;(<span class="variable">$_POST</span>[<span class="string">'user_pass'</span>]==<span class="string">"password"</span>)){
+         <span class="comment">// запоминаем имя пользователя</span>
+         <span class="variable">$_SESSION</span>[<span class="string">'logged_user'</span>] = <span class="variable">$_POST</span>[<span class="string">'user_name'</span>];
+        <span class="comment">// и переправляем его на &lt;секретную&gt; страницу...</span>
+         header(<span class="string">"Location: secretplace.php"</span>);
+         <span class="keyword">exit</span>;
+     }
+ }
+ <span class="comment">// если что-то было не так, то пользователь получит</span>
+ <span class="comment">// сообщение об ошибке.</span>
+ <span class="preprocessor">?&gt;</span>
+ &lt;html&gt;&lt;body&gt;
+ Вы ввели неверный пароль!
+ &lt;/body&gt;&lt;/html&gt;</code></pre>
+   <p><b>secretplace.php</b></p>
+   <pre class="adb"><code class="language-php"><span class="preprocessor">&lt;?php</span>
+ <span class="comment">// открываем сессию</span>
+ session_start();
+ <span class="comment">/*
+   просто зайти на эту страницу нельзя... если
+   имя пользователя не зарегистрировано, то
+   перенаправляем его на страницу index.php
+   для ввода логина и пароля... тут на самом деле
+   можно много чего сделать, например запомнить
+   IP пользователя, и после третьей попытки получить
+   доступ к файлам, его закрыть.
+ */</span>
+ <span class="keyword">if</span>(!<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">'logged_user'</span>])){
+     header(<span class="string">"Location: index.php"</span>);
+     <span class="keyword">exit</span>;
+ }
+ <span class="preprocessor">?&gt;</span>
+ &lt;html&gt;
+ &lt;body&gt;
+ Привет, <span class="preprocessor">&lt;?php</span> <span class="keyword">echo</span> <span class="variable">$_SESSION</span>[<span class="string">'logged_user'</span>]; <span class="preprocessor">?&gt;</span>, ты на секретной странице!!! :)
+ &lt;/body&gt;
+ &lt;/html&gt;</code></pre>
+   <h4>Безопасность</h4>
+   <p>Итак, мы умеем передавать идентификатор от одной
+      страницы (PHP-скрипта) к другой (до следующего вызова с нашего
+      сайта), а значит мы можем различать всех посетителей сайта. Так как
+      идентификатор сессии - это очень большое число (128 бит), шансов,
+      что его удастся подобрать перебором, практически нет. Поэтому
+      злоумышленнику остаются следующие возможности:
+   </p>
+   <ul>
+      <li>на компьютере пользователя стоит "троян", который ворует номера сессий;
+      </li>
+      <li>злоумышленник отлавливает трафик между компьютером пользователя и сервером.
+         Конечно, есть защищенный (зашифрованный) протокол SSL, но им пользуются не все;
+      </li>
+      <li>к компьютеру нашего пользователя подошел сосед и стащил номер сессии.
+      </li>
+   </ul>
+
+   <p>Такие ситуации, основанные на том, что кто-то
+      что-то у кого-то стащит, в общем, не входят в компетенцию
+      программиста. Об этом должны заботиться администраторы и сами
+      пользователи.</p>
+   <p>Впрочем, PHP очень часто можно "обмануть". Давайте
+      рассмотрим возможные точки взлома в программе авторизации
+      пользователя:
+   </p>
+   <ul>
+      <li>Файл authorize.php - попытка подбора пароля с помощью стороннего скрипта;
+      </li>
+      <li>Файл secretplace.php - попытка обмануть программу путём вписывания значений переменной
+         $logged_user в адресной строке браузера, например так: <br>
+         "http://www.yoursite.ru/secretplace.php?<b>logged_user=hacker</b>"
+      </li>
+   </ul>
+
+   <p>Итак, в нашей программе явно видны две "дыры", одна
+      маленькая и не особо заметная, а вот вторая - просто огромная, через
+      которую большинство хакеров и лезет туда, куда не надо.</p>
+   <p><b>Как "залатать" дыру номер 1?</b></p>
+   <p>Не будем писать тонны кода по блокировке IP-адреса
+      и т.п., а просто проверим, откуда приходит запрос, а точнее с какой
+      страницы пришёл запрос, если это будет любая страница с нашего
+      сайта, то всё нормально, а во всех остальных случаях пускать не
+      будем. Подкорректируем файл authorize.php:</p>
+   <p><b>authorize.php V2</b></p>
+   <pre class="adb"><code class="language-php"><span class="preprocessor">&lt;?php</span>
+ <span class="comment">// открываем сессию</span>
+ session_start();
+
+ <span class="comment">// полный путь к корневой директории где расположены скрипты</span>
+ <span class="variable">$SERVER_ROOT</span> = <span class="string">"http://localhost/test1/"</span>;
+
+ <span class="comment">// если пользователь пришёл с любой страницы нашего сайта</span>
+ <span class="comment">// то он вроде наш...</span>
+ <span class="comment">// Переменная $HTTP_REFERER всегда доступна по умолчанию</span>
+ <span class="comment">// и содержит полный адрес ссылающейся страницы...</span>
+ <span class="comment">// функция eregi() проверяет, начинается ли адрес ссылающейся страницы</span>
+ <span class="comment">// со значения в переменной $SERVER_ROOT</span>
+
+ <span class="keyword">if</span>(preg_match(<span class="string">"/^$SERVER_ROOT/"</span>,<span class="variable">$_SERVER</span>[<span class="string">'HTTP_REFERER'</span>])){
+     <span class="comment">// данные были отправлены формой?</span>
+     <span class="keyword">if</span>(<span class="variable">$_POST</span>[<span class="string">'Submit'</span>]){
+         <span class="comment">// далее все как раньше</span>
+         <span class="keyword">if</span>((<span class="variable">$_POST</span>[<span class="string">'user_name'</span>]==<span class="string">"cleo"</span>)&amp;&amp;(<span class="variable">$_POST</span>[<span class="string">'user_pass'</span>]==<span class="string">"password"</span>)){
+             <span class="comment">// запоминаем имя пользователя</span>
+             <span class="variable">$_SESSION</span>[<span class="string">'logged_user'</span>] = <span class="variable">$_POST</span>[<span class="string">'user_name'</span>];
+             <span class="comment">// и переправляем его на &lt;секретную&gt; страницу...</span>
+             header(<span class="string">"Location: secretplace.php"</span>);
+             <span class="keyword">exit</span>;
+         }
+     }
+ }
+ <span class="preprocessor">?&gt;</span>
+ &lt;html&gt;&lt;body&gt;
+ Вы ввели неверный пароль!
+ &lt;/body&gt;&lt;/html&gt;</code></pre>
+   <p><b>Как избавиться от "дыры" номер 2?</b></p>
+   <p>Предположим, у вас есть сайт, где каждый смертный
+      может зарегистрироваться чтобы добавлять сообщения в форум.
+      Естественно, в форуме у некоторых пользователей (админов,
+      модераторов), возможностей больше чем у других, они, например, могут
+      удалять сообщения других пользователей. Уровень доступа пользователя
+      вы храните в сессии, в переменной $user_status, где $user_status =
+      10 соответствует полному доступу к системе. Пришедшему на сайт
+      злоумышленнику достаточно зарегистрироваться штатным образом, а
+      потом дописать в адресной строке браузера <b>?user_status=10</b>.
+      Вот и завёлся у вас на форуме новый админ!</p>
+   <p>В принципе, любую переменную скрипта можно задать
+      через адресную строку, просто дописав после полного адреса к скрипту
+      вопросительный знак и название переменной с её значением. Давайте
+      поправим наш код, чтобы этого избежать:</p>
+
+   <p><b>secretplace.php V2</b></p>
+   <pre class="adb"><code class="language-php"><span class="preprocessor">&lt;?php</span>
+ <span class="comment">// убираем всё лишнее из адресной строки</span>
+ <span class="comment">// функция unset() &lt;освобождает&gt; переменную</span>
+ <span class="keyword">unset</span>(<span class="variable">$_SESSION</span>[<span class="string">'logged_user'</span>]);
+
+ <span class="comment">// открываем сессию</span>
+ session_start();
+
+ <span class="comment">/*
+   просто зайти на эту страницу нельзя... если
+   имя пользователя не зарегистрировано, то
+   перенаправляем его на страницу index.php
+   для ввода логина и пароля... тут на самом деле
+   можно много чего сделать, например запомнить
+   IP пользователя, и после третьей попытки получить
+   доступ к файлам, его перекрыть.
+ */</span>
+ <span class="keyword">if</span>(!<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">'logged_user'</span>])){
+     header(<span class="string">"Location: index.php"</span>);
+     <span class="keyword">exit</span>;
+ }
+ <span class="preprocessor">?&gt;</span>
+ &lt;html&gt;
+ &lt;body&gt;
+ Привет, <span class="preprocessor">&lt;?php</span> <span class="keyword">echo</span> <span class="variable">$_SESSION</span>[<span class="string">'logged_user'</span>]; <span class="preprocessor">?&gt;</span>, ты на секретной странице!
+ &lt;/body&gt;
+ &lt;/html&gt;</code></pre>
+   <p><b>Итоги</b></p>
+   <p>Механизм сессий - довольно удачная особенность языка PHP. Сессии просты, очень гибки в использовании.
+      Кстати, есть одна, мало где документированная возможность сессий PHP (доступна начиная с версии 4.0.3)
+      - в сессиях можно хранить не только переменные, но и объекты.</p>
+
+   <h4>Примеры</h4>
+   <pre class="adb"><code class="language-php"><span class="preprocessor">&lt;?php</span>
+<span class="comment">// Автоматическая вставка SID в форму.</span>
+ini_set(<span class="string">"session.use_trans_sid"</span>, <span class="keyword">true</span>);
+session_start();
+<span class="preprocessor">?&gt;</span>
+&lt;form method=<span class="string">"post"</span>&gt;
+&lt;/form&gt;
+<span class="preprocessor">?&gt;</span></code></pre>
+
+   <pre class="adb"><code class="language-php"><span class="comment">// Автоматическая вставка SID в ссылки.</span>
+ini_set(<span class="string">"session.use_trans_sid"</span>, <span class="keyword">true</span>);
+session_start();
+<span class="preprocessor">?&gt;</span>
+&lt;body&gt;
+&lt;a href=<span class="string">"/path/to/something.html"</span>&gt;Click here!&lt;/a&gt;&lt;br&gt;
+&lt;a href=<span class="string">"/path/to/something.php?param=value"</span>&gt;Click here!&lt;/a&gt;&lt;br&gt;
+&lt;a href=<span class="string">"http://htmlweb.ru/"</span>&gt;Click here!&lt;/a&gt;&lt;br&gt;
+&lt;/body&gt;</code></pre>
+
+   <pre class="adb"><code class="language-php"><span class="comment">// Пример работы с сессиями.</span>
+session_start();
+<span class="comment">// Если на сайт только-только зашли, обнуляем счетчик.</span>
+<span class="keyword">if</span> (!<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">'count'</span>])) <span class="variable">$_SESSION</span>[<span class="string">'count'</span>] = <span class="number">0</span>;
+<span class="comment">// Увеличиваем счетчик в сессии.</span>
+<span class="variable">$_SESSION</span>[<span class="string">'count'</span>] = <span class="variable">$_SESSION</span>[<span class="string">'count'</span>] + <span class="number">1</span>;
+<span class="preprocessor">?&gt;</span>
+&lt;h2&gt;Счетчик&lt;/h2&gt;
+В текущей сессии работы с браузером Вы открыли эту страницу
+&lt;?=<span class="variable">$_SESSION</span>[<span class="string">'count'</span>]<span class="preprocessor">?&gt;</span> раз(а).&lt;br&gt;
+Закройте браузер, чтобы обнулить счетчик.&lt;br&gt;
+&lt;a href=<span class="string">"&lt;?=$_SERVER['SCRIPT_NAME']?&gt;"</span> target=<span class="string">"_blank"</span>&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;Открыть дочернее окно браузера&lt;/a&gt;.</code></pre>
+
+   <pre
+      class="adb"><code class="language-php"><span class="comment">// Простой пример использования сессий без Cookies.</span>
+session_name(<span class="string">"test"</span>);
+session_start();
+<span class="variable">$_SESSION</span>[<span class="string">'count'</span>] = @<span class="variable">$_SESSION</span>[<span class="string">'count'</span>] + <span class="number">1</span>;
+<span class="preprocessor">?&gt;</span>
+&lt;h2&gt;Счетчик&lt;/h2&gt;
+В текущей сессии работы с браузером Вы открыли эту страницу
+&lt;?=<span class="variable">$_SESSION</span>[<span class="string">'count'</span>]<span class="preprocessor">?&gt;</span> раз(а). &lt;br&gt;
+Закройте браузер, чтобы обнулить этот счетчик.&lt;br&gt;
+&lt;a href=<span class="string">"&lt;?=$_SERVER['SCRIPT_NAME']?&gt;?&lt;?=SID?&gt;"</span>&gt;Нажмите сюда для обновления страницы!&lt;/a&gt;</code></pre>
+   <h1>Использование MySQL для хранения данных сессий</h1>
+
+   <p>Для высоконагруженных проектов использование файлов для хранения файлов сессий становится недопустимым.</p>
+
+   <p>Сейчас мы рассмотрим <b>использвоание БД MySql для хранения данных сессий</b>.</p>
+
+   <ol>
+      <li>все настройки сессий производятся до старта сессии, поэтому необходимо отменить автостарт сессий:
+         <pre>ini_set('session.auto_start', '0');
+</pre>
+
+      </li>
+      <li>стандартно PHP хранит сессии в файлах, чтобы установить свои обработчики сессий определим:
+         <pre>ini_set('session.save_handler', 'user');
+</pre>
+         у 'session.save_handler' может быть три значения:<ul>
+            <li> <b>files</b> - значение по умолчанию, PHP использует стандартные функции обработки сессий, сессии
+               храняться в файлах,
+               необходимо определить ini_set('session.save_path', путь); место для хранения файлов сессий.;
+            </li>
+            <li> <b>mm</b> - PHP использует стандартные функции обработки сессий, сессии храняться в памяти;
+            </li>
+            <li> <b>user</b> - позволяет переопределять стандартные функции обработки сессий, и соответственно в этих
+               функциях указывать,
+               где мы будем хранить сессии и как мы будем их обрабатывать.
+            </li>
+         </ul>
+
+      </li>
+      <li>теперь определим функции обработки сессий:
+         <pre>session_set_save_handler (
+		"sess_open",
+		"sess_close",
+		"sess_read",
+		"sess_write",
+		"sess_destroy",
+		"sess_gc");
+</pre>
+         рассмотрим каждую:<ul>
+            <li><b>sess_open</b> - открывает сессию. Функция создает уникальное ID сессии. Требует для своей работы два
+               параметра 'session.save_path' и 'session.name'.
+               Т.к. мы храним сессии в базе, то 'session.save_path' нам не нужен, а вот 'session.name' можно определить
+               вместо стандартного - 'PHPSESSID'. Итак дописываем в конфигурацию:
+               <pre>ini_set ('session.name', 'SID');
+</pre>
+            </li>
+            <li><b>sess_close</b> - закрывает сессию (не разрушая сессионные переменные).
+
+            </li>
+            <li><b>sess_read</b> - читает данные из временного хранилища, в нашем случае из базы.
+               Требует ID сессии, что из таблицы сессии надо прочитать и записать в сессию из таблицы сессий.
+
+            </li>
+            <li><b>sess_write</b> - пишет данные во временное хранилище. Требует ID сессии, и пишет все из сессии в
+               базу.
+
+            </li>
+            <li><b>sess_destroy</b> - разрушает сессию. Требует ID сессии. Для удаления информации существует следующая
+               функция.
+
+            </li>
+            <li><b>sess_gc</b> - это просто сборщик мусора. Требует срок хранения сессий во временном хранилище в
+               секундах определенного в параметре 'session.gc_maxlifetime'
+               (по умолчанию 30 минут). Определяем его, и определим время жизни сессионной куки:
+               <pre>ini_set('session.gc_maxlifetime', XXX);
+ini_set('session.cookie_lifetime', YYY);
+</pre>
+
+               <p>'sess_gc' не всегда вызывается при инициализации сессии, есть еще одна настройка которая управляет
+                  этим параметром - 'session.gc_probability'.
+                  Этот параметр определяет вероятность запуска 'sess_gc' в процентах, соответственно валидные значения
+                  1-100.
+                  Значение по умолчанию 1%. Т.е. это означает, что с вероятностью в 1%, при открытии новой странице
+                  сайта, будет происходить очистка сессионной таблицы,
+                  по моему опыту оптимально значение 5-10.
+                  Добавляем к конфигурации:</p>
+               <pre>ini_set ('session.gc_probability', 5);
+</pre>
+
+            </li>
+         </ul>
+      </li>
+   </ol>
+
+   <p>Структура таблиц:</p>
+   <pre>CREATE TABLE "session" (
+    session_id character varying(32) NOT NULL,
+    session_user_id integer DEFAULT 0 NOT NULL,
+    session_counter integer DEFAULT 0 NOT NULL,
+    session_ip character varying(16),
+    session_agent character varying(255),
+    session_last integer DEFAULT 0 NOT NULL,
+    session_created integer DEFAULT 0 NOT NULL,
+    session_data text
+);
+</pre>
+
+   <pre>CREATE TABLE "user" (
+    user_id character varying(32) NOT NULL,
+    user_ip character varying(16),
+    user_agent character varying(255),
+    /* могут быть и другие поля */
+);
+</pre>
+
+   <p><b>session.php</b> - Хранение данных сессии в MySQL таблице и функции работы с сессиями на PHP.</p>
+   <p>Используется глобальный массив $user[] с полями из таблиц БД session, user.<br>
+      Подразумевается что соединение с MySQL уже установлено и определено в глобальной переменной $db.<br>
+      Текущая информация сохрняется в глобальной переменной $session.</p>
+   <pre class="adb"><code class="language-php">&lt;?
+<span class="variable">$SERVER_NAME</span>=<span class="variable">$_SERVER</span>[<span class="string">'HTTP_HOST'</span>];
+<span class="variable">$SERVER_NAME</span>=preg_replace(<span class="string">'/^http:\/\//'</span>, <span class="string">''</span>, <span class="variable">$SERVER_NAME</span>);
+<span class="variable">$SERVER_NAME</span>=preg_replace(<span class="string">'/^www\./'</span>, <span class="string">''</span>, <span class="variable">$SERVER_NAME</span>);
+define(<span class="string">"CookiePath"</span>,<span class="string">"/"</span>);
+define(<span class="string">"CookieDomain"</span>,<span class="variable">$SERVER_NAME</span>);&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//".".$SERVER_NAME    домен</span>
+define(<span class="string">"live_sess_time"</span>,<span class="string">"1000"</span>);
+
+ini_set(<span class="string">'session.auto_start'</span>, <span class="string">'0'</span>); <span class="comment">// автостарт сессий не нужен</span>
+
+ini_set(<span class="string">'session.use_cookies'</span>, <span class="string">'1'</span>);<span class="comment">// передавать идентификатор сессии в куках</span>
+
+ini_set(<span class="string">'session.use_trans_sid'</span>, <span class="string">'0'</span>); <span class="comment">// не передавать идентификатор сессии добавляя его к URL и формам</span>
+
+ini_set(<span class="string">'session.save_handler'</span>, <span class="string">'user'</span>);
+
+ini_set(<span class="string">'session.name'</span>, <span class="string">'SID'</span>); <span class="comment">// Имя сессии</span>
+
+ini_set(<span class="string">'session.gc_maxlifetime'</span>, <span class="string">'1800'</span>); <span class="comment">// время жизни сессии, 30 минут (60*30)</span>
+
+<span class="comment">//ini_set ('session.cookie_lifetime', '2000'); // 0 - кука умирает при закрытии браузера</span>
+
+<span class="comment">// Задаем параметры сессионной куки: (время жизни= 0 - умрет при закрытии браузера, путь, домен, true= доступно только из https зоны)</span>
+session_set_cookie_params (<span class="number">0</span>, CookiePath, CookieDomain, <span class="keyword">false</span>);
+
+<span class="comment">//Выставляем вероятность запуска функции sess_gc в процентах (допустимые значения 1-100, по умолчанию равно 1%)</span>
+ini_set(<span class="string">'session.gc_probability'</span>, <span class="number">10</span>);
+
+<span class="function"><span class="keyword">function</span> <span class="title">sess_open</span> <span class="params">(<span class="variable">$save_path</span>, <span class="variable">$session_name</span>)</span> {</span><span class="keyword">return</span> <span class="keyword">true</span>;}
+
+<span class="function"><span class="keyword">function</span> <span class="title">sess_close</span> <span class="params">()</span> {</span><span class="keyword">return</span> <span class="keyword">true</span>;}
+
+<span class="function"><span class="keyword">function</span> <span class="title">sess_read</span> <span class="params">(<span class="variable">$session_id</span>)</span> {</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">global</span> <span class="variable">$db</span>, <span class="variable">$user</span>, <span class="variable">$session</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (strlen (<span class="variable">$session_id</span>) != <span class="number">32</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_log (<span class="string">"sess_read(): Invalid SessionID = "</span>.<span class="variable">$session_id</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">''</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$sql</span> = <span class="string">"SELECT `session_id`, `session_user_id`, `session_counter`, `session_ip`, `session_agent`, `session_data`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM `session`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE `session_id` = '"</span>.<span class="variable">$db</span>-&gt;sql_escape(<span class="variable">$session_id</span>).<span class="string">"' AND `session_last` &gt; '"</span>.(time() - live_sess_time).<span class="string">"'"</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$result</span> = <span class="variable">$db</span>-&gt;sql_query (<span class="variable">$sql</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (<span class="variable">$db</span>-&gt;sql_numrows (<span class="variable">$result</span>) == <span class="number">1</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$session</span> = <span class="variable">$db</span>-&gt;sql_fetchrow (<span class="variable">$result</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (<span class="variable">$session</span> <span class="keyword">AND</span> <span class="variable">$session</span>[<span class="string">'session_ip'</span>] == <span class="variable">$user</span>[<span class="string">'user_ip'</span>] <span class="keyword">AND</span> <span class="variable">$session</span>[<span class="string">'session_agent'</span>] == <span class="variable">$user</span>[<span class="string">'user_agent'</span>]) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// выборка информации о пользователе. TODO замените при необходимости на свою !!!</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$sql</span> = <span class="string">"SELECT * FROM `user`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE `user_id` = '"</span>.<span class="variable">$db</span>-&gt;sql_escape(<span class="variable">$session</span>[<span class="string">'session_user_id'</span>]).<span class="string">"' LIMIT 1"</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$result</span> = <span class="variable">$db</span>-&gt;sql_query (<span class="variable">$sql</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>(!<span class="variable">$result</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$result</span> = <span class="variable">$db</span>-&gt;sql_error (<span class="variable">$result</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_log (<span class="string">'sess_read(): Failed to read user info - '</span>.<span class="variable">$result</span>[<span class="string">'message'</span>]);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">''</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$user_data</span> = <span class="variable">$db</span>-&gt;sql_fetchrow (<span class="variable">$result</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$user</span> = array_merge (<span class="variable">$user</span>, <span class="variable">$user_data</span>, <span class="variable">$session</span>); <span class="comment">// слить три массива в один</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">unset</span>(<span class="variable">$user</span>[<span class="string">'session_data'</span>]);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="variable">$session</span>[<span class="string">'session_data'</span>];
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <span class="keyword">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_REQUEST</span>[session_name()])) sess_destroy(<span class="variable">$_REQUEST</span>[session_name()]);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">''</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;} <span class="keyword">elseif</span> (!<span class="variable">$result</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$result</span> = <span class="variable">$db</span>-&gt;sql_error (<span class="variable">$result</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_log (<span class="string">'sess_read(): Failed to read sessions - '</span>.<span class="variable">$result</span>[<span class="string">'message'</span>]);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">''</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;} <span class="keyword">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$session</span> = <span class="keyword">NULL</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_REQUEST</span>[session_name()])) sess_destroy(<span class="variable">$_REQUEST</span>[session_name()]);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">''</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}
+
+<span class="function"><span class="keyword">function</span> <span class="title">sess_write</span> <span class="params">(<span class="variable">$session_id</span>, <span class="variable">$session_data</span>)</span> {</span>
+   <span class="keyword">global</span> <span class="variable">$db</span>, <span class="variable">$user</span>, <span class="variable">$session</span>;
+   <span class="keyword">if</span> (strlen (<span class="variable">$session_id</span>) != <span class="number">32</span>) {
+      error_log (<span class="string">'sess_write(): Invalid Session ID = '</span>.<span class="variable">$session_id</span>);
+      <span class="keyword">return</span> <span class="keyword">false</span>;
+   }
+   <span class="keyword">if</span> (<span class="number">4294967295</span> &lt; strlen(<span class="variable">$session_data</span>)) {
+      error_log (<span class="string">'sess_write(): Session data too large. '</span>.<span class="variable">$session_id</span>.<span class="string">'(max. 4294967295) -&gt; '</span>.strlen(<span class="variable">$session_data</span>));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_REQUEST</span>[session_name()])) sess_destroy(<span class="variable">$_REQUEST</span>[session_name()]);
+      <span class="keyword">return</span> <span class="keyword">false</span>;
+   }
+   <span class="keyword">if</span> (<span class="variable">$session</span> <span class="keyword">AND</span> <span class="variable">$session</span>[<span class="string">'session_ip'</span>] != <span class="variable">$user</span>[<span class="string">'user_ip'</span>]){
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_REQUEST</span>[session_name()])) sess_destroy(<span class="variable">$_REQUEST</span>[session_name()]);
+      <span class="keyword">return</span> <span class="keyword">false</span>;
+   }
+   <span class="keyword">if</span> (<span class="variable">$session</span>) {
+      <span class="variable">$sql</span> = <span class="string">"UPDATE `session`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET `session_user_id` = '"</span>.intval (<span class="variable">$session</span>[<span class="string">'session_user_id'</span>]).<span class="string">"',
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    `session_last` = '"</span>.time ().<span class="string">"',
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    `session_counter` = '"</span>.intval(++<span class="variable">$session</span>[<span class="string">'session_counter'</span>]).<span class="string">"',
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    `session_data` = '"</span>.<span class="variable">$db</span>-&gt;sql_escape(<span class="variable">$session_data</span>).<span class="string">"'
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE `session_id` = '"</span>.<span class="variable">$db</span>-&gt;sql_escape(<span class="variable">$session_id</span>).<span class="string">"' LIMIT 1"</span>;
+   } <span class="keyword">else</span> {
+      <span class="variable">$sql</span> = <span class="string">"INSERT INTO `session` (`session_id`, `session_created`, `session_last`,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`session_ip`, `session_agent`, `session_data`)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUES ('"</span>.<span class="variable">$db</span>-&gt;sql_escape (<span class="variable">$session_id</span>).<span class="string">"', "</span>.time().<span class="string">", "</span>.time().<span class="string">",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"</span>.<span class="variable">$db</span>-&gt;sql_escape (<span class="variable">$user</span>[<span class="string">'user_ip'</span>]).<span class="string">"',
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"</span>.<span class="variable">$db</span>-&gt;sql_escape (<span class="variable">$user</span>[<span class="string">'user_agent'</span>]).<span class="string">"',
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"</span>.<span class="variable">$db</span>-&gt;sql_escape (<span class="variable">$session_data</span>).<span class="string">"')"</span>;
+   }
+   <span class="variable">$result</span> = <span class="variable">$db</span>-&gt;sql_query (<span class="variable">$sql</span>);
+   <span class="keyword">if</span> (!<span class="variable">$result</span>) {
+      <span class="variable">$result</span> = <span class="variable">$db</span>-&gt;sql_error (<span class="variable">$result</span>);
+      error_log (<span class="string">'sess_write(): Failed to INSERT/UPDATE session. '</span>.<span class="variable">$result</span>[<span class="string">'message'</span>].<span class="string">"&lt;br&gt; Query: "</span>.<span class="variable">$sql</span>);
+      <span class="keyword">return</span> <span class="keyword">false</span>;
+   }
+   <span class="keyword">return</span> <span class="keyword">true</span>;
+}
+
+<span class="function"><span class="keyword">function</span> <span class="title">sess_destroy</span> <span class="params">(<span class="variable">$session_id</span>)</span> {</span>
+   <span class="keyword">global</span> <span class="variable">$db</span>;
+   <span class="variable">$sql</span> = <span class="string">"DELETE FROM `session`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE `session_id` = '"</span>.<span class="variable">$db</span>-&gt;sql_escape (<span class="variable">$session_id</span>).<span class="string">"'"</span>;
+   <span class="variable">$result</span> = <span class="variable">$db</span>-&gt;sql_query (<span class="variable">$sql</span>);
+   <span class="keyword">if</span> (!<span class="variable">$result</span>) {
+      <span class="variable">$result</span> = <span class="variable">$db</span>-&gt;sql_error (<span class="variable">$result</span>);
+      error_log (<span class="string">'sess_destory(): Failed to DELETE session. '</span>.<span class="variable">$result</span>[<span class="string">'message'</span>]);
+      <span class="keyword">return</span> <span class="keyword">false</span>;
+   }
+   <span class="keyword">return</span> <span class="keyword">true</span>;
+}
+
+<span class="function"><span class="keyword">function</span> <span class="title">sess_gc</span> <span class="params">(<span class="variable">$sess_gc_maxlifetime</span>)</span> {</span>
+   <span class="keyword">global</span> <span class="variable">$db</span>;
+   <span class="variable">$sql</span> = <span class="string">"DELETE FROM `session` WHERE `session_last` &lt; '"</span>.(time () - <span class="variable">$sess_gc_maxlifetime</span>).<span class="string">"'"</span>;
+   <span class="variable">$result</span> = <span class="variable">$db</span>-&gt;sql_query (<span class="variable">$sql</span>);
+   <span class="keyword">if</span> (!<span class="variable">$result</span>) {
+      <span class="variable">$result</span> = <span class="variable">$db</span>-&gt;sql_error (<span class="variable">$result</span>);
+      error_log (<span class="string">'sess_gc(): Failed to DELETE old sessions.'</span>.<span class="variable">$result</span>[<span class="string">'message'</span>]);
+      <span class="keyword">return</span> <span class="keyword">false</span>;
+   }
+   <span class="variable">$sql</span> = <span class="string">"OPTIMIZE TABLE `session` "</span>;
+   <span class="variable">$result</span> = <span class="variable">$db</span>-&gt;sql_query (<span class="variable">$sql</span>);
+   <span class="keyword">if</span> (!<span class="variable">$result</span>) {
+      <span class="variable">$result</span> = <span class="variable">$db</span>-&gt;sql_error (<span class="variable">$result</span>);
+      error_log (<span class="string">'sess_gc(): Failed to OPTIMIZE sessionstable.'</span>.<span class="variable">$result</span>[<span class="string">'message'</span>]);
+      <span class="keyword">return</span> <span class="keyword">false</span>;
+   }
+   <span class="keyword">return</span> <span class="keyword">true</span>;
+}
+
+session_set_save_handler (<span class="string">"sess_open"</span>, <span class="string">"sess_close"</span>, <span class="string">"sess_read"</span>, <span class="string">"sess_write"</span>, <span class="string">"sess_destroy"</span>, <span class="string">"sess_gc"</span>);
+<span class="comment">// Можно активировать при проблемах</span>
+register_shutdown_function (<span class="string">'session_write_close'</span>);
+session_start ();
+<span class="preprocessor">?&gt;</span></code></pre>
+   <p>При этом в базе остаются записи только о тех сессиях, которые сейчас активны, просроченные сессии удаляются,
+      изменяя значение 'session.gc_probability' вы можете подобрать тот балланс который подходит Вашему сайту. Таким
+      образом регулировать размер таблицы сессий.
+   </p>
+   <div class="next"><a href="php12.html">Следующая лекция</a></div><br>
+</div>
+<div id="vis">
+   <div class="font">
+      Размер шрифта:</div>
+   <div class="fontA" onclick="fonta()">А</div>
+   <div class="fontAA" onclick="fontaa()">А</div>
+   <div class="fontAAA" onclick="fontaaa()">А</div>
+   <div class="color">Цвет сайта:</div>
+   <div class="colorW" onclick="clwhite()">A</div>
+   <div class="colorBK" onclick="clblack()">A</div>
+   <div class="colorBE" onclick="clblue()">A</div>
+   <div class="imgOnOff">Изображение:</div>
+   <div class="imgOn" onclick="imgon()">Вкл.</div>
+   <div class="imgOff" onclick="imgoff()">Выкл.</div>
+   <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

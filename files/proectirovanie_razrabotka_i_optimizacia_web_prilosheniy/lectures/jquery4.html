@@ -1,0 +1,143 @@
+<title>jQuery Эффекты</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+
+<div class="body">
+   <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+      <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+         <path fill="#ffffff"
+            d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+         </path>
+      </svg>
+   </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+   <p class="name">
+      Проектирование, разработка и оптимизация веб-приложений
+   </p>
+   <div class="links">
+      <a href="../../../index.html" class="link">Главная</a>
+      <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+      <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+      <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+      <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+   </div>
+</div>
+<div class="content">
+   <h1 id="firstheadc">Эффекты jQuery </h1>
+
+   <p>С помощью jQuery методов <b>fadeOut()</b>, <b>fadeIn()</b> и <b>fadeTo()</b> Вы можете постепенно скрывать и
+      отображать элементы анимировано.</p>
+
+   <p><b>Синтаксис:</b></p>
+
+   <pre>//Позволяет постепенно скрыть выбранный элемент
+$("селектор").fadeOut(скорость,функция);
+//Позволяет постепенно отобразить выбранный элемент
+$("селектор").fadeIn(скорость,функция);
+//Позволяет постепенно скрыть/отобразить элемент до указанного значения прозрачности
+$("селектор").fadeTo(скорость,прозрачность,функция);</pre>
+
+   <p> Пример </p>
+   <pre>$(document).ready(function(){
+   
+   $("#but1").click(function(){$("#par1").fadeOut(3000)});
+   $("#but2").click(function(){$("#par1").fadeIn(3000)});
+   $("#but3").click(function(){$("#par1").fadeTo(3000,0.3)});
+   $("#but4").click(function(){$("#par1").fadeTo(3000,0.8)});
+   $("#but5").click(function(){$("#par1").fadeOut(3000,function(){
+      alert("Абзац был полностью скрыт.");
+   });
+   });
+
+});</pre>
+
+   <p>С помощью jQuery методов <b>slideUp</b>, <b>slideDown</b> и <b>slideToggle</b> Вы можете плавно изменять высоту
+      выбранных элементов.</p>
+
+   <p><b>Синтаксис:</b></p>
+
+   <pre>//Позволяет изменяет высоту элемента до 0
+$("селектор").slideUp(скорость,функция);
+//Позволяет плавно возвратить элементу его изначальную высоту
+$("селектор").slideDown(скорость,функция);
+//При первом вызове будет действовать как slideUp, а при втором как slideDown
+$("селектор").slideToggle(скорость,функция);</pre>
+
+   <p> Пример </p>
+   <pre>$(document).ready(function(){
+
+   $("#but1").click(function(){$("#square").slideUp(3000)});
+   $("#but2").click(function(){$("#square").slideDown(3000)});
+   $("#but3").click(function(){$("#square").slideToggle(3000)});
+   $("#but4").click(function(){$("#square").slideUp(3000,function(){
+      alert("Текст был скрыт");
+   });
+   });
+
+});</pre>
+
+   <p>С помощью метода slideToggle Вы можете создавать на Ваших страницах удобные выпадающие меню.</p>
+   <p> Пример </p>
+   <pre>$(document).ready(function(){
+
+   $("#menu").click(function(){$("#list").slideToggle(2000)});
+   $("#menu").toggle(function(){
+      $("#img").attr("src","menudown.gif")},function(){
+      $("#img").attr("src","menuup.gif")
+   });
+   $("#menu").mouseover(function(){$("#menu").css("background-color","#01939a")});
+   $("#menu").mouseout(function(){$("#menu").css("background-color","#006064")});
+
+});</pre>
+   <h1>Анимация в jQuery</h1>
+   <p>С помощью метода <b>animate()</b> Вы можете создавать на Ваших страницах полноценную анимацию.</p>
+   <p><b>Синтаксис:</b></p>
+
+   <pre>$("селектор").animate({стили},скорость,функция_смягчения,функция);</pre>
+
+   <p><b>стили</b> задает CSS стили для анимации (к элементу одновременно может быть применено несколько стилей). </p>
+   <p><b>скорость</b> задает скорость анимации. Вы можете указать скорость используя предопределенные свойства:
+      "slow", "fast", "normal" (медленно, быстро, нормально) или указать скорость в миллисекундах (1000 миллисекунд = 1
+      секунда).</p>
+   <p><b>функция_смягчения</b> задает функцию, которая будет отвечать за плавность выполнения анимации.</p>
+   <p><b>функция</b> указывает имя функции, код которой будет выполнен после завершения анимации.</p>
+
+   <p> Пример </p>
+   <pre>$(document).ready(function(){
+
+   $("#but1").click(function(){
+      $("p").animate({fontSize:30},2000);
+      $("p").animate({top:220},2000);
+      $("p").animate({fontSize:"1em"},2000);
+      $("p").animate({left:320},2000);
+      $("p").animate({top:0,left:0},2000);
+   });
+
+});</pre>
+
+   <p><b>Обратите внимание:</b> для того, чтобы воспользоваться свойствами позиционирования элемента необходимо вначале
+      установить
+      свойству position значение отличное от static.</p>
+   <div class="next"><a href="jquery5.html">Следующая лекция</a></div>
+   <br>
+</div>
+<div id="vis">
+   <div class="font">
+      Размер шрифта:</div>
+   <div class="fontA" onclick="fonta()">А</div>
+   <div class="fontAA" onclick="fontaa()">А</div>
+   <div class="fontAAA" onclick="fontaaa()">А</div>
+   <div class="color">Цвет сайта:</div>
+   <div class="colorW" onclick="clwhite()">A</div>
+   <div class="colorBK" onclick="clblack()">A</div>
+   <div class="colorBE" onclick="clblue()">A</div>
+   <div class="imgOnOff">Изображение:</div>
+   <div class="imgOn" onclick="imgon()">Вкл.</div>
+   <div class="imgOff" onclick="imgoff()">Выкл.</div>
+   <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

@@ -1,0 +1,254 @@
+<title>Работа с графикой</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+   <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+      <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+         <path fill="#ffffff"
+            d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+         </path>
+      </svg>
+   </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+   <p class="name">
+      Проектирование, разработка и оптимизация веб-приложений
+   </p>
+   <div class="links">
+      <a href="../../../index.html" class="link">Главная</a>
+      <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+      <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+      <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+      <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+   </div>
+</div>
+<div class="content">
+   <h1>Canvas & SVG: работаем с графикой</h1>
+   <p>В HTML5 представлено два элемента для работы с web графикой: Canvas и SVG.
+      Две эти технологии достаточно сильно отличаются друг от друга. Важно знать об их
+      преимуществах и недостатках, чтобы выбрать наиболее подходящую для конкретной задачи технологию.
+      Элемент SVG позволяет создавать векторную графику, а элемент Canvas предназначен для создания растровых
+      изображений. Элемент Сanvas также используется технологией WebGL для аппаратного ускорения 3D-графики..</p>
+   <h2>SVG</h2>
+   <p>Масштабируемая векторная графика (Scalable Vector Graphics — SVG) является языком разметки, расширенным из XML
+      для описания двухмерной векторной графики.</p>
+   <p>Для создания изображения в векторной графике используются геометрические примитивы (точки, линии, кривые,
+      многоугольники).
+      С их помощью можно создавать масштабируемые изображения, которые не теряют в качестве при масштабировании.</p>
+   <p>SVG — технология рисования с хранением объектов в памяти (Retained mode graphics). Как и HTML, SVG имеет объектную
+      модель документа
+      (DOM). DOM в SVG, как и в HTML, имеется модель событий. Это значит, что при использовании этой технологии для
+      реализации интерактивных
+      действий (таких как управление мышью и т.п.)
+      со стороны программиста требуется меньше усилий, поскольку события привязываются непосредственно к элементам DOM.
+   </p>
+   <p>SVG имеет как обычные атрибуты, так и атрибуты представления. Ключевым моментом является то, что к атрибутам
+      представления можно применять
+      стили в соответствии с правилами использования стилей CSS. К примеру, для изменения цвета фигуры можно применять
+      свойство fill.</p>
+   <h4>Пример</h4>
+   <pre class="adb">
+<code class="language-html xml">
+<span class="tag">&lt;<span class="title">svg xmlns</span><span class="attribute"></span>=<span class="value">"http://www.w3.org/2000/svg" version="1.1" width="600" height="70"</span>&gt;
+<span class="title">line x1</span><span class="attribute"></span>=<span class="value">"5"</span><span class="title"> y1</span><span class="attribute"></span>=<span class="value">"5"</span><span class="title"> x2</span><span class="attribute"></span>=<span class="value">"500"</span><span class="title">y2</span><span class="attribute"></span>=<span class="value">"60"</span><span class="title"> stroke</span><span class="attribute"></span>=<span class="value">"#b4241b"</span><span class="title"> stroke-width</span><span class="attribute"></span>=<span class="value">"3"</span>/&gt;
+</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">svg</span>&gt;</span></code></pre>
+   <h4>Пример</h4>
+   <p>HTML:</p>
+   <pre class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">svg xmlns</span><span class="attribute"></span>=<span class="value">"http://www.w3.org/2000/svg" version="1.1" width="100" height="100"</span>&gt;
+<span class="title">circle cx</span><span class="attribute"></span>=<span class="value">"50"</span><span class="title"> cy</span><span class="attribute"></span>=<span class="value">"50"</span><span class="title"> r</span><span class="attribute"></span>=<span class="value">"40"</span><span class="title">y2</span><span class="attribute"></span>=<span class="value">"60"</span><span class="title"> stroke</span><span class="attribute"></span>=<span class="value">"#b4241b"</span><span class="title"> stroke-width</span><span class="attribute"></span>=<span class="value">"3"</span>/&gt;
+</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">svg</span>&gt;</span></code></pre>
+   </code></pre>
+   <p>CSS:</p>
+   <pre
+      class="adb"><code class="language-html xml"><span class="tag"><span class="title">svg{</span><span class="attribute"></span>fill:<span class="value">blue</span><span class="attribute">;</span>}</span></code></pre>
+   <h2>Canvas 2d</h2>
+   <p>
+      <Сanvas> — это HTML элемент, который используется для создания растровой графики при помощи JavaScript. Элемент
+         <span>&lt;canvas&gt;</span> предоставляет удобный API
+         для рисования 2D графики с помощью JavaScript.
+   </p>
+   <p>В отличии от svg, canvas работает с растровой графикой. Это технология мгновенного рисования, она не хранит свои
+      элементы в дереве DOM,
+      следовательно нет никакого способа изменить существующий рисунок или реагировать на события.
+      Это означает, что, когда потребуется новый кадр, необходимо будет отрисовать всю сцену заново.</p>
+
+   <p>Элемент <span>&lt;canvas&gt;</span> имеет только два атрибута — ширину и высоту. Если атрибуты высоты и ширины не
+      установлены,
+      то согласно спецификации html5 ширина элемента canvas будет равна
+      300 пикселям, а высота 150. При изменении этих атрибутов canvas очищается.</p>
+   <p>Также можно выставить размеры произвольно в CSS, но во время рендеринга изображение будет масштабироваться в
+      соответствии с его размером и ориентацией.
+      Это может привести к тому, что изображение будет выглядеть искаженным.</p>
+   <p>Для рисования в первую очередь необходимо получить доступ к контексту, который предоставляет API для создания
+      графики.
+      Контекст можно получить при помощи метода getContext() элемента canvas. В качестве первого параметра необходимо
+      указать тип контекста,
+      который мы хотим использовать. На данный момент большинство современных браузеров поддерживает 2 типа контекста
+      «2d» ( позволяет создавать 2-х мерную графику)
+      и «webgl» (позволяет использовать технологию
+      WebGL для создания трехмерной графики). Если указанный тип контекста не поддерживается браузером, метод
+      getContext() возвращает null.</p>
+   <h4>Пример</h4>
+   <pre class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">canvas id</span><span class="attribute"></span>=<span class="value">"myCanvas"</span> <span class="attribute">width</span>=<span class="value">"600px"</span><span class="attribute">height</span>=<span class="value">"70px"</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">canvas</span>&gt;</span>
+     <span class="attribute">const canvas</span>=<span class="value">document.getElementById('canvas');</span>
+     <span class="attribute">const context</span>=<span class="value">canvas.getContext('2d');</span>
+     <span class="attribute">context.beginPath(); context.moveTo(5, 5);</span>
+     <span class="attribute">context.lineTo(500, 60);</span>
+     <span class="attribute">context.lineWidth</span>=<span class="value"> 3;</span>
+     <span class="attribute">context.strokeStyle</span>=<span class="value">'#b4241b';</span>
+     <span class="attribute">context.stroke();</span>
+   </code></pre>
+   <br>
+   <h2>WebGL</h2>
+   <p>WebGL — это еще одна новая технология, которая использует элемент canvas для создания графики. WebGL позволяет
+      веб-контенту использовать API,
+      основанный на OpenGL ES 2.0, для визуализации трехмерной графики, но возможно работать и с двухмерной графикой.
+   </p>
+   <p>Для начала рисования так же, как и в предыдущем случае, необходимо получить доступ к контексту. Это делается при
+      помощи метода getContext.
+      В качестве типа контекста необходимо указать webgl либо experimental-webgl.
+      Контекст, именуемый как «experimental-webgl» — это временное имя для контекста, используемое на время процесса
+      разработки спецификации.</p>
+   <p>WebGL работает с растровой графикой, соответственно, особенности описанные в предыдущем абзаце, применимы и к этой
+      технологии. Но
+      для WebGL характерна более высокая производительность (сравнимая с производительностью нативных приложений),
+      поскольку WebGL
+      использует средства аппаратного ускорения графики.</p>
+   <h2>Сравнение технологий</h2>
+
+   <p>Выбор конкретной технологии зависит от задач и целей конкретного проекта. На одном из проектов была поставлена
+      задача отриcовки графиков с большим
+      количеством точек (порядка 10 000 точек),
+      должна была быть предусмотрена возможность масштабирования и перемещения графиков, а также перерисовка графиков в
+      случае изменения данных на сервере. </p>
+   <p>Один из самых важных параметров, который учитывался при выборе технологии, была производительность.
+      Этот параметр зависит от количества объектов и площади поверхности. В общем случае, по мере увеличения числа
+      объектов на экране производительность SVG падает, поскольку объекты постепенно добавляются в модель DOM, тогда
+      как производительность canvas почти не изменяется. WebGL имеет очень хорошую производительность, однако не все
+      современные браузеры поддерживают данную технологию, к примеру IE начал поддерживать webGL начиная только с 11
+      версии.
+      Поддержка WebGL на мобильных браузерах достаточно ограниченна, большинство мобильных браузеров начали поддерживать
+      WebGL только с 2017 года. Некоторые мобильные браузеры на данный момент вообще не поддерживают данную технологию.
+   </p>
+   <p>К тому же, помимо поддержки WebGL браузером, необходима также его поддержка графическим процессором клиента.
+      Некоторые браузеры могут отключить поддержку WebGL на устройствах со старыми графическими процессорами.</p>
+   <p>По причине слабой поддержки технологии WebGL далее будут рассматриваться только две технологии: canvas 2d и svg.
+   </p>
+   <p class="img"><img src="grafica_pic1.png"></p>
+   <p class="img">Рис.1 Время рендеринга(y) в зависимости от количества объектов(х).</p>
+   <p>Так как работа с SVG требует много манипуляций с DOM эта технология не подходит для тяжелой анимации,
+      к примеру для построения быстро изменяющихся детализированных графиков.</p>
+   <p>Однако canvas не очень хорошо подходит для экранов с высоким разрешением. Из графика ниже видно, что по мере
+      увеличения размера экрана производительность
+      Canvas падает, поскольку требуется обработать больше пикселей.</p>
+   <p class="img"><img src="grafica_pic2.png"></p>
+   <p class="img">Рис.2 Время рендеринга(y) в зависимости от высоты области рисования(х).</p>
+   <p>Также необходимо учитывать, что при увеличении изображения, созданные при помощи canvas, сильно теряют качество.
+      На рисунке ниже показаны линии, нарисованные при помощи svg и canvas.</p>
+   <p class="img"><img src="grafica_pic3.png"></p>
+   <p class="img">Рис.3 Линии нарисованные при помощи SVG(сверху) и Canvas(снизу) при увеличении.</p>
+
+   <p>Еще одна проблема с которой можно столкнуться при работе с canvas — ограниченные возможности отслеживания событий
+      и определения
+      расположения указателя мыши на изображении. Существует встроенный API isPointInPath, который позволяет определить
+      попадает ли указанная точка в последний
+      нарисованный элемент path.*
+      Существуют сторонние библиотеки, позволяющие достаточно комфортно работать с событиями.</p>
+   <p>Несмотря на перечисленные выше недостатки, было принято решение использовать именно canvas,
+      в первую очередь из-за его высокой производительности по сравнению с svg при отрисовке большого количества
+      объектов.
+   </p>
+   <p>* Существует экспериментальный интерфейс Path2D, который можно использовать для создания пути, который в
+      дальнейшем можно будет переиспользовать.
+      К примеру этот объект можно передать в качестве первого аргумента метода isPointInPath. На данный момент эта
+      технология поддерживается браузерами
+      Firefox, Google Chrome и Opera.
+   </p>
+
+   <h2>Особенности работы с Canvas</h2>
+
+   <p>При работе с сanvas в первую очередь необходимо учитывать то, что мы работаем с растровым изображением.
+      В первую очередь это значит, то что при изменении размера области отрисовки (к примеру при изменении размеров
+      окна)
+      изображение на canvas масштабируется, что приводит к искажениям и потере качества. На рисунке ниже в первом случае
+      css
+      свойства width и height элемента canvas в два раза больше соответствующих атрибутов указанных изначально. Рядом
+      изображен
+      тот же график без масштабирования. Для избежания подобных проблем следует при изменении
+      размеров окна выставлять необходимые значения для атрибутов width и height элемента canvas и перерисовывать
+      текущую сцену с
+      учетом новых размеров. </p>
+
+   <p>С похожей проблемой можно столкнуться при работе с экранами с увеличенной плотностью пикселей. Изображения на
+      canvas могут выглядеть размытыми.
+      Причиной этого является разница между разрешением дисплея в физических пикселях и разрешением в логических (CSS)
+      пикселях. Отношение двух этих величин
+      можно получить при помощи свойства window.devicePixelRatio. К примеру при devicePixelRatio равным двум ширина
+      канваса в физических пикселях в 2 раза
+      больше, чем его ширина в логических пикселях (указанная в атрибуте width). То есть мы получим тот же эффект, что и
+      в первом случае.
+      Один из возможных способов решения этой проблемы: указывать значения в атрибутах canvas большее чем в стилях в
+      величину devicePixelRatio. </p>
+   <pre class="adb"><code class="language-html javascript"><span class="keyword">canvas.width</span> = <span class="keyword">canvasWidth</span> * <span class="keyword">window.devicePixelRatio;</span>
+<span class="keyword">canvas.height </span> = <span class="keyword">canvasHeight</span> * <span class="keyword">window.devicePixelRatio;</span>
+<span class="keyword">canvas.style.width </span> = <span class="keyword">canvasWidth</span> + <span class="string">'px'</span>;
+<span class="keyword">canvas.style.height </span> = <span class="keyword">canvasHeight</span> + <span class="string">'px'</span>;
+</code></pre>
+
+   <p>В этом случае при отрисовке необходимо учитывать, что такие величины, как толщина линии и размер шрифта
+      уменьшаться на величину devicePixelRatio. Следовательно, при задании размера шрифта его
+      необходимо умножать на devicePixelRatio, чтобы текст не казался слишком мелким на дисплеях с увеличенной
+      плотностью пикселей.</p>
+   <p class="img"><img src="grafica_pic4.png" width="400px"></p>
+
+   <h2>Оптимизация работы canvas</h2>
+
+   <p>Одной из самых дорогих операций при работе с canvas является рисование. Следовательно, лучше избегать перерисовки
+      больших изображений.</p>
+   <p>Один из способов это сделать — применять элементы canvas в несколько слоев. Это позволяет перерисовывать только те
+      части сцены, которые необходимо, а не всю сцену целиком.</p>
+
+   <h4>Пример</h4>
+   <pre class="adb"><code class="language-html xml">
+<span class="tag">&lt;<span class="title">canvas</span> <span class="attribute">id</span>=<span class="value">"bg"</span><span class="attribute"> width</span>=<span class="value">"640"</span><span class="attribute"> height</span>=<span class="value">"480"</span><span class="attribute"> style</span>=<span class="value">"position: absolute; z-index: 0"</span>&gt;</span>
+</span><span class="tag">&lt;/<span class="title">canvas</span>&gt;</span>
+<span class="tag">&lt;<span class="title">canvas</span> <span class="attribute">id</span>=<span class="value">"fg"</span><span class="attribute"> width</span>=<span class="value">"640"</span><span class="attribute"> height</span>=<span class="value">"480"</span><span class="attribute"> style</span>=<span class="value">"position: absolute; z-index: 1"</span>&gt;</span>
+</span><span class="tag">&lt;/<span class="title">canvas</span>&gt;</span>
+</code></pre>
+
+   <p>Еще один способ уменьшить время, затрачиваемое на отрисовку — это отказ от координат с плавающей запятой и
+      использование целочисленных координат.
+      При использовании дробных координат на элементе canvas применяется субпиксельный рендеринг.
+      Это приводит к тому, что для создания эффекта сглаживания производятся дополнительные вычисления.</p>
+   <p>Существует достаточно много приемов оптимизации элемента canvas.
+      Их эффективность зависит от особенностей проекта и желаемого результата.</p>
+   <h2>Заключение</h2>
+   <p>SVG хорошо подходит для создания статических изображений, высококачественных сложных векторных документов (к
+      примеру чертежей, схем) интерактивных графиков.
+      Но стоит учитывать, что при возрастании количества объектов, скорость отрисовки будет сильно снижаться.
+      Использование элемента canvas позволяет достаточно быстро
+      отрисовывать изображения на экране, именно поэтому эта технология хорошо подходит для отображения сложных сцен и
+      анимации в режиме реального времени. Canvas может
+      применяться для создания различных визуальных эффектов и сложных 3D сцен.
+      Но при использовании данной технологии достаточно сложно сделать изображение или график интерактивным.</p>
+   <div class="next"><a href="../lectures.html">К содержанию</a></div><br>
+</div>
+<div id="vis">
+   <div class="font">
+      Размер шрифта:</div>
+   <div class="fontA" onclick="fonta()">А</div>
+   <div class="fontAA" onclick="fontaa()">А</div>
+   <div class="fontAAA" onclick="fontaaa()">А</div>
+   <div class="color">Цвет сайта:</div>
+   <div class="colorW" onclick="clwhite()">A</div>
+   <div class="colorBK" onclick="clblack()">A</div>
+   <div class="colorBE" onclick="clblue()">A</div>
+   <div class="imgOnOff">Изображение:</div>
+   <div class="imgOn" onclick="imgon()">Вкл.</div>
+   <div class="imgOff" onclick="imgoff()">Выкл.</div>
+   <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

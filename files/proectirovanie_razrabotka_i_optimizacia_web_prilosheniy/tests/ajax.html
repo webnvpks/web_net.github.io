@@ -1,0 +1,182 @@
+<title>AJAX тест</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<script src="../../js/md5.js"></script>
+<script src="../../js/test_js.js"></script>
+<div class="body">
+    <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+        <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff"
+                d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+            </path>
+        </svg>
+    </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+    <p class="name">
+        Проектирование, разработка и оптимизация веб-приложений
+    </p>
+    <div class="links">
+        <a href="../../../index.html" class="link">Главная</a>
+        <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+        <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+        <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+        <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+    </div>
+</div>
+<div class="content">
+    <h1>Тест по AJAX</h1>
+    <div class="test_question" id="test_question1">
+        <h3>1. Что такое AJAX?</h3>
+        <p><input type="radio" id="question1" name="question1" value="a11">Новое средство личной гигиены</p>
+        <p><input type="radio" id="question1" name="question1" value="a12">Технология обмена данными с сервером</p>
+        <p><input type="radio" id="question1" name="question1" value="a13">Давно забытый язык программирования</p>
+        <div class="c_answer" id="c_answer1"></div>
+    </div>
+    <div class="test_question" id="test_question2">
+        <h3>2. Что нельзя сделать с помощью XmlHttpRequest?</h3>
+        <p><input type="radio" id="question2" name="question2" value="a21">Передать запрос другого типа кроме GET и POST
+        </p>
+        <p><input type="radio" id="question2" name="question2" value="a22">Отправить файл посетителя на сервер без
+            &lt;input type="file"&gt;</p>
+        <p><input type="radio" id="question2" name="question2" value="a23">Произвести запрос так, чтобы ответ был готов
+            до следующей строки скрипта</p>
+        <p><input type="radio" id="question2" name="question2" value="a24">Сделать запрос с http://duka.com на
+            http://buka.duka.com</p>
+        <div class="c_answer" id="c_answer2"></div>
+    </div>
+    <div class="test_question" id="test_question3">
+        <h3>3. В какой кодировке XmlHttpRequest отправляется на сервер ?</h3>
+        <p><input type="radio" id="question3" name="question3" value="a31">В той, какую укажем в заголовке запроса</p>
+        <p><input type="radio" id="question3" name="question3" value="a32">В кодировке страницы</p>
+        <p><input type="radio" id="question3" name="question3" value="a33">Всегда в UTF-8</p>
+        <p><input type="radio" id="question3" name="question3" value="a34">В той, какую захочет получить сервер</p>
+        <p><input type="radio" id="question3" name="question3" value="a35">Как повезет..</p>
+        <div class="c_answer" id="c_answer3"></div>
+    </div>
+    <div class="test_question" id="test_question4">
+        <h3>4. Что надо сделать, чтобы в свойстве responseXml объекта XmlHttpRequest появился XML-документ из ответа
+            сервера ?</h3>
+        <p><input type="radio" id="question4" name="question4" value="a41">Прислать валидный XML и поставить на сервере
+            заголовок Content-type:text/xml</p>
+        <p><input type="radio" id="question4" name="question4" value="a42">Достаточно прислать валидный XML.</p>
+        <p><input type="radio" id="question4" name="question4" value="a43">Некоторые браузеры просто игнорируют это
+            свойство.</p>
+        <div class="c_answer" id="c_answer4"></div>
+    </div>
+    <div class="test_question" id="test_question5">
+        <h3>5. Какая из этих технологий не используется в AJAX ?</h3>
+        <p><input type="radio" id="question5" name="question5" value="a51">XML</p>
+        <p><input type="radio" id="question5" name="question5" value="a52">DOM</p>
+        <p><input type="radio" id="question5" name="question5" value="a53">Javascript</p>
+        <p><input type="radio" id="question5" name="question5" value="a54">CSS</p>
+        <p><input type="radio" id="question5" name="question5" value="a55">Flash</p>
+        <div class="c_answer" id="c_answer5"></div>
+    </div>
+    <div class="test_question" id="test_question6">
+        <h3>6. JSON - это..</h3>
+        <p><input type="radio" id="question6" name="question6" value="a61">JavaScript Over Network</p>
+        <p><input type="radio" id="question6" name="question6" value="a62">Название следующей версии javascript</p>
+        <p><input type="radio" id="question6" name="question6" value="a63">JavaScript Object Notation</p>
+        <p><input type="radio" id="question6" name="question6" value="a64">Имя создателя javascript</p>
+        <div class="c_answer" id="c_answer6"></div>
+    </div>
+    <div class="test_question" id="test_question7">
+        <h3>7. Какая функция чаще всего применяется к данным в формате JSON ?</h3>
+        <p><input type="radio" id="question7" name="question7" value="a71">exec()</p>
+        <p><input type="radio" id="question7" name="question7" value="a72">test()</p>
+        <p><input type="radio" id="question7" name="question7" value="a73">eval()</p>
+        <p><input type="radio" id="question7" name="question7" value="a74">run()</p>
+        <div class="c_answer" id="c_answer7"></div>
+    </div>
+    <div class="test_question" id="test_question8">
+        <h3>8. Объект XMLHttpRequest(или ActiveX-аналог) - это единственный кросс-браузерный способ посылки асинхронных
+            запросов на сервер?</h3>
+        <p><input type="radio" id="question8" name="question8" value="a81">Да</p>
+        <p><input type="radio" id="question8" name="question8" value="a82">Нет</p>
+        <div class="c_answer" id="c_answer8"></div>
+    </div>
+    <div class="test_question" id="test_question9">
+        <h3>9. Сколько одновременно выполняющихся HTTP-запросов на один полный хост (протокол://домен:порт) поддерживает
+            браузер при настройках по умолчанию ?</h3>
+        <p><input type="radio" id="question9" name="question9" value="a91">1</p>
+        <p><input type="radio" id="question9" name="question9" value="a92">2</p>
+        <p><input type="radio" id="question9" name="question9" value="a93">4</p>
+        <p><input type="radio" id="question9" name="question9" value="a94">8</p>
+        <p><input type="radio" id="question9" name="question9" value="a95">неограниченно</p>
+        <div class="c_answer" id="c_answer9"></div>
+    </div>
+    <div class="test_question" id="test_question10">
+        <h3>10. Можно ли использовать один объект XmlHttpRequest для множества разных запросов?</h3>
+        <p><input type="radio" id="question10" name="question10" value="a101">Да, можно</p>
+        <p><input type="radio" id="question10" name="question10" value="a102">Да, но перед каждым новым запросом надо
+            вызывать abort()</p>
+        <p><input type="radio" id="question10" name="question10" value="a103">Нет, только один запрос на один объект</p>
+        <div class="c_answer" id="c_answer10"></div>
+    </div>
+    <div class="test_question" id="test_question11">
+        <h3>11. Может ли свойство responseXml объекта XmlHttpRequest содержать после запроса XML-документ, отличный от
+            принятого с сервера ?</h3>
+        <p><input type="radio" id="question11" name="question11" value="a111">Нет, либо принятый документ, либо пусто
+        </p>
+        <p><input type="radio" id="question11" name="question11" value="a112">Да, в Firefox такое случается</p>
+        <p><input type="radio" id="question11" name="question11" value="a113">Во всем виновата Opera</p>
+        <p><input type="radio" id="question11" name="question11" value="a114">Глюки IE и не такое покажут</p>
+        <div class="c_answer" id="c_answer11"></div>
+    </div>
+    <div class="test_question" id="test_question12">
+        <h3>12. Вася запустил три асинхронных XmlHttpRequest-запроса на свой сайт. Первый - подгружает содержимое
+            страницы /tree.php, второй - обращается за сообщениями к страничке /getnewmessages.php, третий - на тайную
+            страничку /secret.php.<br>В каком порядке будут обработаны эти запросы?</h3>
+        <p><input type="radio" id="question12" name="question12" value="a121">Сначала первый, потом второй, потом
+            третий.</p>
+        <p><input type="radio" id="question12" name="question12" value="a122">Неизвестно в каком, но первый или второй
+            обязательно опередят третий</p>
+        <p><input type="radio" id="question12" name="question12" value="a123">Вообще в любом порядке.</p>
+        <div class="c_answer" id="c_answer12"></div>
+    </div>
+    <div class="test_question" id="test_question13">
+        <h3>13. Какой AJAX-транспорт позволит отправить файл на сервер без перезагрузки страницы?</h3>
+        <p><input type="radio" id="question13" name="question13" value="a131">Только использование фреймов(IFrame)</p>
+        <p><input type="radio" id="question13" name="question13" value="a132">XmlHttpRequest справится!</p>
+        <p><input type="radio" id="question13" name="question13" value="a133">Мне поможет тэг SCRIPT</p>
+        <p><input type="radio" id="question13" name="question13" value="a134">Невозможно ввиду ограничений безопасности
+            javascript</p>
+        <div class="c_answer" id="c_answer13"></div>
+    </div>
+    <div class="test_question" id="test_question14">
+        <h3>14. Может ли свойство status объекта XmlHttpRequest быть <100 или>1000 ?</h3>
+        <p><input type="radio" id="question14" name="question14" value="a141">Нет, никогда, это же HTTP Status!</p>
+        <p><input type="radio" id="question14" name="question14" value="a142">Да, но только до вызова send().</p>
+        <p><input type="radio" id="question14" name="question14" value="a143">Всякое бывает...</p>
+        <div class="c_answer" id="c_answer14"></div>
+    </div>
+    <div class="test_check" onclick="test_check_ajax()">
+        <h3>Завершить</h3>
+    </div>
+    <div class="test_rez">
+        <h3 id="rez">
+            <h3>
+    </div>
+    <div class="next"><a href="../tests.html">К содержанию</a></div>
+    <br>
+</div>
+<div id="vis">
+    <div class="font">
+        Размер шрифта:</div>
+    <div class="fontA" onclick="fonta()">А</div>
+    <div class="fontAA" onclick="fontaa()">А</div>
+    <div class="fontAAA" onclick="fontaaa()">А</div>
+    <div class="color">Цвет сайта:</div>
+    <div class="colorW" onclick="clwhite()">A</div>
+    <div class="colorBK" onclick="clblack()">A</div>
+    <div class="colorBE" onclick="clblue()">A</div>
+    <div class="imgOnOff">Изображение:</div>
+    <div class="imgOn" onclick="imgon()">Вкл.</div>
+    <div class="imgOff" onclick="imgoff()">Выкл.</div>
+    <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

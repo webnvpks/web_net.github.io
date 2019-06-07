@@ -1,0 +1,198 @@
+<title>JavaScript Тест №2</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<script src="../../js/md5.js"></script>
+<script src="../../js/test_js.js"></script>
+<div class="body">
+    <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+        <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff"
+                d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+            </path>
+        </svg>
+    </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+    <p class="name">
+        Проектирование, разработка и оптимизация веб-приложений
+    </p>
+    <div class="links">
+        <a href="../../../index.html" class="link">Главная</a>
+        <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+        <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+        <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+        <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+    </div>
+</div>
+<div class="content">
+    <h1>Тест по JavaScript №2</h1>
+    <div class="test_question" id="test_question1">
+        <h3>1. Где правильно записано?</h3>
+        <p><input type="radio" id="question1" name="question1" value="js211">documentWrite ("Hello");</p>
+        <p><input type="radio" id="question1" name="question1" value="js212">document.write (Hello);</p>
+        <p><input type="radio" id="question1" name="question1" value="js213">document.write ("Hello")</p>
+        <p><input type="radio" id="question1" name="question1" value="js214">write ("Hello");</p>
+        <p><input type="radio" id="question1" name="question1" value="js215">document.write ("Hello");</p>
+        <div class="c_answer" id="c_answer1"></div>
+    </div>
+    <div class="test_question" id="test_question2">
+        <h3>2. Что будет записано в переменную?
+            <br> var a = 5;
+            <br>var test = 5 != a ? "Yes" : "No";</h3>
+        <p><input type="radio" id="question2" name="question2" value="js221">"Yes"</p>
+        <p><input type="radio" id="question2" name="question2" value="js222">No</p>
+        <p><input type="radio" id="question2" name="question2" value="js223">5</p>
+        <p><input type="radio" id="question2" name="question2" value="js224">"No"</p>
+        <p><input type="radio" id="question2" name="question2" value="js225">Yes</p>
+        <div class="c_answer" id="c_answer2"></div>
+    </div>
+    <div class="test_question" id="test_question3">
+        <h3>3. Где правильно записана переменная?</h3>
+        <p><input type="radio" id="question3" name="question3" value="js231">var num_1;</p>
+        <p><input type="radio" id="question3" name="question3" value="js232">var num-1;</p>
+        <p><input type="radio" id="question3" name="question3" value="js233">var num</p>
+        <p><input type="radio" id="question3" name="question3" value="js234">var 1num;</p>
+        <div class="c_answer" id="c_answer3"></div>
+    </div>
+    <div class="test_question" id="test_question4">
+        <h3>4. В чем разница между confirm и prompt?</h3>
+        <p><input type="radio" id="question4" name="question4" value="js241">В них нет никакой разницы</p>
+        <p><input type="radio" id="question4" name="question4" value="js242">prompt вызывает диалоговое окно с полем для
+            ввода, confirm - окно с подтверждением</p>
+        <p><input type="radio" id="question4" name="question4" value="js243">confirm вызывает диалоговое окно с полем
+            для ввода, prompt - окно с подтверждением</p>
+        <div class="c_answer" id="c_answer4"></div>
+    </div>
+    <div class="test_question" id="test_question5">
+        <h3>5. Что можно хранить в переменных?</h3>
+        <p><input type="radio" id="question5" name="question5" value="js251">Только строки, числа с запятой, простые
+            числа и булевые выражения</p>
+        <p><input type="radio" id="question5" name="question5" value="js252">Только строки, числа с запятой и простые
+            числа</p>
+        <p><input type="radio" id="question5" name="question5" value="js253">Только числа и строки</p>
+        <div class="c_answer" id="c_answer5"></div>
+    </div>
+    <div class="test_question" id="test_question6">
+        <h3>6. Где можно использовать JS?</h3>
+        <p><input type="radio" id="question6" name="question6" value="js261">Мобильные приложения</p>
+        <p><input type="radio" id="question6" name="question6" value="js262">Серверные приложения</p>
+        <p><input type="radio" id="question6" name="question6" value="js263">Веб-приложения</p>
+        <p><input type="radio" id="question6" name="question6" value="js264">Можно во всех перечисленных</p>
+        <p><input type="radio" id="question6" name="question6" value="js265">Прикладное программное обеспечение</p>
+        <div class="c_answer" id="c_answer6"></div>
+    </div>
+    <div class="test_question" id="test_question7">
+        <h3>7. За что отвечает JS на сайте?</h3>
+        <p><input type="radio" id="question7" name="question7" value="js271">За стилевое оформление на сайте</p>
+        <p><input type="radio" id="question7" name="question7" value="js272">За разметку на странице сайта</p>
+        <p><input type="radio" id="question7" name="question7" value="js273">За функциональную часть на стороне клиента
+        </p>
+        <p><input type="radio" id="question7" name="question7" value="js274">За работу с сервером</p>
+        <div class="c_answer" id="c_answer7"></div>
+    </div>
+    <div class="test_question" id="test_question8">
+        <h3>8. Сколько циклов существует в JS?</h3>
+        <p><input type="radio" id="question8" name="question8" value="js281">5</p>
+        <p><input type="radio" id="question8" name="question8" value="js282">3</p>
+        <p><input type="radio" id="question8" name="question8" value="js283">1</p>
+        <p><input type="radio" id="question8" name="question8" value="js284">Очень много</p>
+        <div class="c_answer" id="c_answer8"></div>
+    </div>
+    <div class="test_question" id="test_question9">
+        <h3>9. Что делает этот код?
+            <br>if (b % 3 != 0) {}</h3>
+        <p><input type="radio" id="question9" name="question9" value="js291">Выполняет код если b не 0 и не 3</p>
+        <p><input type="radio" id="question9" name="question9" value="js292">Выполняет код если b будет не равно 0 при
+            делении на 3</p>
+        <p><input type="radio" id="question9" name="question9" value="js293">Выполняет код если b будет не равно 0 при
+            остатке от деления на 3</p>
+        <div class="c_answer" id="c_answer9"></div>
+    </div>
+    <div class="test_question" id="test_question10">
+        <h3>10. В какой переменной допущена ошибка?</h3>
+        <p><input type="radio" id="question10" name="question10" value="js2101">var number = 12,5;</p>
+        <p><input type="radio" id="question10" name="question10" value="js2102">var b = false;</p>
+        <p><input type="radio" id="question10" name="question10" value="js2103">var isDone = 0;</p>
+        <p><input type="radio" id="question10" name="question10" value="js2104">var num = "STRING";</p>
+        <div class="c_answer" id="c_answer10"></div>
+    </div>
+    <div class="test_question" id="test_question11">
+        <h3>11. Почему этот код не будет работать?
+            <br>&lt;script type="javascript/text"&gt;
+            <br>document.write ("Hi!")
+            <br>&lt;/script&gt;</h3>
+        <p><input type="radio" id="question11" name="question11" value="js2111">Необходима точка с запятой после
+            document.write ("Hi!")</p>
+        <p><input type="radio" id="question11" name="question11" value="js2112">После document.write надо удалить пробел
+        </p>
+        <p><input type="radio" id="question11" name="question11" value="js2113">Неверно записан атрибут type</p>
+        <div class="c_answer" id="c_answer11"></div>
+    </div>
+    <div class="test_question" id="test_question12">
+        <h3>12. Что такое условный оператор?</h3>
+        <p><input type="radio" id="question12" name="question12" value="js2121">Это оператор сравнения значений</p>
+        <p><input type="radio" id="question12" name="question12" value="js2122">Благодаря нему мы можем выполнить код
+            несколько раз подряд</p>
+        <p><input type="radio" id="question12" name="question12" value="js2123">Это особый тип переменной</p>
+        <div class="c_answer" id="c_answer12"></div>
+    </div>
+    <div class="test_question" id="test_question13">
+        <h3>13. В чем отличие локальных и глобальных перемен?</h3>
+        <p><input type="radio" id="question13" name="question13" value="js2131">Локальные можно переопределять,
+            глобальные нельзя</p>
+        <p><input type="radio" id="question13" name="question13" value="js2132">Глобальные можно переопределять,
+            локальные нельзя</p>
+        <p><input type="radio" id="question13" name="question13" value="js2133">Глобальные видны повсюду, локальные
+            только в функциях</p>
+        <p><input type="radio" id="question13" name="question13" value="js2134">Локальные видны повсюду, глобальные
+            только в функциях</p>
+        <p><input type="radio" id="question13" name="question13" value="js2135">Никаких отличий между ними нет</p>
+        <div class="c_answer" id="c_answer13"></div>
+    </div>
+    <div class="test_question" id="test_question14">
+        <h3>14. Какой вариант выведет всплывающее окно?</h3>
+        <p><input type="radio" id="question14" name="question14" value="js2141">Нет верных вариантов</p>
+        <p><input type="radio" id="question14" name="question14" value="js2142">info ("Hi")</p>
+        <p><input type="radio" id="question14" name="question14" value="js2143">new alert ("Hi")</p>
+        <p><input type="radio" id="question14" name="question14" value="js2144">alert ("Hi")</p>
+        <div class="c_answer" id="c_answer14"></div>
+    </div>
+    <div class="test_question" id="test_question15">
+        <h3>15. Сколько раз выполниться этот цикл?
+            <br>for (var i = 10; i &lt; 35; i += 5) {
+            <br>console.log (i);
+            <br>}</h3>
+        <p><input type="radio" id="question15" name="question15" value="js2151">Такой цикл работать не будет - 0</p>
+        <p><input type="radio" id="question15" name="question15" value="js2152">6</p>
+        <p><input type="radio" id="question15" name="question15" value="js2153">10</p>
+        <p><input type="radio" id="question15" name="question15" value="js2154">5</p>
+        <div class="c_answer" id="c_answer15"></div>
+    </div>
+    <div class="test_check" onclick="test_check_javascript2()">
+        <h3>Завершить</h3>
+    </div>
+    <div class="test_rez">
+        <h3 id="rez">
+            <h3>
+    </div>
+    <div class="next"><a href="../tests.html">К содержанию</a></div>
+</div>
+<div id="vis">
+    <div class="font">
+        Размер шрифта:</div>
+    <div class="fontA" onclick="fonta()">А</div>
+    <div class="fontAA" onclick="fontaa()">А</div>
+    <div class="fontAAA" onclick="fontaaa()">А</div>
+    <div class="color">Цвет сайта:</div>
+    <div class="colorW" onclick="clwhite()">A</div>
+    <div class="colorBK" onclick="clblack()">A</div>
+    <div class="colorBE" onclick="clblue()">A</div>
+    <div class="imgOnOff">Изображение:</div>
+    <div class="imgOn" onclick="imgon()">Вкл.</div>
+    <div class="imgOff" onclick="imgoff()">Выкл.</div>
+    <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

@@ -1,0 +1,250 @@
+<title>Разбор XML файлов</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+    <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+        <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff"
+                d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+            </path>
+        </svg>
+    </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+    <p class="name">
+        Проектирование, разработка и оптимизация веб-приложений
+    </p>
+    <div class="links">
+        <a href="../../../index.html" class="link">Главная</a>
+        <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+        <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+        <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+        <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+    </div>
+</div>
+<div class="content">
+    <h1>Использование XML Paser Functions при работе с шаблонами.</h1>
+
+    <p>Мы рассмотрим разделение данных и кода на основыве на языке XML.
+    </p>
+    <p>Рассмотрим следующую задачу: У нас есть много клиентов, и практически каждый из них,
+        желает видеть на своем сайте гостевую книгу. Каждый раз изменять исходный текст гостевой книги нам уже
+        поднадоело.
+        И речи уже не идет о том, что ошибку, которую мы нашли, устанавливая гостевую книгу в
+        восемнадцатый раз пришлось рукам исправлять её на предыдущих семнадцати сайтах.
+
+    </p>
+    <p><strong>Данные:</strong></p>
+
+    <p>Для того, чтобы избежать подобной проблемы, необходимо данные отделить от кода.
+        Нам бы хотелось чтобы внешний вид гостевой книги хранился в отдельном файле, динамические данные (записи)
+        хранились в базе данных, а код в отдельном каталоге.
+    </p>
+    <p>Так, мы могли бы быстро исправить допущенную ошибку простой заменой старого кода на новый, при это сохранилось бы
+        оригинальное оформление.
+    </p>
+    <p>Опишем шаблон гостевой книги с помощью XML следующим образом:
+    </p>
+    <pre>&lt;?xml version="1.0" encoding="windows-1251"?&gt;
+
+&lt;guestbook&gt;
+&lt;include url="../top.html" /&gt;
+
+&lt;![CDATA[<font color="#808080">
+&lt;H3&gt;Гостевая книга - место для трепа&lt;/H3&gt;
+&lt;table width=100% cellspacing=5&gt;&lt;tr&gt;&lt;td&gt;
+&lt;br&gt;&lt;center&gt;
+</font>]]&gt;
+
+&lt;record&gt;&lt;![CDATA[<font color="#808080">
+&lt;table cellpadding=7 cellspacing=0 bgcolor=#F0F8F8 width=95%&gt;
+&lt;tr bgcolor=#E0F0F0&gt;&lt;td&gt;<font color="black">__NAME__</font>
+    (&lt;a href=mailto:<font color="black">__EMAIL__</font>&gt;<font color="black">__EMAIL__</font>&lt;/a&gt;)&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;<font color="black">__COMMENT__</font>
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;br&gt;
+</font>]]&gt;&lt;/record&gt;
+
+&lt;![CDATA[<font color="#808080">
+&lt;br&gt;
+&lt;center&gt;&lt;BR&gt;&lt;font face=Verdana size=2&gt;
+&lt;A href=/add/&gt;Добавить запись (Add record)&lt;/A&gt;
+&lt;/font&gt;&lt;/center&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+</font>]]&gt;
+
+&lt;include url="../bottom.htm /&gt;
+
+&lt;/guestbook&gt;
+</pre>
+    <p>Каждый шаблон состоит их основной секции &lt;guestbook&gt;&lt;/guestbook&gt; внутрь которой может помещаться
+        секция &lt;records&gt;&lt;/record&gt; описывающая одну запись в гостевой книге.
+    </p>
+    <p>Кроме того, там может находится одиночный тег &lt;include /&gt;, не место которого будет вставлен документ
+        описанный с помощью свойства url, например:
+    </p>
+    <pre>&lt;include url="../bottom.htm /&gt;
+</pre>
+    <p>Ниже приведена сокращения схема описанного документа:
+    </p>
+    <pre>&lt;?xml version="1.0" encoding="windows-1251"?&gt;
+
+&lt;guestbook&gt;
+  &lt;include url="../top.html" /&gt;
+  &lt;record&gt;
+    <font color="#808080">тело одной записи</font>
+  &lt;/record&gt;
+&lt;include url="../bottom.htm /&gt;
+&lt;/guestbook&gt;
+</pre>
+
+    <p><strong>Код:</strong></p>
+    <p>Осталось малость - написать программу, которая превратит описанный выше шаблон в HTML документ,
+        содержащий как внешнее оформление, так и динамически изменяемые данные (записи в гостевой книге)
+    </p>
+    <p>Для обработки шаблона мы будем использовать <a style="color:blue;" href="http://php.net" target="_blank">XML
+            Parser functions</a>.
+        Это расширение PHP предоставляет доступ к функциям библиотеки <a style="color:blue;"
+            href="http://www.jclark.com" target="_blank">Expat</a>,
+        автором которой является Джеймс Кларк (James Clark). Библиотека Expat написана на языке C и предназначенная для
+        разбора
+        XML документов основанного на событиях. Она не проверят XML документ на ошибки и не работает с объектой моделью
+        XML документа,
+        так как это делают некоторые другие библиотеки (например <a style="color:blue;" href="http://grinninglizard.com"
+            target="_blank">tinyXML</a>)
+    </p>
+    <p>C версии PHP 4 XML Parser functions поддерживаются по умолчанию.
+    </p>
+    <p>Перейдем непосредственно к написанию программы - обработчика шаблона.
+    </p>
+    <p>Сначала считаем шаблон в переменную $xmldata:
+    </p>
+    <pre>&lt;?
+$xmldata=implode("",file("template.xml"));
+<font color="#808080">// Ассоциативный массив - хранит данные, соответствующие тегам.</font>
+$TMPL=Array();
+<font color="#808080">// Обрабатываемый тег</font>
+$ce="";
+<font color="#808080">/*
+
+...
+
+пропущено подключение к серверу MySql
+
+...
+
+*/</font>
+
+$result=mysql_query("SELECT * FROM guestbook_database");
+</pre>
+    <p>В переменную $html мы будет выводить результат работы нашего скрипта. В самом конце мы сделаем просто print
+        $html;
+    </p>
+    <pre>$html="";
+</pre>
+    <p>Создаем объект обработчик XML документа
+    </p>
+    <pre>$xml_parser = xml_parser_create()</a>;
+</pre>
+    <p>Задаем ему опции и обработчики. Функция startElement() будет вызываться, когда в XML документе встретится
+        открывающийся тег. Функция endElement()
+        будет вызываться, когда будет встречен закрывающий тег. Для данных (то, что внутри тега) будет вызываться
+        функция characterData()
+    </p>
+    <pre>xml_parser_set_option</a>($xml_parser, XML_OPTION_CASE_FOLDING, true);
+xml_set_element_handler</a>($xml_parser, "startElement", "endElement");
+xml_set_character_data_handler</a>($xml_parser, "characterData");
+</pre>
+    <p>Вызовем обработчик XML документа
+    </p>
+    <pre>if (!xml_parse($xml_parser, $xmldata)) {
+    $error=sprintf("Ошибка в шаблоне: %s at line %d",
+           xml_error_string</a>(xml_get_error_code($xml_parser)),
+           xml_get_current_line_number</a>($xml_parser));
+    die();
+    }
+
+xml_parser_free</a>($xml_parser);
+</pre>
+    <p>Вывод данных</p>
+    <pre>print $html;
+</pre>
+
+    <p>Теперь рассмотрим основную часть - это три функции-обработчика:
+    </p>
+    <ul>
+        <li>startElement()</a>
+        </li>
+        <li>endElement()</a>
+        </li>
+        <li>characterData()</a>
+        </li>
+    </ul>
+
+    <p>В глобальной переменной $ce запомним название обрабатываемого тега, чтобы в обработчике characterData() знать к
+        какому элементу массива $TMPL дописывать содержимое.
+    </p>
+    <pre><b>function startElement($parser, $name, $attrs) {</b>
+    GLOBAL $ce,$TMPL,$html;
+
+    switch ($name) {
+        case "INCLUDE":
+            $html.=@implode("",@file($attrs["URL"]));
+            break;
+        }
+    $TMPL[$name]="";
+    $ce=$name;
+    }
+	
+<b>function endElement($parser, $name) {</b>
+    GLOBAL $ce,$TMPL,$result,$html;
+
+    switch ($name) {
+        case "RECORD":
+            while ($D=mysql_fetch_array($result)) {
+                $t=$TMPL["RECORD"];
+                $t=str_replace("__NAME__",$D["name"],$t);
+                $t=str_replace("__EMAIL__",$D["email"],$t);
+                $t=str_replace("__COMMENT__",$D["comment"],$t);
+                $html.=$t;
+                }
+            break;
+        }
+    $ce="";
+    }
+
+<b>function characterData($parser, $data)</b> {
+    GLOBAL $ce,$TMPL,$html;
+
+    switch ($ce) {
+        case "RECORD":
+            $TMPL[$ce].=$data;
+            break;
+        default:
+            $html.=$data;
+        }
+    }
+</pre>
+    <div class="next"><a href="../lectures.html">К содержанию</a></div>
+    <br>
+</div>
+<div id="vis">
+    <div class="font">
+        Размер шрифта:</div>
+    <div class="fontA" onclick="fonta()">А</div>
+    <div class="fontAA" onclick="fontaa()">А</div>
+    <div class="fontAAA" onclick="fontaaa()">А</div>
+    <div class="color">Цвет сайта:</div>
+    <div class="colorW" onclick="clwhite()">A</div>
+    <div class="colorBK" onclick="clblack()">A</div>
+    <div class="colorBE" onclick="clblue()">A</div>
+    <div class="imgOnOff">Изображение:</div>
+    <div class="imgOn" onclick="imgon()">Вкл.</div>
+    <div class="imgOff" onclick="imgoff()">Выкл.</div>
+    <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

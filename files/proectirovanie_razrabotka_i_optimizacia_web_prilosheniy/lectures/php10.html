@@ -1,0 +1,147 @@
+<title>PHP Cookie</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+  <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+    <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#ffffff"
+        d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+      </path>
+    </svg>
+  </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+  <p class="name">
+    Проектирование, разработка и оптимизация веб-приложений
+  </p>
+  <div class="links">
+    <a href="../../../index.html" class="link">Главная</a>
+    <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+    <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+    <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+    <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+  </div>
+</div>
+<div class="content">
+  <h2>Cookie в PHP</h2>
+  <p><b>setcookie()</a></b> определяет куку для отправки вместе с остальной header-информацией. Куки
+    обязаны быть отправлены <i>до</i> любых других шапок/headers (это ограничение кук, а не РНР). Это требует, чтобы вы
+    помещали вызовы этой
+    функции перед первым выводом на страницу, т.е. до тэга <tt>&lt;html&gt;</tt>.</p>
+  <p>
+    int <b>setcookie</b> (string name [, string value [, int expire [, string path [, string domain [, int secure]]]]])
+  </p>
+  <p>Все аргументы, кроме <tt><i>name</i></tt>,
+    являются необязательными. Если имеется только аргумент name, кука с этим
+    именем будет удалена с удалённого клиента. Вы можете также заместить любой аргумент пустой строкой (<i>""</i>),
+    чтобы пропустить этот аргумент.
+    Аргументы <tt><i>expire</i></tt> и <tt><i>secure</i></tt> это целые числа/integer и они не могут быть пропущены с
+    помощью пустой строки.
+    В них используйте нуль (<i>0</i>). Аргумент <tt><i>expire</i></tt> это обычное Unix time integer, возвращаемое
+    функциями
+    <b>time()</a></b> или <b>mktime()</a></b>.
+    Аргумент <tt><i>secure</i></tt> указывает, что данная кука должна передаваться только через секретное
+    HTTPS-соединение.</p>
+  <p>После того как куки установлены, доступ к ним может быть получен при загрузке следующей страницы через массив
+    <tt>$_COOKIE</tt> (который вызывается <tt>$HTTP_COOKIE_VARS</tt> в версиях PHP до 4.1.0).</p>
+  <p>Обычные ловушки:</p>
+  <ul>
+    <li>
+      <p>Куки будут невидимы до тех пор, пока не будет загружена следующая страница.</p>
+    </li>
+    <li>
+      <p>Куки обязаны быть удалены с теми же параметрами, с которыми были установлены.</p>
+    </li>
+  </ul>
+  <p>В PHP 3 множественные вызовы <b>setcookie()</b> в том же скрипте могут быть выполнены в реверсном порядке. Если вы
+    пытаетесь
+    удалить одну куку до вставки другой, вы должны сделать вставку до удаления. В PHP 4 множественные вызовы
+    <b>setcookie()</b> выполняются в порядке вызова.</p>
+  <p>Далее идут примеры отправки кук:
+  </p>
+  <h5>Пример 1. Отправка кук функцией setcookie()</h5>
+  <pre>setcookie ("TestCookie", $value);
+setcookie ("TestCookie", $value,time()+3600); // период действия - 1 час
+setcookie ("TestCookie", $value,time()+3600,
+		"/~rasmus/", ".utoronto.ca", 1);
+</pre>
+  <p>При удалении куки вы должны убедиться, что дата окончания действия прошла, чтобы переключить механизм в вашем
+    браузере.
+    Далее идут примеры удаления куки, созданной в предыдущем примере:
+  </p>
+  <h5>Пример 2. Удаление куки с помощью setcookie()</h5>
+  <pre>// установить дату окончания действия на один час назад
+setcookie ("TestCookie", "", time() - 3600);
+setcookie ("TestCookie", "", time() - 3600,
+		"/~rasmus/", ".utoronto.ca", 1);
+</pre>
+
+  <h5>Пример 3. Удаление всех кук</h5>
+  <pre>   foreach($_COOKIE as $ind=&gt;$val)
+	@setcookie($ind,'',time()-999, "/", ".".$_SERVER['SERVER_NAME'] );
+</pre>
+  <h5>Пример 4.</h5>
+  <p>Обратите внимание, что часть value куки будет автоматически urlencoded при отправке куки, и, когда она получена,
+    она автоматически
+    декодируется и присваивается переменной с тем же именем, что и имя куки. Для просмотра содержимого нашей тестовой
+    куки в скрипте просто используйте
+    один из следующих примеров:
+  </p>
+  <pre>echo $TestCookie;
+echo $_COOKIE["TestCookie"];
+</pre>
+  <h5>Пример 5.</h5>
+  <p>Вы можете также установить куки массива, используя нотацию в имени куки.
+    Это даёт эффект установки стольких кук, сколько элементов в этом массиве, но, когда кука получается скриптом,
+    значения помещаются в массив с именем куки:
+  </p>
+  <pre>setcookie ("cookie[three]", "cookiethree");
+setcookie ("cookie[two]", "cookietwo");
+setcookie ("cookie[one]", "cookieone");
+foreach($_COOKIE as $name=&gt;$val) {
+        echo "$name = $value&lt;br&gt;\n";
+    }
+</pre>
+
+  <h5>Пример 6.</h5>
+  <p>Если у Вашего сервера два доменных имени: "www.domain.com" и "other.domain.com",
+    и Ваш аккаунт позволяет Вам обслуживать страницы из каталога ~/myhome, Вы должны вызывать функцию setcookie()
+    следующим образом:
+  </p>
+  <pre>setcookie('name', $value, time()+3600, '~/myhome', '<b>.domain.com</b>');
+</pre>
+
+  <h5>Пример 7. Счетчик в куки с помощью setcookie()</h5>
+  <pre class="adb"><code class="language-html php">&lt;?
+<span class="comment">// Демонстрация работы с $_COOKIES.</span>
+<span class="comment">// Вначале счетчик равен нулю.</span>
+<span class="variable">$count</span> = <span class="number">0</span>;
+<span class="comment">// Если в Cookies что-то есть, берем счетчик оттуда.</span>
+<span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_COOKIE</span>[<span class="string">'count'</span>])) <span class="variable">$count</span> = <span class="variable">$_COOKIE</span>[<span class="string">'count'</span>];
+<span class="variable">$count</span>++;
+<span class="comment">// Записываем в Cookies новое значение счетчика.</span>
+setcookie(<span class="string">"count"</span>, <span class="variable">$count</span>, <span class="number">0x7FFFFFFF</span>, <span class="string">"/"</span>);
+<span class="comment">// Выводим счетчик.</span>
+<span class="keyword">echo</span> <span class="variable">$count</span>;
+<span class="preprocessor">?&gt;</span></code></pre>
+  <div class="next"><a href="php11.html">Следующая лекция</a></div><br>
+</div>
+<div id="vis">
+  <div class="font">
+    Размер шрифта:</div>
+  <div class="fontA" onclick="fonta()">А</div>
+  <div class="fontAA" onclick="fontaa()">А</div>
+  <div class="fontAAA" onclick="fontaaa()">А</div>
+  <div class="color">Цвет сайта:</div>
+  <div class="colorW" onclick="clwhite()">A</div>
+  <div class="colorBK" onclick="clblack()">A</div>
+  <div class="colorBE" onclick="clblue()">A</div>
+  <div class="imgOnOff">Изображение:</div>
+  <div class="imgOn" onclick="imgon()">Вкл.</div>
+  <div class="imgOff" onclick="imgoff()">Выкл.</div>
+  <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

@@ -1,0 +1,194 @@
+<title>PHP тест №1</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<script src="../../js/md5.js"></script>
+<script src="../../js/test_js.js"></script>
+<div class="body">
+    <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+        <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff"
+                d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+            </path>
+        </svg>
+    </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+    <p class="name">
+        Проектирование, разработка и оптимизация веб-приложений
+    </p>
+    <div class="links">
+        <a href="../../../index.html" class="link">Главная</a>
+        <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+        <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+        <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+        <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+    </div>
+</div>
+<div class="content">
+    <h1>Тест по PHP №1</h1>
+    <div class="test_question" id="test_question1">
+        <h3>1. Выберите верный оператор вывода</h3>
+        <p><input type="radio" id="question1" name="question1" value="php111">show "";</p>
+        <p><input type="radio" id="question1" name="question1" value="php112">eho "";</p>
+        <p><input type="radio" id="question1" name="question1" value="php113">echo "";</p>
+        <p><input type="radio" id="question1" name="question1" value="php114">message "";</p>
+        <div class="c_answer" id="c_answer1"></div>
+    </div>
+    <div class="test_question" id="test_question2">
+        <h3>2. В чем ошибка в коде?
+            <br>echo ("Hi, this place is called "WinterGard'. It is cold here!");</h3>
+        <p><input type="radio" id="question2" name="question2" value="php121">"Надо поставить \ перед ' и перед ""</p>
+        <p><input type="radio" id="question2" name="question2" value="php122">Надо поставить \ перед "</p>
+        <p><input type="radio" id="question2" name="question2" value="php123">Надо убрать скобки для echo - ()</p>
+        <p><input type="radio" id="question2" name="question2" value="php124">Надо поставить \ перед '</p>
+        <p><input type="radio" id="question2" name="question2" value="php125">Здесь нет ошибок</p>
+        <div class="c_answer" id="c_answer2"></div>
+    </div>
+    <div class="test_question" id="test_question3">
+        <h3>3. Что делает этот код?
+            <br>SELECT `id` FROM `table`</h3>
+        <p><input type="radio" id="question3" name="question3" value="php131">Выбирает id из таблицы table</p>
+        <p><input type="radio" id="question3" name="question3" value="php132">Выбирает id из всей базы данных</p>
+        <p><input type="radio" id="question3" name="question3" value="php133">Выбирает table из таблицы id</p>
+        <p><input type="radio" id="question3" name="question3" value="php134">Выбирает все из таблицы table</p>
+        <div class="c_answer" id="c_answer3"></div>
+    </div>
+    <div class="test_question" id="test_question4">
+        <h3>4. Чем константы отличаются от переменных?</h3>
+        <p><input type="radio" id="question4" name="question4" value="php141">Ничем не отличаются</p>
+        <p><input type="radio" id="question4" name="question4" value="php142">Переменные используются только в функциях
+        </p>
+        <p><input type="radio" id="question4" name="question4" value="php143">Константы нельзя переопределять</p>
+        <div class="c_answer" id="c_answer4"></div>
+    </div>
+    <div class="test_question" id="test_question5">
+        <h3>5. Как создать комментарий в PHP?</h3>
+        <p><input type="radio" id="question5" name="question5" value="php151">/</p>
+        <p><input type="radio" id="question5" name="question5" value="php152">#</p>
+        <p><input type="radio" id="question5" name="question5" value="php153">/* /*</p>
+        <div class="c_answer" id="c_answer5"></div>
+    </div>
+    <div class="test_question" id="test_question6">
+        <h3>6. Что делает этот код?
+            <br>UPDATE `db` SET `price` = '0';</h3>
+        <p><input type="radio" id="question6" name="question6" value="php161">Устанавливает новое значение только для
+            таблицы db</p>
+        <p><input type="radio" id="question6" name="question6" value="php162">Добавляет новое поле price со значением 0
+            в таблицу db</p>
+        <p><input type="radio" id="question6" name="question6" value="php163">Устанавливает новое значение для всей базы
+            данных</p>
+        <p><input type="radio" id="question6" name="question6" value="php164">Устанавливает значение 0 в таблице price
+        </p>
+        <div class="c_answer" id="c_answer6"></div>
+    </div>
+    <div class="test_question" id="test_question7">
+        <h3>7. Что такое оператор эквивалентности?</h3>
+        <p><input type="radio" id="question7" name="question7" value="php171">Такого оператора не существует</p>
+        <p><input type="radio" id="question7" name="question7" value="php172">Он сравнивает переменные на соответствие,
+            но не на их тип</p>
+        <p><input type="radio" id="question7" name="question7" value="php173">Он сравнивает переменные на соответствие и
+            на их тип</p>
+        <div class="c_answer" id="c_answer7"></div>
+    </div>
+    <div class="test_question" id="test_question8">
+        <h3>8. Где правильно открыт и закрыт PHP код?</h3>
+        <p><input type="radio" id="question8" name="question8" value="php181">&lt;php ?&gt;</p>
+        <p><input type="radio" id="question8" name="question8" value="php182">&lt;?php ?&gt;</p>
+        <p><input type="radio" id="question8" name="question8" value="php183">(?php ?)</p>
+        <p><input type="radio" id="question8" name="question8" value="php184">&lt;? php&gt;</p>
+        <div class="c_answer" id="c_answer8"></div>
+    </div>
+    <div class="test_question" id="test_question9">
+        <h3>9. Какой символ указывает что это переменная</h3>
+        <p><input type="radio" id="question9" name="question9" value="php191">&</p>
+        <p><input type="radio" id="question9" name="question9" value="php192">#</p>
+        <p><input type="radio" id="question9" name="question9" value="php193">$</p>
+        <div class="c_answer" id="c_answer9"></div>
+    </div>
+    <div class="test_question" id="test_question10">
+        <h3>10. Какие логические операции существуют?</h3>
+        <p><input type="radio" id="question10" name="question10" value="php1101">&gt;, &lt;, =, !=, &lt;=, &gt;=, ==</p>
+        <p><input type="radio" id="question10" name="question10" value="php1102">&gt;, &lt;, ==, !=, &lt;=, &gt;=, ===
+        </p>
+        <p><input type="radio" id="question10" name="question10" value="php1103">&gt;, &lt;, ==, !=, &lt;=, &gt;=</p>
+        <p><input type="radio" id="question10" name="question10" value="php1104">&gt;, &lt;, ==, !==, &lt;=, &gt;=, ===
+        </p>
+        <div class="c_answer" id="c_answer10"></div>
+    </div>
+    <div class="test_question" id="test_question11">
+        <h3>11. Какие арифметеческие операции существуют в PHP?</h3>
+        <p><input type="radio" id="question11" name="question11" value="php1111">+, -, *, /, %</p>
+        <p><input type="radio" id="question11" name="question11" value="php1112">+, -, *, /, **, %</p>
+        <p><input type="radio" id="question11" name="question11" value="php1113">+, -, *, /, ^</p>
+        <div class="c_answer" id="c_answer11"></div>
+    </div>
+    <div class="test_question" id="test_question12">
+        <h3>12. Для чего нужен PHP?</h3>
+        <p><input type="radio" id="question12" name="question12" value="php1121">Для работы на сервере и базами данных
+        </p>
+        <p><input type="radio" id="question12" name="question12" value="php1122">Для работы на сервере</p>
+        <p><input type="radio" id="question12" name="question12" value="php1123">Для работы со скриптами на стороне
+            клиента</p>
+        <div class="c_answer" id="c_answer12"></div>
+    </div>
+    <div class="test_question" id="test_question13">
+        <h3>13. Какие типы переменных существуют?</h3>
+        <p><input type="radio" id="question13" name="question13" value="php1131">int, float, string</p>
+        <p><input type="radio" id="question13" name="question13" value="php1132">int, float, string, char, bool</p>
+        <p><input type="radio" id="question13" name="question13" value="php1133">int, float, string, bool</p>
+        <p><input type="radio" id="question13" name="question13" value="php1134">int, float, string, char</p>
+        <div class="c_answer" id="c_answer13"></div>
+    </div>
+    <div class="test_question" id="test_question14">
+        <h3>14. Что такое SQL?
+            <br>* ЯП - язык программирования
+        </h3>
+        <p><input type="radio" id="question14" name="question14" value="php1141">Этот ЯП служит для работы с сервером
+        </p>
+        <p><input type="radio" id="question14" name="question14" value="php1142">Этот ЯП служит для работы с базами
+            данных</p>
+        <p><input type="radio" id="question14" name="question14" value="php1143">Этот ЯП оказывает поддержку для PHP</p>
+        <p><input type="radio" id="question14" name="question14" value="php1144">Этот ЯП отвечает за безопасность сайта
+        </p>
+        <div class="c_answer" id="c_answer14"></div>
+    </div>
+    <div class="test_question" id="test_question15">
+        <h3>15. Что выведет этот код?
+            <br>$x = 1;
+            <br>$y = 5;
+            <br>$z = 2.1;
+            <br>echo $z != $y && $x &lt; $y;</h3>
+        <p><input type="radio" id="question15" name="question15" value="php1151">Ошибку</p>
+        <p><input type="radio" id="question15" name="question15" value="php1152">"true"</p>
+        <p><input type="radio" id="question15" name="question15" value="php1153">1</p>
+        <p><input type="radio" id="question15" name="question15" value="php1154">0</p>
+        <div class="c_answer" id="c_answer15"></div>
+    </div>
+    <div class="test_check" onclick="test_check_php1()">
+        <h3>Завершить</h3>
+    </div>
+    <div class="test_rez">
+        <h3 id="rez">
+            <h3>
+    </div>
+    <div class="next"><a href="../tests.html">К содержанию</a></div>
+</div>
+<div id="vis">
+    <div class="font">
+        Размер шрифта:</div>
+    <div class="fontA" onclick="fonta()">А</div>
+    <div class="fontAA" onclick="fontaa()">А</div>
+    <div class="fontAAA" onclick="fontaaa()">А</div>
+    <div class="color">Цвет сайта:</div>
+    <div class="colorW" onclick="clwhite()">A</div>
+    <div class="colorBK" onclick="clblack()">A</div>
+    <div class="colorBE" onclick="clblue()">A</div>
+    <div class="imgOnOff">Изображение:</div>
+    <div class="imgOn" onclick="imgon()">Вкл.</div>
+    <div class="imgOff" onclick="imgoff()">Выкл.</div>
+    <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

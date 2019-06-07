@@ -1,0 +1,238 @@
+<title>jQuery UI CSS</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+  <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+    <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#ffffff"
+        d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+      </path>
+    </svg>
+  </p>
+
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+  <p class="name">
+    Проектирование, разработка и оптимизация веб-приложений
+  </p>
+  <div class="links">
+    <a href="../../../index.html" class="link">Главная</a>
+    <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+    <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+    <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+    <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+  </div>
+</div>
+<div class="content">
+  <h1>jQuery UI классы оформления</h1>
+  <p>jQuery UI содержит набор предопределенных классов для создания оформления сайтов.</p>
+  <p>Используя готовые классы Вы можете сэкономить время при создании оформления веб-страниц. Использование готовых
+    классов также поможет стандартизировать оформление Вашего сайта.</p>
+  <p>С помощью <a href='http://jqueryui.com/themeroller/' target="_blank" style="color:blue;">настройщика тем</a> Вы
+    можете настроить оформление предопределенных классов на Ваш вкус.</p>
+  <h1>Виджет themeswitcher</h1>
+  <p><b>Виджет themeswitcher</b> позволяет переключатся между различными темами оформления не покидая страницы. </p>
+  <p>Это бывает особенно полезно при подборе подходящего класса оформления.</p>
+  <p><b>Синтаксис:</b></p>
+
+  <pre>
+// Добавляем ссылку на плагин (данный код должен располагаться в секции body)
+<b>&lt;script type="text/javascript"
+  src="http://jqueryui.com/themeroller/themeswitchertool/"&gt;
+&lt;/script&gt;</b>
+//Создаем элемент который будет превращен в виджет
+<b>&lt;div id="switcher"&gt;&lt;/div&gt;</b>
+/* В тэге script задаем код, который превратит элемент в виджет 
+   (данный код должен располагаться в head)*/
+<b>$("#switcher").themeswitcher();</b>
+</pre>
+
+  <p> Пример </p>
+  <pre>
+$(document).ready(function(){
+   $("#switcher").themeswitcher({
+      initialText:"Выбрать тему",
+      buttonPreText:"Тема: "
+   });
+});
+</pre>
+
+  <h1>Оформление виджетов</h1>
+  <p>С помощью класса <b>.ui-widget</b> Вы можете оформить внешний вид виджетов.
+    Данный класс устанавливает одинаковый шрифт всем вложенным элементам тем самым стандартизируя вид содержимого
+    виджета.</p>
+  <p>С помощью класса <b>.ui-widget-header</b> Вы можете оформить заголовок, а с помощью <b>.ui-widget-content</b>
+    содержимое виджетов. </p>
+
+  <p> Пример </p>
+  <pre>
+&lt;div id="widget1" class="ui-widget"&gt;
+&lt;h2 style="text-align:center" class="ui-widget-header"&gt;....
+&lt;p style="text-align:center" class="ui-widget-content" &gt;....
+&lt;/div&gt;
+</pre>
+
+  <h1>Добавление сглаженных углов</h1>
+  <p>С помощью предопределенных классов jQuery UI Вы можете сделать углы элементов сглаженными.</p>
+
+  <table>
+    <tr>
+      <th>Класс</th>
+      <th>Описание</th>
+    </tr>
+    <tr>
+      <td><b>.ui-corner-all</b></td>
+      <td>Позволяет сделать все углы элемента сглаженными.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-corner-tr</b></td>
+      <td>Делает сглаженным верхний правый угол элемента.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-corner-tl</b></td>
+      <td>Делает сглаженным верхний левый угол элемента.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-corner-top</b></td>
+      <td>Делает сглаженными верхний левый и верхний правый углы элемента.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-corner-bl</b></td>
+      <td>Делает сглаженным нижний левый угол элемента.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-corner-br</b></td>
+      <td>Делает сглаженным нижний правый угол элемента.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-corner-bottom</b></td>
+      <td>Делает сглаженными нижний правый и нижний левый углы элемента.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-corner-left</b></td>
+      <td>Делает сглаженными верхний левый и нижний левый углы элемента.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-corner-right</b></td>
+      <td>Делает сглаженными верхний правый и нижний правый углы элемента.</td>
+    </tr>
+  </table>
+
+  <p> Пример </p>
+  <pre>
+&lt;div id="container" class="ui-widget ui-corner-all"&gt;....
+&lt;div id="container" class="ui-widget ui-corner-top"&gt;....
+&lt;div id="container" class="ui-widget ui-corner-tr"&gt;....
+</pre>
+
+  <h1>jQuery UI иконки</h1>
+  <p>Иконки помогают создать интуитивно понятный пользовательский интерфейс. К примеру Вы можете добавить иконку в форме
+    знака вопроса на кнопку, которая
+    вызывает окно со справочной информацией, или добавить иконку в форме конверта на кнопку отправляющую письмо по
+    электронной почте.</p>
+  <p>jQuery UI предлагает для использования более 170 "встроенных" иконок.</p>
+  <p> Для того, чтобы вставить иконку необходимо:</p>
+  <ol>
+    <li>Создать элемент, в котором будет отображена иконка;</li>
+    <li>Добавить этому элементу класс <i>ui-icon</i>;</li>
+    <li>Добавить элементу класс соответствующий желаемой иконке.</li>
+  </ol>
+  <p>Названия классов иконок в jQuery UI имеют следующий стандартный вид: <i>.ui-icon-[название]-[дополнительное
+      описание]-[направление]</i>.</p>
+  <p>К примеру, иконка жирной стрелки направленной направо, имеет следующий класс: <i>.ui-icon-arrowthick-1-e</i>
+    (arrowthick - "жирная стрелка", e = east - "восток").</p>
+
+  <p> Пример </p>
+  <pre>
+&lt;span class="ui-icon ui-icon-carat-1-n"&gt;&lt;/span&gt;
+&lt;span class="ui-icon ui-icon-carat-1-ne"&gt;&lt;/span&gt;
+&lt;span class="ui-icon ui-icon-carat-1-e"&gt;&lt;/span&gt;
+&lt;span class="ui-icon ui-icon-carat-1-se"&gt;&lt;/span&gt;
+&lt;span class="ui-icon ui-icon-carat-1-s"&gt;&lt;/span&gt;
+&lt;span class="ui-icon ui-icon-grip-solid-horizontal"&gt;&lt;/span&gt;
+&lt;span class="ui-icon ui-icon-gripsmall-diagonal-se"&gt;&lt;/span&gt;
+&lt;span class="ui-icon ui-icon-grip-diagonal-se"&gt;&lt;/span&gt;
+</pre>
+
+  <h1>Таблица предопределенных классов</h1>
+  <p>Таблица ниже содержит описание всех остальных существующих в jQuery UI предопределенных классов:</p>
+
+  <table>
+    <tr>
+      <th>Класс</th>
+      <th>Описание</th>
+    </tr>
+    <tr>
+      <td><b>.ui-helper-hidden</b></td>
+      <td>Применяет display:none к элементу.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-helper-reset</b></td>
+      <td>Сбрасывает значения таких свойства как margin, padding, text-decoration и list-style.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-state-default</b></td>
+      <td>Данный класс применяется к кнопкам, на которые не был наведен курсор мыши.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-state-hover</b></td>
+      <td>Данный класс применяется к кнопкам, на которые был наведен курсор мыши.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-state-active</b></td>
+      <td>Данный класс применяется к кнопкам во время щелчка мыши.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-state-highlight</b></td>
+      <td>Данный класс применяется к элементам, на которые необходимо обратить внимание.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-state-error</b></td>
+      <td>Данный класс применяется к элементам содержащим сообщения об ошибках.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-state-disabled</b></td>
+      <td>Данный класс применяется к недоступным для использования элементам.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-priority-primary</b></td>
+      <td>С помощью данного класса Вы можете выделить кнопку из группы кнопок как наиболее важную.</td>
+    </tr>
+    <tr>
+      <td><b>.ui-priority-secondary</b></td>
+      <td>С помощью данного класса Вы можете выделить кнопку из группы кнопок как наименее важную.</td>
+    </tr>
+  </table>
+
+  <p> Пример </p>
+  <pre>
+&lt;ul class="ui-helper-reset"&gt;....
+&lt;button id="but1" class="ui-state-default"&gt;....
+&lt;p class="ui-state-highlight"&gt;....
+&lt;p class="ui-state-error"&gt;....
+&lt;button id="but2" class="ui-state-disabled"&gt;....
+&lt;button class="ui-priority-secondary"&gt;....
+&lt;button class="ui-priority-primary"&gt;....
+</pre>
+  <div class="next"><a href="../lectures.html">К содержанию</a></div>
+  <br>
+</div>
+<div id="vis">
+  <div class="font">
+    Размер шрифта:</div>
+  <div class="fontA" onclick="fonta()">А</div>
+  <div class="fontAA" onclick="fontaa()">А</div>
+  <div class="fontAAA" onclick="fontaaa()">А</div>
+  <div class="color">Цвет сайта:</div>
+  <div class="colorW" onclick="clwhite()">A</div>
+  <div class="colorBK" onclick="clblack()">A</div>
+  <div class="colorBE" onclick="clblue()">A</div>
+  <div class="imgOnOff">Изображение:</div>
+  <div class="imgOn" onclick="imgon()">Вкл.</div>
+  <div class="imgOff" onclick="imgoff()">Выкл.</div>
+  <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

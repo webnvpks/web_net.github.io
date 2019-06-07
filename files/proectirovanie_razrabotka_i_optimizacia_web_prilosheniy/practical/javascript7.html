@@ -1,0 +1,164 @@
+<title>JavaScript Окна и таблицы</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+    <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+        <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff"
+                d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+            </path>
+        </svg>
+    </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+    <p class="name">
+        Проектирование, разработка и оптимизация веб-приложений
+    </p>
+    <div class="links">
+        <a href="../../../index.html" class="link">Главная</a>
+        <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+        <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+        <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+        <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+    </div>
+</div>
+<div class="content">
+    <h1>JavaScript Окна и таблицы</h1>
+    <p><em>Цель работы:</em>&nbsp;изучить способы управления окнами и таблицами.</p>
+    <h3>Создание нового окна</h3>
+    <p>Объект window находится в вершине дерева объектной модели W3C DOM и имеет много свойств и методов. В сценариях,
+        особенно при отладке, часто используется метод alert. Свойства setInterval, clearInterval (пример 5.1) и
+        setTimeout необходимы для оживления страницы, организации движения объектов. Чтобы не загромождать основное
+        окно, часто для просмотра дополнительной информации (графиков, таблиц и т.д.) удобно открыть новое
+        дополнительное окно. Для создания нового окна используется метод open, имеющий следующий синтаксис: var
+        windowObject=window.open([параметры) Рассмотрим сценарий (пример 7.1), по которому окно с описываемым на
+        странице графиком появляется при наведении курсора мышки на слова&nbsp;<em>на графике</em>.</p>
+    <p><strong>Пример 7.1</strong></p>
+    <pre>&lt;HTML&gt;&nbsp;
+<br />&lt;HEAD&gt;&lt;TITLE&gt;&lt;/TITLE&gt;&lt;/HEAD&gt;&nbsp;
+<br />&lt;BODY&gt;&nbsp;
+<br />&lt;h1 align=center&gt;График открывается в новом окне&lt;/h1&gt;&nbsp;
+<br />Зависимость y=f(x) &lt;B onmouseover="gr('График 1','prim1.gif')" style="color:blue;"&gt; на графике 1&lt;/b&gt; имеет линейный характер.&nbsp;
+<br />&lt;p&gt; Изменение цены и объёмов продаж показаны&nbsp;
+<br />&lt;B onmouseover="gr('График 2','prim2.gif')" style="color:green"&gt;&nbsp;
+<br />на графике 2&lt;/b&gt;. Объёмы продаж серого цвета.&nbsp;
+<br />&lt;P&gt;&lt;font size=-1&gt;&nbsp;
+<br />Примечание. Для просмотра графиков подведите курсор мышки к словам "на&nbsp;
+<br />графике"&lt;BR&gt; &lt;/p&gt;&nbsp;
+<br />&lt;script&gt;&nbsp;
+<br />function gr(txt,fil)&nbsp;
+<br />{ grWin=window.open("","","width=650,height=400")&nbsp;
+<br />&nbsp; grWin.document.write("&lt;H1 align=center&gt;"+ txt+&nbsp;
+<br />&nbsp; "&lt;/h1&gt;&lt;CENTER&gt;&lt;IMG SRC='"+fil+"'&gt;&lt;/center&gt;")&nbsp;
+<br />}&nbsp;
+<br />&lt;/script&gt;&nbsp;
+<br />&lt;/BODY&gt;&nbsp;
+<br />&lt;/HTML&gt;</pre>
+    <p>Первые два параметра, URL и название окна в примере оставлены пустыми. В третьем параметре заданы ширина и высота
+        окна в пикселях.</p>
+    <p class="img"><img src="javascript7_pic1.jpg" alt="" /><br>Рис. 5</p>
+    <p><strong>Задача 7.1</strong>. Создайте сайт, состоящий из двух страниц. Сайт служит для вывода таблицы значений
+        тригонометрической функции (sin, cos или tg) в заданном диапазоне и с заданным шагом. На первой странице (рис.
+        5) пользователь задаёт исходные данные, а на второй получает соответствующую таблицу. Окно с новой страницей
+        должно открываться методом open(). Исходные данные должны проверяться сразу после ввода и после нажатия кнопки
+        Вычислить. Таблица должна иметь следующий вид:</p>
+    <table>
+        <tbody>
+            <tr>
+                <td colspan="2">Угол</td>
+                <td rowspan="2">sin</td>
+            </tr>
+            <tr>
+                <td>в градусах</td>
+                <td>в радианах</td>
+            </tr>
+            <tr>
+                <td>30</td>
+                <td>0.5236</td>
+                <td>0.5</td>
+            </tr>
+            <tr>
+                <td>32</td>
+                <td>0.5585</td>
+                <td>0.5299  </td>
+            </tr>
+            <tr>
+                <td>34</td>
+                <td>0.5934</td>
+                <td>0.5592</td>
+            </tr>
+            <tr>
+                <td>36</td>
+                <td>0.6283</td>
+                <td>0.5878</td>
+            </tr>
+        </tbody>
+    </table>
+    <p><em>Указания</em>. Данная задача является расширением задачи 3.2. Для проверки цифровых символов служит следующая
+        функция:</p>
+    <pre>function isNumb(fld)&nbsp;
+<br />{ t=fld.value&nbsp;
+<br />&nbsp;for (i=0;i&lt;t.length;i++)&nbsp;
+<br />&nbsp;{ var ch=t.charAt(i)
+if((ch&lt;"0" ||ch&gt;"9") &amp; !(ch=="," ||ch=="."))&nbsp;
+<br />{ alert("Не цифра") fld.focus(); fld.select()&nbsp;
+<br />&nbsp; return false&nbsp;
+<br />}
+&nbsp;}&nbsp;
+<br />&nbsp;return true&nbsp;
+<br />}</pre>
+    <p>Параметр fld &ndash; объект, значение которого проверяется. Пример обращения к функции isNumb(fld):</p>
+    <pre>&lt;INPUT TYPE="text" NAME="h" onchange=isNumb(this)&gt;</pre>
+    <p>Результат выполнения оператора ch=t.charAt(i) &ndash; i-й символ строковой переменной (объекта) t. Функция
+        сообщает об ошибке, если введён любой символ кроме десятичных цифр, точки или запятой.</p>
+    <h3>Управление таблицей</h3>
+    <p>Для занесения данных в ячейку таблицы служит выражение:</p>
+    <pre>document.all.tab1.rows[i].cells[j].innerHTML =x&nbsp;
+<br />//где tabl &ndash; id таблицы</pre>
+    <p>Чтение данных из ячейки в браузере Internet Explorer симметрично занесению:</p>
+    <p>x = document.all.tab1.rows[i].cells[j].innerHTML</p>
+    <p>Браузер Mozilla не воспринимает этот оператор. Оба браузера правильно выполняют следующий оператор:</p>
+    <p>x = document.all.tab1.rows[i].cells[3].firstChild.nodeValue</p>
+    <p>Содержимое ячейки таблицы рассматривается как дочерний узел по отношению к узлу, соответствующему тегу
+        &lt;TD&gt;. В примере извлекаются данные из i-й ячейки третьей строки таблицы, имеющей ID=tab1. Нумерация строк
+        и ячеек начинается с нуля. С помощью сценария можно менять структуру таблицы, добавляя или удаляя строки и
+        ячейки. Операция вставки строки в таблицу состоит из следующих этапов.</p>
+    <ul>
+        <li>Вызов метода insertRow() и сохранение возвращенной ссылки на новую незаполненную строку.</li>
+        <li>Использование ссылки на строку при вызове метода insertCell() для каждой ячейки в строке (при этом
+            сохраняется возвращенная ссылка на каждую новую незаполненную ячейку).</li>
+        <li>Присвоение значений свойствам ячейки, включая ее содержимое.</li>
+    </ul>
+    <p>Пример добавления строки и ячейки:</p>
+    <pre>NewRow= document.all.tab1.insertRow() //вставка строки&nbsp;
+<br />NewCell=NewRow.insertCell(0) //вставка ячейки</pre>
+    <p>Для удаления строк и столбцов служат методы deleteRow(индекс строки) и deleteCell(индекс ячейки). Пример удаления
+        всех строк таблицы:</p>
+    <pre>while (tableRef.rows.length &gt; 0)&nbsp;
+<br />{tableRef.deleteRow(0);}</pre>
+    <p><strong>Задача 7.2</strong>. Создайте страницу (рис. 6) для учёта поступления товаров. Пользователь может менять
+        в таблице количество и цену выбранного товара, вводя новые значения в поля, расположенные под таблицей.
+        Введёнными значениями заменяются соответствующие данные в таблице и автоматически подсчитывается суммарная
+        стоимость всех товаров.</p>
+    <p class="img"><img src="javascript7_pic2.jpg" alt="" /><br>Рис. 6</p>
+    <div class="next"><a href="../laboratornie.html">К содержанию</a></div>
+</div>
+<div id="vis">
+    <div class="font">
+        Размер шрифта:</div>
+    <div class="fontA" onclick="fonta()">А</div>
+    <div class="fontAA" onclick="fontaa()">А</div>
+    <div class="fontAAA" onclick="fontaaa()">А</div>
+    <div class="color">Цвет сайта:</div>
+    <div class="colorW" onclick="clwhite()">A</div>
+    <div class="colorBK" onclick="clblack()">A</div>
+    <div class="colorBE" onclick="clblue()">A</div>
+    <div class="imgOnOff">Изображение:</div>
+    <div class="imgOn" onclick="imgon()">Вкл.</div>
+    <div class="imgOff" onclick="imgoff()">Выкл.</div>
+    <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

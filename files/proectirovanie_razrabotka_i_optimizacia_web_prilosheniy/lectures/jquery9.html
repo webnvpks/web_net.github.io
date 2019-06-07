@@ -1,0 +1,134 @@
+<title>jQuery UI Введение</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+  <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+    <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#ffffff"
+        d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+      </path>
+    </svg>
+  </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+  <p class="name">
+    Проектирование, разработка и оптимизация веб-приложений
+  </p>
+  <div class="links">
+    <a href="../../../index.html" class="link">Главная</a>
+    <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+    <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+    <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+    <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+  </div>
+</div>
+<div class="content">
+  <h1>jQuery UI </h1>
+  <p><b>jQuery UI</b> представляет собой группу плагинов jQuery облегчающих создание интерфейса веб-приложений.</p>
+
+  <p> Пример </p>
+  <pre>
+$(document).ready(function(){
+
+   $("#drag").draggable();
+   $("#sortable").sortable();
+   $("#sortable").disableSelection();
+   $("#datepicker").datepicker({ monthNames:
+      ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август",  
+      "Сентябрь","Октябрь","Ноябрь","Декабрь"],
+      dayNamesMin: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]});
+
+});
+</pre>
+
+  <h1>Подключение jQuery UI</h1>
+  <p>Для того, чтобы воспользоваться возможностями плагинов jQuery UI их необходимо вначале подключить к странице, на
+    которой они будут использоваться.</p>
+  <p>Существуют два варианта подключения jQuery UI:</p>
+  <ol>
+    <li>Локальное подключение</a>. Данный способ требует скачивание специального файла с официального сайта;</li>
+    <li>Удаленное подключение</a>. Данный способ не требует скачивание файла, а вместо этого использует его удаленно
+      (<i>данная услуга предоставляется компанией Google</i>).</li>
+  </ol>
+  <h1>Локальное подключение jQuery UI</h1>
+  <p>На официальном сайте Вы можете или скачать <span style="border-bottom:1px #000 dashed;">стандартную
+      комплектацию</span> jQuery UI или собрать свою <span style="border-bottom:1px #000 dotted;">собственную</span>.
+  </p>
+  <p><span style="border-bottom:1px #000 dashed;">Стандартная комплектация</span> jQuery UI включает в себя все
+    существующие плагины и имеет стандартную тему оформления. Для того, чтобы скачать стандартную комплектацию
+    просто перейдите на <a href='http://jqueryui.com/download' target="_blank" style="color:blue">сайт jQuery UI</a> и
+    нажмите кнопку <b>Download</b>.</p>
+
+
+  <p>Если Вы хотите собрать <span style="border-bottom:1px #000 dotted;">собственную</span> комплектацию jQuery UI Вам
+    необходимо перейти на <a href='http://jqueryui.com/download' target="_blank" style="color:blue">сайт jQuery UI</a>
+    и выполнить шаги перечисленные ниже (<i>пропустите эти шаги если Вы скачали стандартную комплектацию</i>):</p>
+  <h4>Шаг 1: Выбрать необходимые компоненты</h4>
+  <p>По умолчанию в файл для скачивания включены все существующие плагины. Если какие-то из них не нужны Вы можете
+    убрать галочку напротив их названия
+    и сократить тем самым размер итогового файла.</p>
+
+  <p><b>Обратите внимание:</b> размер файла библиотеки влияет на скорость загрузки страницы, поэтому меньший размер
+    всегда предпочтителен.</p>
+
+  <h4>Шаг 2: Выбрать оформление </h4>
+  <p>Выберите одну из стандартных тем оформления плагинов jQuery UI в поле Theme или создайте свою тему с помощью <a
+      href='http://jqueryui.com/themeroller/' target="_blank" style="color:blue">themeroller'а.</a>
+
+    <h4>Шаг 3: Выбрать версию </h4>
+    <p>Выберите версию jQuery UI в поле Version.</p>
+    <p><b>Обратите внимание:</b> рекомендуем всегда выбирать последнюю доступную версию т.к. как более новые версии
+      всегда содержат интересные нововведения.</p>
+    <h4>Шаг 4: Скачать jQuery UI</h4>
+    <p>Нажмите кнопку Download и сохраните файл в удобное для Вас место на жестком диске.</p>
+
+    <p>Теперь (<i>вне зависимости скачали ли Вы стандартную комплектацию или собрали свою собственную</i>) необходимо
+      подключить jQuery UI к скрипту. Для этого необходимо распаковать скаченный файл и указать пути к файлам
+      <i>jquery-ui-версия.custom.css</i> и
+      <i>jquery-ui-версия.custom.min.js</i> в секции head скрипта.</p>
+    <p><b>Синтаксис:</b></p>
+
+    <pre>
+&lt;!-- 1. Подключим библиотеку jQuery (без нее jQuery UI не будет работать) --&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"&gt;&lt;/script&gt;
+&lt;!-- 2. Подключим jQuery UI --&gt;
+&lt;link type="text/css" href="путь_к_папке/css/themename/jquery-ui-1.8.13.custom.css" rel="stylesheet" /&gt;
+&lt;script type="text/javascript" src="путь_к_папке/js/jquery-ui-1.8.13.custom.min.js"&gt;&lt;/script&gt;
+</pre>
+
+    <h1>Удаленное подключение jQuery UI</h1>
+    <p>В этом варианте подключения Вы не можете настраивать комплектацию jQuery UI и можете использовать только ее
+      стандартную версию.</p>
+    <p>Для того, чтобы подключить библиотеку удаленно необходимо добавить следующие строчки в секцию head Вашей
+      страницы:</p>
+    <p><b>Синтаксис:</b></p>
+
+    <pre>
+&lt;!-- 1. Подключим библиотеку jQuery (без нее jQuery UI не будет работать) --&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"&gt;&lt;/script&gt;
+&lt;!-- 2. Подключим jQuery UI --&gt;
+&lt;link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"&gt;&lt;/script&gt;
+</pre>
+    <div class="next"><a href="jquery10.html">Следующая лекция</a></div>
+    <br>
+</div>
+<div id="vis">
+  <div class="font">
+    Размер шрифта:</div>
+  <div class="fontA" onclick="fonta()">А</div>
+  <div class="fontAA" onclick="fontaa()">А</div>
+  <div class="fontAAA" onclick="fontaaa()">А</div>
+  <div class="color">Цвет сайта:</div>
+  <div class="colorW" onclick="clwhite()">A</div>
+  <div class="colorBK" onclick="clblack()">A</div>
+  <div class="colorBE" onclick="clblue()">A</div>
+  <div class="imgOnOff">Изображение:</div>
+  <div class="imgOn" onclick="imgon()">Вкл.</div>
+  <div class="imgOff" onclick="imgoff()">Выкл.</div>
+  <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

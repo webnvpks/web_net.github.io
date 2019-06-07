@@ -1,0 +1,490 @@
+﻿/*Стили для ЭУМК*/
+
+/*Кодировка. Благодаря ей вы видете сейчас кирилицу*/
+@charset "UTF-8";
+
+/*Иконка для внешних ссылок*/
+
+a[href^="http://"]:not([href*=""]):after,
+a[href^="https://"]:not([href*=""]):after,
+a[href^="ftp://"]:not([href*=""]):after {
+	content: "" url(../img/external.png); padding:5px;}
+	
+/*Шрифт, его размер и фон для всех элементов*/	
+body{font-family:sans-serif;
+font-size:14pt;
+color: #232323;}
+
+/*Кнопка версии для слабовидящих*/
+.vision{
+	position: fixed;
+	text-align: center;
+	width: 4.5%;
+	background:rgba(37, 42, 51);
+	margin:0;
+	right: 0.25%;
+	top:0;}
+.vision:hover path{fill:rgb(244, 78, 66);}
+
+/*Панель для слабовидящих*/
+#vis{position:absolute;
+width:100%;
+background:white;
+top:0;
+left:0;
+display:none;
+box-shadow:0 7px 14px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22);
+z-index:9999;}
+
+/*Кнопка выхода на панели для слабовидящих*/
+#exit{
+position:absolute;
+right:1%;
+margin:1%;
+ 
+}
+
+/*Выбор размера шрифта*/
+.fontA, .fontAA, .fontAAA{
+	border: 1px solid #ccc;
+	display:inline-block;
+	float:left;
+	 }
+.fontA{margin:1% 0.5%;	}
+.fontAA{font-size: 21pt;margin:0.5% 0.5%;}
+.fontAAA{font-size: 28pt;margin:0 0.5%;}
+.font{
+margin:1% 0.5%;
+margin-right:0;
+float:left; }
+
+/*Выбор цвета*/
+.color{
+	border-left:2px solid tomato;
+	margin:1% 0.5%;
+	float:left; }
+.colorW, .colorBE, .colorBK{
+	border: 1px solid #ccc;
+	display:inline;
+	float:left;
+	margin:1% 0.5%;	
+	padding:1.5px;
+	 }
+.colorW{background:white;color:black;}
+.colorBK{ background:black; color:white;}
+.colorBE{ background:lightblue; color:blue;}
+
+/*Вкл/Выкл картинок*/
+.imgOnOff{
+	float:left;
+	margin:1% 0.5%;	
+	top:25%;
+	border-left:2px solid tomato;}
+.imgOn, .imgOff{
+	border: 1px solid #ccc;
+	display:inline;
+	float:left;
+	margin:1% 0.5%;	
+	padding:1.5px;
+	 }
+.imgOn{left:37%;}
+.imgOff{left:40%;}
+
+/*Стили при наведение*/
+.fontA:hover, .fontAA:hover, .fontAAA:hover,
+.colorW:hover, .colorBE:hover, .colorBK:hover,
+.imgOn:hover, .imgOff:hover, #exit:hover{
+border:1px solid #bfbdbd;
+box-shadow:0 7px 14px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22);}
+
+/*Стили для выбранной опции*/
+.vis_active{border:1px solid tomato;}
+
+/*Контент на главной странице*/
+.content_index{
+	position:absolute;
+	width:100%;
+	min-height:90%;
+	background:rgb(107, 42, 29);
+	color: #ccae0c;
+	text-shadow:2px 0px 2px black;
+	left:0;
+	top:0;}
+
+/*Загаловок на главной странице*/
+.up{
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	 }
+
+/*Блок для кнопок ГС*/
+.center{position:absolute; width: 100%; height:100%;}
+	
+/*Кнопки ГС*/
+.button1, .button2{
+	position: absolute;
+	top: 20%;
+	background: rgb(37, 42, 51);
+	border:1px solid rgb(25, 24, 24);
+	text-align: center;
+	border-radius: 15%;
+	padding:1%;
+	 }
+.button1{left:30%;}
+.button2{right:30%;padding: auto 1%;}
+button{margin:0;}
+.content_index .button1 a,.content_index .button2 a{color:rgb(193, 197, 204);text-shadow:none; text-decoration:none;}
+
+/*Кнопки при наведение*/
+.button1:hover, .button2:hover{background:rgb(25, 33, 35);}
+.button1:hover a, .button2:hover a{color: rgb(244, 78, 66);}
+
+/*Точки слайдер*/
+.dots{
+	position: absolute;
+	top:93%;
+	right:1%;
+	padding: 0.5%;}
+.dot {
+	height: 15px;
+	width: 15px;
+	background-color: #717171;
+	border-radius: 50%;
+	display: inline-block;
+	 }
+
+/*Точки слайдер при наведение и активная*/
+.active, .dot:hover {background-color: #3a3a3a;}
+
+/*Стрелки слайдер*/
+.left, .right{
+position:absolute;
+top:40%;
+font-size:5vw;
+border:none;
+background:none;
+color:#444;
+outline:none;}
+.left{left:0;}
+.right{right:0;}
+
+/*Стрелки слайдер при наведение*/
+.slides:hover .left, .slides:hover .right{color:#fff;background:rgba(0,0,0,0.3);}
+
+/*Картинки в слайдере*/
+.slides img{width: 100%;height: 100%;}
+
+/*Слайд*/
+.slide{display: none;
+	animation-name: fade;
+	animation-duration: 0.5s;
+	object-fit: cover;
+	border: 1px solid #ccc;}
+	
+/*Анимация при смене слайдов*/
+@keyframes fade {
+from {opacity: 0.5} 
+	to {opacity: 1}}
+
+/*Слайдер*/
+.slides{
+	position: absolute;
+	background: white;
+	width: 60%;
+	height: 60%;
+	left: 20%;
+	top:42%;
+	text-align: center;
+	box-shadow:0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	 }
+
+/*Задний фон*/
+.body{
+	position: fixed;
+	top: 0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	background:rgb(107, 42, 29);}
+
+/*Шапка*/
+.header{
+	position:absolute;
+	width:90%;
+	top:0;
+	height:7%;
+	background: rgb(37, 42, 51);
+	left:5%;
+	z-index:1;
+	 }
+
+.sandwich{
+color:rgb(193, 197, 204);
+margin:1%;
+text-align:center;
+font-size:5vw;
+display:none;
+height:100%;
+}
+
+/*Название*/
+.name{margin:0 0 0 1%;color: #f44336;}
+
+/*Фиксированая шапка*/
+.hat{
+	position: fixed;
+	width:90%;
+	height:7%;
+	top:0;
+	background: rgba(37, 42, 51,0.85);
+	left:5%;
+	z-index:2;
+	 }
+	
+/*Меню*/
+.links{
+position:absolute;
+width:100%;
+height:1%;}
+
+/*Пункт меню*/
+.link{
+	display:block;
+	float: left;
+	width:20%;
+	height:100%;
+	margin-top:0.2%;
+	text-align:center;
+	 }
+a.link{text-decoration:none; color:rgb(193, 197, 204);}
+.link:hover, a.link:hover{color:rgb(135, 138, 145);}
+
+/*Контент*/
+.content{
+top:7%;
+border: 1px solid #ccc;
+position:absolute;
+width:89%;
+min-height:92.7%;
+background: #EEEEEE;
+left:5.5%;
+ }
+.content a{text-decoration:none;color: #232323;}
+.content a:hover{color:#3f51b5; }
+
+/*Кнопки на страницах с добро пожаловать ...*/
+.butt{
+width:95%;
+margin: 2% 2.5%;
+}
+.buttin{
+display:block;
+margin:1% auto;
+text-align:center;
+width:25%;
+border: 1px solid rgb(25, 24, 24);
+color:rgb(193, 197, 204);
+padding:1% 0 2% 0;
+background: rgb(37, 42, 51);
+border-radius:5%;
+}
+.buttin a{color:rgb(193, 197, 204);}
+.buttin:hover{
+background:rgb(25, 33, 35);
+color: rgb(244, 78, 66);}
+.buttin:hover a{
+color: rgb(244, 78, 66);
+}
+
+/*Пункт содержание*/
+.h3_list{
+	display: inline-block;
+	margin:0.9% 0 0 5%;
+	border-bottom: 1.5px dotted #3f51b5;}
+
+/*Список содержание*/
+.ul_list{margin-left:5%;}
+
+/*Заголовк содержание*/
+.index{
+	margin-bottom:0.5%;
+	text-align:center;
+	border-bottom: 3px solid #f44336;}
+
+/*Блок списка*/
+.list1,.list2{width:50%;}
+.list1{float:left;}
+.list2{float:right;}
+
+/*Списки*/
+ul{
+	margin-top:0.5%;
+	margin-bottom:0.5%;}
+
+/*Видео*/	
+.video{
+	position:fixed;
+	display:block;
+	margin:1% 1% 1% 11%;
+	width:65%;
+	height:65%;
+	border: 2px solid #ccc;;}
+
+/*Отступ*/
+h1,h2,h3,h4,h5,h6,h7,p,pre,table,.info,.test_question{margin:1.2%;}
+
+/*Текст с исходным форматированием*/
+pre{
+	color:#002244;
+	background-color:#e0e3e9;
+	padding:5px;
+	border:#C5D3DC 1px solid;
+	font-family:'Courier New';
+	display:block;
+	text-indent:0;
+	overflow:auto;
+	text-align:left;
+	min-width:200px;
+	max-width:1024px;}
+
+/*Код*/	
+code{
+   color:#002244;
+   background-color:#e0e3e9;
+   font-family:"Courier New";
+   text-indent:0;
+   overflow:auto;
+   text-align:left;
+   min-width:200px;
+   max-width:1024px;}
+ 
+ /*Таблицы*/
+table,td{
+	border: 2px solid grey;
+	background:rgb(232, 236, 236);
+	color:rgb(12, 11, 11);
+	padding: 1%;
+}
+table{border-collapse: collapse;}
+
+/*Информация*/
+.info {
+	border:1px solid #D3D5C3;
+	border-radius:5px;
+	margin-bottom:5px;
+	padding:14px 20px 6px 48px;
+	min-height:30px;
+	min-width:200px;
+	max-width:1024px;}
+
+/*Картинки*/
+.img{text-align: center;}
+img { border: 1px solid #ccc;width:100%;}
+
+/*Дальше*/
+.next{
+position:relative;
+margin-left:1.5%;
+border:1px solid black;
+background:rgb(33, 37, 45);
+border-radius:5px;
+width:15%;
+font-size:15pt;
+text-align:center;}
+.next_video{
+	position:fixed;
+	bottom:3%;
+	margin-left:1.5%;
+	border:1px solid black;
+	background:rgb(33, 37, 45);
+	border-radius:5px;
+	width:15%;
+	font-size:15pt;
+	text-align:center;
+}
+.content .next a, .content .next_video a{color:rgb(193, 197, 204); border:none;}
+.content .next a:hover, .content .next_video a:hover{color:rgb(135, 138, 142); }
+
+/*Вопрос*/
+.test_question{
+position:relative;
+max-width:100%;
+background-color:#e0e3e9;
+border:#C5D3DC 1px solid;}
+
+/*Правильный ответ*/
+.yes_question{
+background:#29b25b;
+}
+
+/*Неправильный ответ*/
+.no_question{
+	background: #dd1c1c;
+}
+
+/*Надпись правильный/неправильный*/
+.c_answer{
+	position:absolute;
+	right:0;
+	bottom:0;
+	margin:1%;
+}
+
+/*Проверка теста*/
+.test_check{
+background-color:#e0e3e9;
+border:#C5D3DC 1px solid;
+display:inline-block;
+padding:0.5%;
+margin-left:45%;
+margin-right:45%;	}
+
+/*Результаты теста*/
+.test_rez{
+background-color:#e0e3e9;
+border:#C5D3DC 1px solid;
+max-width:50%;
+margin:1% auto;
+padding: 1%;
+text-align:center;
+display:none;}
+
+/*Результат теста активный*/
+.rez_active{
+display: block;
+}
+
+/*Запрет выделения*/	
+.vision, #vis, .content_index, .hat{
+	user-select:none;
+}
+
+/*Увелиичение radiobutton*/	
+input[type="radio"]{
+	transform:scale(1.5);
+	cursor:pointer;
+}
+
+/*Под экраны меньше 1000px в ширину*/
+@media all and (max-width:1024px){
+body{font-size:17pt;}
+.button1, .button2{top:50%; font-size:25pt;}
+.button1{left:10%;}
+.button2{right:10%;}
+.slides{display:none;}
+.vision{display:none;}
+.name{display:none;}
+.hat,.header{position:fixed;width:9.5%; left:0; height:100%;font-size:3vw;}
+.links{width:100%; height:15%;text-align:center;font-size:4vw;display:none;}
+.link{float:none; width:100%;}
+.content{top:0; width:90.5%; min-height:100%; left:9.5%;}
+.list1,.list2{width:100%;}
+.video{position:absolute;width:100%; height:40%; margin:0;}
+.buttin{width:40%;}
+.next,.next_video{width:25%}
+.c_answer{display:none;}
+.test_check{margin-left:30%;margin-right:30%;}
+.buttin{width:50%;}
+.sandwich{display:block;}
+}

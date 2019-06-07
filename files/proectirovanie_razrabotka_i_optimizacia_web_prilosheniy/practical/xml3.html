@@ -1,0 +1,694 @@
+<title>XML Schema Definition Language</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+    <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+        <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff"
+                d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+            </path>
+        </svg>
+    </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+    <p class="name">
+        Проектирование, разработка и оптимизация веб-приложений
+    </p>
+    <div class="links">
+        <a href="../../../index.html" class="link">Главная</a>
+        <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+        <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+        <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+        <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+    </div>
+</div>
+<div class="content">
+    <h1>XML XML Schema Definition Language</h1>
+    <p>Цель лабораторной работы:</p>
+    <ol>
+        <li>Познакомиться c XML схемами на примере XSD</li>
+        <li>Научиться описывать структуру XML документов с помощью XSD</li>
+    </ol>
+    <h2>Теоретические сведения</h2>
+    <p>Консорциум W3C выработал рекомендацию языка определения схем XML (XSD), объединив наиболее популярные языки
+        описания схем в один стандарт. Основная цель, которая при этом преследовалась, &mdash; получение стандарта,
+        который можно широко реализовать и при этом он платформно-независимый.</p>
+    <p>Язык XML Schema Definition Language, который также называют XML Schema Language, во многом похож на язык XDR, с
+        которым вы познакомились раньше. Схемы XSD способны решать следующие задачи:</p>
+    <ul>
+        <li>Перечисление элементов в документе XML и проверка наличия в документе только объявленных элементов.</li>
+        <li>Объявление и определение атрибутов, модифицирующих элементы документа.</li>
+        <li>Определение родительско-дочерних отношений между элементами.</li>
+        <li>Определение состояний и моделей содержания для элементов и атрибутов.</li>
+        <li>Задание типов данных.</li>
+        <li>Установка значений по умолчанию.</li>
+        <li>Возможность расширения.</li>
+        <li>Поддержка использования пространств имен.</li>
+    </ul>
+    <p>Корневым элементом в схеме XML является элемент&nbsp;<dfn>Schema</dfn>, который содержит все остальные элементы в
+        документе схемы. В рамках корневого элемента схемы XSD атрибутом&nbsp;<dfn>xmlns</dfn>&nbsp;определяется
+        пространство имен&nbsp;<dfn>XMLSchema</dfn>, которое содержит элементы и атрибуты XSD схемы.</p>
+    <p><code>&lt;xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;</code></p>
+    <p>Все элементы XSD начинаются с префикса&nbsp;<dfn>xsd:</dfn>, который указывается для пространства имен XSD,
+        объявленного в корневом элементе экземпляра схемы.</p>
+    <p>XML-документ, который проверяется с помощью схемы, также должен содержать объявление пространства имен.
+        Пространство имен всегда указывается в корневом элементе экземпляра документа с помощью
+        атрибута&nbsp;<dfn>xmlns:</dfn></p>
+    <p><code>xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"</code></p>
+    <p>Это пространство имен содержит элементы и атрибуты&nbsp;<dfn>XMLSchema</dfn>, которые можно включать в документ
+        XML. По общему соглашению префикс&nbsp;<dfn>xsi</dfn>&nbsp;используется для этого пространства имен и
+        добавляется в начале имен всех элементов и атрибутов, принадлежащих пространству имен, отделяясь от них
+        двоеточием.</p>
+    <p>Ссылка на конкретную схему приводится в атрибуте</p>
+    <p><code>xsi:schemaLocation="http://kit.znu.edu.ua/scemes/имя_файла.xsd"</code>&lt;h3"&gt;Объявление элемента и
+        атрибута XSD</p>
+    <p>Процесс создания схемы включает в себя два шага &mdash; определение и объявление типов элементов или типов
+        атрибутов. Элементы и атрибуты XML-документа объявляются элементами
+        схемы&nbsp;<dfn>xsd:element</dfn>&nbsp;и&nbsp;<dfn>xsd:attribute</dfn>. Структура же XML-документа определяется
+        элементами схемы&nbsp;<dfn>xsd:simpleType</dfn>&nbsp;и&nbsp;<dfn>xsd:complexType</dfn>.</p>
+    <p>Основное&nbsp;<strong>объявление элемента</strong>&nbsp;состоит из имени и типа данных</p>
+    <p><code>&lt;xsd:element name="имя_элемента" type="xsd:тип_данных"/&gt;</code></p>
+    <p>В схемах XSD дескрипторы, используемые в документах XML, разделяются на две категории &mdash; сложные типы и
+        простые типы. Элементы сложных типов могут содержать другие элементы, а также обладают определенными атрибутами;
+        элементы простых типов такими возможностями не обладают.</p>
+    <p><strong>Атрибут</strong>&nbsp;- объявление простого типа, которое не может содержать другие элементы. Объявление
+        атрибута похоже на объявление элемента:</p>
+    <p><code>&lt;xsd:attribute name="имя_атрибута" type="xsd:тип_данных"/&gt;</code></p>
+    <h3>Простые типы данных</h3>
+    <p>Есть две главных категории&nbsp;<strong>простых типов</strong>:</p>
+    <ul>
+        <li>встроенные типы;</li>
+        <li>определенные пользователем простые типы.</li>
+    </ul>
+    <p>Язык XSD имеет большое количество&nbsp;<dfn>встроенных простых типов</dfn>&nbsp;данных. Встроенные типы включают
+        в себя примитивные типы и производные.&nbsp;<dfn>Примитивные типы</dfn>&nbsp;данных не получены из других типов
+        данных. Например, числа с плавающей запятой - математическое понятие, которое не получено из других типов
+        данных.&nbsp;<dfn>Производные типы</dfn>&nbsp;данных определены в терминах существующих типов данных. Например,
+        целое число - частный случай, полученный из десятичного типа данных.</p>
+    <p>Следующая таблица представляет список примитивных типов данных XML-схемы, аспекты, которые могут быть применены к
+        типу данных и описания типа данных.</p>
+    <table>
+        <caption>Примитивные типы данных</caption>
+        <thead>
+            <tr>
+                <th>Тип данных</th>
+                <th>Аспекты</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><dfn>string</dfn></td>
+                <td>length, pattern, maxLength, minLength, enumeration, whiteSpace</td>
+                <td>Представляет символьную строку.</td>
+            </tr>
+            <tr>
+                <td><dfn>Boolean</dfn></td>
+                <td>pattern, whiteSpace</td>
+                <td>Представляет логическое значение, которое может быть true или false.</td>
+            </tr>
+            <tr>
+                <td><dfn>decimal</dfn></td>
+                <td>enumeration, pattern, totalDigits, fractionDigits, minInclusive, minExclusive, maxInclusive,
+                    maxExclusive, whiteSpace</td>
+                <td>Представляет произвольное число.</td>
+            </tr>
+            <tr>
+                <td><dfn>float</dfn></td>
+                <td>pattern, enumeration, minInclusive, minExclusive, maxInclusive, maxExclusive, whiteSpace</td>
+                <td>Представляет 32-битовое число с плавающей запятой одиночной точности.</td>
+            </tr>
+            <tr>
+                <td><dfn>double</dfn></td>
+                <td>pattern, enumeration, minInclusive, minExclusive, maxInclusive, maxExclusive, whiteSpace</td>
+                <td>Представляет 64-битовое число с плавающей запятой двойной точности.</td>
+            </tr>
+            <tr>
+                <td><dfn>duration</dfn></td>
+                <td>enumeration, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive, whiteSpace</td>
+                <td>Представляет продолжительность времени. Шаблон для duration следующий - PnYnMnDTnHnMnS, где nY
+                    представляет число лет; nM - месяцев; nD - дней; Т - разделитель даты и времени; nH - число часов;
+                    nM - минут; nS - секунд.</td>
+            </tr>
+            <tr>
+                <td><dfn>dateTime</dfn></td>
+                <td>enumeration, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive, whiteSpace</td>
+                <td>Представляет конкретное время. Шаблон для dateTime следующий - CCYY-MM-DDThh:mm:ss, где CC
+                    представляет столетие; YY - год; MM - месяц; DD - день; Т - разделитель даты и времени; hh - число
+                    часов; mm - минут; ss - секунд. При необходимости можно указывать доли секунды. Например, сотые доли
+                    в шаблоне: ss.ss</td>
+            </tr>
+            <tr>
+                <td><dfn>time</dfn></td>
+                <td>enumeration, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive, whiteSpace</td>
+                <td>Представляет конкретное время дня. Шаблон для time следующий -hh:mm:ss.sss (долевая часть секунд
+                    необязательна).</td>
+            </tr>
+            <tr>
+                <td><dfn>date</dfn></td>
+                <td>enumeration, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive, whiteSpace</td>
+                <td>Представляет календарную дату. Шаблон для date такой - CCYY-MM-DD (здесь необязательна часть,
+                    представляющая время).</td>
+            </tr>
+            <tr>
+                <td><dfn>gYearMonth  </dfn></td>
+                <td>enumeration, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive, whiteSpace</td>
+                <td>Представляет конкретный месяц конкретного года (CCYY-MM ).</td>
+            </tr>
+            <tr>
+                <td><dfn>gYear</dfn></td>
+                <td>enumeration, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive, whiteSpace</td>
+                <td>Представляет календарный год (CCYY).</td>
+            </tr>
+            <tr>
+                <td><dfn>gMonthDay</dfn></td>
+                <td>enumeration, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive, whiteSpace</td>
+                <td>Представляет конкретный день конкретного месяца (--MM-DD).</td>
+            </tr>
+            <tr>
+                <td><dfn>gDay</dfn></td>
+                <td>enumeration, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive, whiteSpace</td>
+                <td>Представляет календарный день (---DD).</td>
+            </tr>
+            <tr>
+                <td><dfn>gMonth</dfn></td>
+                <td>enumeration, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive, whiteSpace</td>
+                <td>Представляет календарный месяц (--MM--).</td>
+            </tr>
+            <tr>
+                <td><dfn>hexBinary</dfn></td>
+                <td>length, pattern, maxLength, minLength, enumeration, whiteSpace</td>
+                <td>Представляет произвольную шестнадцатерично-закодированную двоичную информацию. HexBinary - набор
+                    двоичных октетов фиксированной длины, состоящий из четырех пар шестнадцатеоисных символов. Например,
+                    0-9a-fA-F.</td>
+            </tr>
+            <tr>
+                <td><dfn>base64Binary</dfn></td>
+                <td>length, pattern, maxLength, minLength, enumeration, whiteSpace</td>
+                <td>Представляет произвольную Base64-закодированную двоичную информацию. Base64Binary - набор двоичных
+                    октетов фиксированной длины.</td>
+            </tr>
+            <tr>
+                <td><dfn>anyURI</dfn></td>
+                <td>length, pattern, maxLength, minLength, enumeration, whiteSpace</td>
+                <td>Представляет URI как определено в RFC 2396. Значение anyURI может быть абсолютно или относительно, и
+                    может иметь необязательный идентификатор фрагмента.</td>
+            </tr>
+            <tr>
+                <td><dfn>QName</dfn></td>
+                <td>length, enumeration, pattern, maxLength, minLength, whiteSpace</td>
+                <td>Представляет составное имя. Имя составлено из префикса и локального названия, отделенного
+                    двоеточием. И префикс и локальные названия должны быть NCNAME. Префикс должен быть связан с
+                    namespace URI ссылкой, используя объявление пространства имени.</td>
+            </tr>
+            <tr>
+                <td><dfn>NOTATION</dfn></td>
+                <td>length, enumeration, pattern, maxLength, minLength, whiteSpace</td>
+                <td>Представляет тип атрибута СИСТЕМЫ ОБОЗНАЧЕНИЙ. Набор QNAMES.</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>Следующая таблица представляет список производных типов данных XML-схемы, аспекты, которые могут быть применены к
+        типу данных и описания типа данных.</p>
+    <table>
+        <caption>Производные типы данных</caption>
+        <thead>
+            <tr>
+                <th>Тип данных</th>
+                <th>Аспекты</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><dfn>normalizedString</dfn></td>
+                <td>length, pattern, maxLength, minLength, enumeration, whiteSpace</td>
+                <td>Представляет нормализованные строки. Этот тип данных получен из string.</td>
+            </tr>
+            <tr>
+                <td><dfn>token</dfn></td>
+                <td>enumeration, pattern, length, minLength, maxLength, whiteSpace</td>
+                <td>Представляет маркированные строки. Этот тип данных получен из normalizedString.</td>
+            </tr>
+            <tr>
+                <td><dfn>language</dfn></td>
+                <td>length, pattern, maxLength, minLength, enumeration, whiteSpace</td>
+                <td>Представляет идентификаторы естественного языка (определенный RFC 1766). Этот тип данных получен из
+                    token</td>
+            </tr>
+            <tr>
+                <td><dfn>IDREFS</dfn></td>
+                <td>length, maxLength, minLength, enumeration, whiteSpace</td>
+                <td>Представляет тип атрибута IDREFS. Содержит набор значений типа IDREF.</td>
+            </tr>
+            <tr>
+                <td><dfn>ENTITIES</dfn></td>
+                <td>length, maxLength, minLength, enumeration, whiteSpace</td>
+                <td>Представляет тип атрибута ENTITIES. Содержит набор значений типа ENTITY.</td>
+            </tr>
+            <tr>
+                <td><dfn>NMTOKEN</dfn></td>
+                <td>length, pattern, maxLength, minLength, enumeration, whiteSpace</td>
+                <td>Представляет тип атрибута NMTOKEN. NMTOKEN - набор символов имен (символы, цифры и другие символы) в
+                    любой комбинации. В отличие отName и NCNAME, NMTOKEN не имеет никаких ограничений на первый символ.
+                    Этот тип данных получен из token.</td>
+            </tr>
+            <tr>
+                <td><dfn>NMTOKENS</dfn></td>
+                <td>length, maxLength, minLength, enumeration, whiteSpace</td>
+                <td>Представляет тип атрибута NMTOKENS. Содержит набор значений типа NMTOKEN.</td>
+            </tr>
+            <tr>
+                <td><dfn>Name</dfn></td>
+                <td>length, pattern, maxLength, minLength, enumeration, whiteSpace</td>
+                <td>Представляет имена в XML. Name - лексема(маркер), которая начинается с символа, символа
+                    подчеркивания или двоеточия и продолжается символами имен (символы, цифры, и другие символы). Этот
+                    тип данных получен из token.</td>
+            </tr>
+            <tr>
+                <td><dfn>NCName</dfn></td>
+                <td>length, pattern, maxLength, minLength, enumeration, whiteSpace</td>
+                <td>Представляет неколонкированные названия. Этот тип данных - тот же, что и Name, но не может
+                    начинаться с двоеточия. Этот тип данных получен из Name.</td>
+            </tr>
+            <tr>
+                <td><dfn>ID</dfn></td>
+                <td>length, enumeration, pattern, maxLength, minLength, whiteSpace</td>
+                <td>Представляет тип атрибута ID, определенный в XML 1.0 Рекомендации. ИДЕНТИФИКАТОР не должен иметь
+                    двоеточия (NCName) и должен быть уникален в пределах XML документа. Этот тип данных получен из
+                    NCNAME.</td>
+            </tr>
+            <tr>
+                <td><dfn>IDREF</dfn></td>
+                <td>length, enumeration, pattern, maxLength, minLength, whiteSpace</td>
+                <td>Представляет ссылку к элементу, имеющему атрибут ID, который точно соответствует установленному
+                    ИДЕНТИФИКАТОРУ. IDREF должен быть NCNAME и должен быть значением элемента или атрибута типа ID в
+                    пределах XML документа. Этот тип данных получен из NCNAME.</td>
+            </tr>
+            <tr>
+                <td><dfn>ENTITY</dfn></td>
+                <td>length, enumeration, pattern, maxLength, minLength, whiteSpace</td>
+                <td>Представляет тип атрибута ENTITY. Это - ссылка к неанализируемому объекту с именем, которое точно
+                    соответствует установленному имени. ENTITY должен быть NCNAME и должен быть объявлен в схеме как
+                    неанализируемое имя объекта. Этот тип данных получен из NCNAME.</td>
+            </tr>
+            <tr>
+                <td><dfn>integer</dfn></td>
+                <td>enumeration, fractionDigits, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive,
+                    totalDigits, whiteSpace</td>
+                <td>Представляет последовательность десятичных цифр с необязательным знаком (+ или -). Этот тип данных
+                    получен из decimal.</td>
+            </tr>
+            <tr>
+                <td><dfn>nonPositiveInteger   </dfn></td>
+                <td>enumeration, fractionDigits, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive,
+                    totalDigits, whiteSpace</td>
+                <td>Представляет целое число, меньшее или равное нулю. NonPositiveInteger состоит из отрицательного
+                    знака (-) и последовательности десятичных цифр. Этот тип данных получен из целого числа.</td>
+            </tr>
+            <tr>
+                <td><dfn>negativeInteger</dfn></td>
+                <td>enumeration, fractionDigits, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive,
+                    totalDigits, whiteSpace</td>
+                <td>Представляет целое число, меньшее нуля. Этот тип данных получен из nonPositiveInteger.</td>
+            </tr>
+            <tr>
+                <td><dfn>long</dfn></td>
+                <td>enumeration, fractionDigits, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive,
+                    totalDigits, whiteSpace</td>
+                <td>Представляет целое число с минимальным значением -9223372036854775808 и максимумом
+                    9223372036854775807. Этот тип данных получен из целого числа.</td>
+            </tr>
+            <tr>
+                <td><dfn>int</dfn></td>
+                <td>enumeration, fractionDigits, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive,
+                    totalDigits, whiteSpace</td>
+                <td>Представляет целое число с минимальным значением -2147483648 и максимумом 2147483647. Этот тип
+                    данных получен из long.</td>
+            </tr>
+            <tr>
+                <td><dfn>short</dfn></td>
+                <td>enumeration, fractionDigits, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive,
+                    totalDigits, whiteSpace</td>
+                <td>Представляет целое число с минимальным значением -32768 и максимумом 32767. Этот тип данных получен
+                    из int.</td>
+            </tr>
+            <tr>
+                <td><dfn>byte</dfn></td>
+                <td>enumeration, fractionDigits, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive,
+                    totalDigits, whiteSpace</td>
+                <td>Представляет целое число с минимальным значением -128 и максимумом 127. Этот тип данных получен из
+                    short.</td>
+            </tr>
+            <tr>
+                <td><dfn>nonNegativeInteger    </dfn></td>
+                <td>enumeration, fractionDigits, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive,
+                    totalDigits, whiteSpace</td>
+                <td>Представляет целое число, большее равное нулю. Этот тип данных получен из целого числа.</td>
+            </tr>
+            <tr>
+                <td><dfn>unsignedLong</dfn></td>
+                <td>enumeration, fractionDigits, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive,
+                    totalDigits, whiteSpace</td>
+                <td>Представляет целое число с минимумом нуль и максимумом 18446744073709551615. Этот тип данных получен
+                    из nonNegativeInteger.</td>
+            </tr>
+            <tr>
+                <td><dfn>unsignedInt</dfn></td>
+                <td>enumeration, fractionDigits, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive,
+                    totalDigits, whiteSpace</td>
+                <td>Представляет целое число с минимумом нуль и максимумом 4294967295. Этот тип данных получен из
+                    unsignedLong.</td>
+            </tr>
+            <tr>
+                <td><dfn>unsignedShort</dfn></td>
+                <td>enumeration, fractionDigits, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive,
+                    totalDigits, whiteSpace</td>
+                <td>Представляет целое число с минимумом нуль и максимумом 65535. Этот тип данных получен из
+                    unsignedInt.</td>
+            </tr>
+            <tr>
+                <td><dfn>unsignedByte</dfn></td>
+                <td>enumeration, fractionDigits, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive,
+                    totalDigits, whiteSpace</td>
+                <td>Представляет целое число с минимумом нуля и максимума 255. Этот тип данных получен из unsignedShort.
+                </td>
+            </tr>
+            <tr>
+                <td><dfn>positiveInteger</dfn></td>
+                <td>enumeration, fractionDigits, pattern, minInclusive, minExclusive, maxInclusive, maxExclusive,
+                    totalDigits, whiteSpace</td>
+                <td>Представляет целое число, которое является большим чем нуль. Этот тип данных получен из
+                    nonNegativeInteger.</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>Определённые пользователем простые типы</h3>
+    <p>Получены из встроенных типов, применением к ним именованых ограничений, называемыми
+        аспектами(Facets).&nbsp;<strong>Аспекты</strong>&nbsp;ограничивают допустимые значения простых типов. Синтаксис
+        применения аспектов ограничения следующий:</p>
+    <p><code>&lt;xsd:restriction base="тип_данных"&gt; &lt;xsd:имя_аспекта value="значение_аспекта"/&gt; &lt;/xsd:restriction&gt;</code>
+    </p>
+    <table>
+        <caption>Аспекты ограничения простых типов</caption>
+        <tbody>
+            <tr>
+                <th>Аспект</th>
+                <th>Значение</th>
+            </tr>
+            <tr>
+                <td><dfn>enumeration</dfn></td>
+                <td>Определенный набор значений. Ограничивает тип данных указанными значениями.</td>
+            </tr>
+            <tr>
+                <td><dfn>fractionDigits   </dfn></td>
+                <td>Значение с определенным максимальным числом десятичных цифр в дробной части.</td>
+            </tr>
+            <tr>
+                <td><dfn>length</dfn></td>
+                <td>Целочисленное число единиц длины. Единицы длины зависят от типа данных.</td>
+            </tr>
+            <tr>
+                <td><dfn>maxExclusive</dfn></td>
+                <td>Верхний предел значений (все значения - меньше указанного).</td>
+            </tr>
+            <tr>
+                <td><dfn>maxInclusive</dfn></td>
+                <td>Максимальное значение.</td>
+            </tr>
+            <tr>
+                <td><dfn>maxLength</dfn></td>
+                <td>Целочисленное число единиц максимальной длины.</td>
+            </tr>
+            <tr>
+                <td><dfn>minExclusive</dfn></td>
+                <td>Нижний предел значений (все значения - больше указанного).</td>
+            </tr>
+            <tr>
+                <td><dfn>minInclusive</dfn></td>
+                <td>Минимальное значение.</td>
+            </tr>
+            <tr>
+                <td><dfn>minLength</dfn></td>
+                <td>Целочисленное число единиц минимальной длины.</td>
+            </tr>
+            <tr>
+                <td><dfn>pattern</dfn></td>
+                <td>Литеральный шаблон, которому должны соответствовать значения.</td>
+            </tr>
+            <tr>
+                <td><dfn>totalDigits</dfn></td>
+                <td>Значение с определенным максимальным числом десятичных цифр.</td>
+            </tr>
+            <tr>
+                <td><dfn>whiteSpace</dfn></td>
+                <td>Одно из предопределенных значений: preserve, replace или collapse</td>
+            </tr>
+        </tbody>
+    </table>
+    <table>
+        <caption>Значения аспекта&nbsp;<dfn>whiteSpace</dfn></caption>
+        <tbody>
+            <tr>
+                <th>Значение</th>
+                <th>Описание</th>
+            </tr>
+            <tr>
+                <td><dfn>preserve</dfn></td>
+                <td>Никакая нормализация не выполняется.</td>
+            </tr>
+            <tr>
+                <td><dfn>replace</dfn></td>
+                <td>Все #x9 (tab), #xA (line feed) and #xD (carriage return) заменяются на #x20 (пробел).</td>
+            </tr>
+            <tr>
+                <td><dfn>collapse</dfn></td>
+                <td>После replace-обработки все внутренние цепочки #x20 разрушаются до одного пробела, а окружающие
+                    пробелы удаляются.</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>Аспекты могут быть указаны только однажды в определении типа,
+        кроме&nbsp;<dfn>enumeration</dfn>&nbsp;и&nbsp;<dfn>pattern</dfn>&nbsp;- они могут иметь многократные вхождения и
+        группируются.</p>
+    <h3>Именованный тип данных</h3>
+    <p>В языке XSD, в отличие от тех двух, с которыми вы познакомились раньше, существует концепция именованных типов.
+        Например, при создании определения, можно присвоить этому определению имя, чтобы повторно использовать его в
+        схеме XSD. Вы можете создать определение простого типа&nbsp;<dfn>simpleType</dfn>&nbsp;и назвать его,
+        например,&nbsp;<dfn>txt15pre</dfn>. В результате вы получите именованное ограничение. После этого вы сможете
+        применять это ограничение и к другим элементам в схеме. Это особенно полезно, когда в определении применяются
+        аспекты ограничения типа данных, чтобы не повторять их каждый раз в других определениях. Например,
+        элемент&nbsp;<dfn>simpleType</dfn>&nbsp;может быть связан с элементом&nbsp;<dfn>Фамилия</dfn>&nbsp;и
+        атрибутом&nbsp;<dfn>Телефон</dfn>&nbsp;для объявления содержания этих элемента и значения атрибута как строковых
+        данных:</p>
+    <pre>&lt;xsd:simpleType name="txt15pre"&gt;
+&nbsp;  &lt;xsd:restriction base="xsd:string"&gt;
+&nbsp; &nbsp; &nbsp;  &lt;xsd:maxLength value="15"/&gt;
+&nbsp; &nbsp; &nbsp;  &lt;xsd:whiteSpace value="preserve"/&gt;
+&nbsp;  &lt;/xsd:restriction&gt;
+&lt;/xsd:simpleType&gt;
+&lt;xsd:element name="Фамилия" type="txt15pre"/&gt;
+&lt;xsd:attribute name="Телефон" type="txt15pre" use="required"/&gt;</pre>
+    <p>Обратили внимание на ключевое слово&nbsp;<dfn>required</dfn>&nbsp;в объявлении атрибута? Как и в предыдущих
+        схемах, оно все так же означает обязательность использования объявленного атрибута. Другими предопределенными
+        значениями атрибута&nbsp;<dfn>use</dfn>&nbsp;элемента схемы&nbsp;<dfn>xsd:attribute</dfn>могут быть ключевые
+        слова&nbsp;<dfn>optional</dfn>&nbsp;и&nbsp;<dfn>prohibited</dfn>. Если первое из них означает необязательность
+        использования, то второе запрещает использование объявленного атрибута. Такая необходимость возникает в случае
+        локального объявления ранее определенной группы атрибутов элементом схемы&nbsp;<dfn>xsd:attributeGroup</dfn>,
+        например:</p>
+    <pre>&lt;xsd:attributeGroup name="Связь"&gt;
+&nbsp;  &lt;xsd:attribute name="Телефон" type="txt15pre"/&gt;
+&nbsp;  &lt;xsd:attribute name="Факс" type="txt15pre"/&gt;
+&lt;/xsd:attributeGroup&gt;</pre>
+    <p>далее в контексте определения элемента сложного типа мы делаем ограничение на применение атрибутов этой группы:
+    </p>
+    <pre>&lt;xsd:complexType name="Клиент"&gt;
+&nbsp;  &lt;xsd:complexContent&gt;
+&nbsp; &nbsp; &nbsp;  &lt;xsd:restriction base="xsd:Связь"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;xsd:attribute name="Телефон" use="required"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;xsd:attribute name="Факс" use="prohibited"/&gt;
+&nbsp; &nbsp; &nbsp;  &lt;/xsd:restriction&gt;
+&nbsp;  &lt;/xsd:complexContent&gt;
+&lt;/xsd:complexType&gt;</pre>
+    <h3>Сложные типы данных</h3>
+    <p><dfn>Модель содержания</dfn>&nbsp;элемента сложного типа - формальное описание структуры и допустимого содержания
+        элемента, которое используется для проверки правильности XML документа. Модели содержания Схемы предоставляют
+        больший контроль структуры элементов, чем модели содержания DTD. Кроме того, модели содержания схемы позволяют
+        проверять правильность смешанного содержания.</p>
+    <p>Модель содержания может ограничивать документ до некоторого набора элементных типов и атрибутов, описывать и
+        поддерживать связи между этими различными компонентами и уникально обозначать отдельные элементы. Свободное
+        использование модели содержания позволяет разработчикам изменять структурную информацию.</p>
+    <p>Перечень объявлений дочерних элементов приводится в структуре группирующих
+        XSD-элементов&nbsp;<strong>choice</strong>,&nbsp;<strong>sequence</strong>, и&nbsp;<strong>all</strong>.</p>
+    <p>Элемент&nbsp;<dfn>xsd:choice</dfn>&nbsp;позволяет только одному из элементов, содержащихся в группе
+        присутствовать в составе элемента. Элемент&nbsp;<dfn>xsd:sequence</dfn>&nbsp;требует появления элементов группы
+        в точно установленной последовательности в составе элемента.&nbsp;<dfn>xsd:all</dfn>&nbsp;элемент позволяет
+        элементам в группе быть (или не быть) в любом порядке в составе элемента.</p>
+    <p>Элемент&nbsp;<dfn>xsd:group</dfn>&nbsp;используется для четкого определения группы и для ссылки к именованной
+        группе. Вы можете использовать модель группы, чтобы определить набор элементов, которые могут быть повторены в
+        документе. Это полезно для формирования определения комплексного типа. Именованную модель группы можно далее
+        определить,
+        используя&nbsp;<dfn>&lt;xsd:sequence&gt;</dfn>,&nbsp;<dfn>&lt;xsd:choice&gt;</dfn>&nbsp;или&nbsp;<dfn>&lt;xsd:all&gt;</dfn>&nbsp;дочерние
+        элементы. Именованные группы должны определяться в корне схемы. При необходимости многократного использования
+        перечня элементов, определенного в группе, не надо каждый раз писать этот перечень - достаточно дать ссылку на
+        именованную группу&nbsp;<dfn>&lt;xsd:group ref="имя_группы"&gt;</dfn></p>
+    <h3>Определение элемента сложного типа</h3>
+    <p>Определения сложных типов создаются с использованием элемента&nbsp;<dfn>complexType</dfn>, его атрибутов и любых
+        допустимых аспектов. Обычно, сложные типы будут содержать набор элементных объявлений, объявлений атрибутов и
+        элементных ссылок.</p>
+    <pre>&lt;xsd:element name="имя_элемента" type="xsd:тип_данных"&gt;
+&lt;xsd:complexType&gt;
+&nbsp;  &lt;xsd:sequence&gt;
+&nbsp; &nbsp;  &lt;xsd:element name="имя_элемента" type="xsd:тип_данных"/&gt;
+&nbsp;  &lt;/xsd:sequence&gt;
+&nbsp;  &lt;xsd:attribute name="имя_атрибута" type="xsd:тип_данных"/&gt;
+&lt;/xsd:complexType&gt;
+&lt;/xsd:element&gt;</pre>
+    <h3>Листинг 1. Пример XSD-схемы "Картотека.xsd"</h3>
+    <pre>&lt;xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+&nbsp;  &lt;xsd:element name="Заказчики"&gt;
+&nbsp; &nbsp; &nbsp;  &lt;xsd:complexType&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;xsd:sequence maxOccurs="unbounded"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;xsd:element name="Заказчик"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;xsd:complexType&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;xsd:sequence&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;xsd:element name="Компания"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;xsd:complexType&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;xsd:attribute name="телефон"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  type="xsd:string" use="required"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;/xsd:complexType&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;/xsd:element&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;/xsd:sequence&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;/xsd:complexType&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;/xsd:element&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;/xsd:sequence&gt;
+&nbsp; &nbsp; &nbsp;  &lt;/xsd:complexType&gt;
+&nbsp;  &lt;/xsd:element&gt;
+&lt;/xsd:schema&gt;</pre>
+    <h2>Задание на лабораторную работу</h2>
+    <p>Необходимо для XML документа, созданого в первой лабораторной работе, определить его струткуру с помощью XSD.
+        Осуществить проверку соответсвия документа описанию его структуры.</p>
+    <h2>W3C парсеры для XML.</h2>
+    <p>Проблемой при валидации (проверка правилоьности XML документа согласно схеме) является тот факт, что соответствие
+        документов их схемам некоторые броузеры не проверяют. В связи с этим возникает необходимость использовать
+        возможности DOM (Document Object Model - см. лаб.раб. №5) для проверки правильности. Функция валидации так или
+        иначе присутствует в любом парсере. Ее необходимо правильно вызвать. Проверить соответствие XDR схеме в ОС
+        Windows несколько легче, поскольку XML парсер от Microsoft является частью операционной системы. Достаточно
+        воспользоваться Java скриптом для проверке (как в прошлой лабораторной работе).</p>
+    <p>XSD является стандартом, поддерживаемым и развиваемым консорциумом W3C. В рамках этой поддержки<a target="_blank"
+            href="http://www.apache.org/">The Apache Software Foundation</a>&nbsp;создала набор ПО, представляющего
+        собой парсеры и другое обеспечение для&nbsp;<a href="http://xml.apache.org/">работы с XML</a>. Одним из таких
+        известных парсеров является&nbsp;<a target="_blank" href="http://xerces.apache.org/">Xerces</a>. Он существует в
+        виде отдельного ПО, реализованного на С++ или Java. Чтобы не ограничивать Вас в выборе инструментальной среды и
+        ОС, будем использовать Java реализацию ввиду ее кроссплатформенности и простоты использования.</p>
+    <p><strong>Замечание</strong>. Для запуска Java приложения необходимо, чтобы на компьютере была установлена Java
+        машина от Sun. Желательно с Java SDK.</p>
+    <p>Предположим у нас есть XML документ&nbsp;<a target="_blank"
+            href="https://bdpx.github.io/xml/lab3/sonnet.xml">SONNET.XML</a></p>
+    <pre><span>&lt;?xml</span> <span>version="1.0"?&gt;</span>
+<span>&lt;</span><span>sonnet</span>
+<span>xmlns:xsi</span>=<span>"http://www.w3.org/2001/XMLSchema-instance"</span>
+<span>xsi:noNamespaceSchemaLocation</span>=<span>"sonnet.xsd"</span>
+<span>type</span>=<span>"Shakespearean"</span><span>&gt;</span>
+<span>&lt;</span><span>author</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>lastName</span><span>&gt;</span>Shakespeare<span>&lt;/</span><span>lastName</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>firstName</span><span>&gt;</span>William<span>&lt;/</span><span>firstName</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>nationality</span><span>&gt;</span>British<span>&lt;/</span><span>nationality</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>yearOfBirth</span><span>&gt;</span>1564<span>&lt;/</span><span>yearOfBirth</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>yearOfDeath</span><span>&gt;</span>1616<span>&lt;/</span><span>yearOfDeath</span><span>&gt;</span>
+<span>&lt;/</span><span>author</span><span>&gt;</span>
+<span>&lt;</span><span>title</span><span>&gt;</span>Sonnet 130<span>&lt;/</span><span>title</span><span>&gt;</span>
+<span>&lt;</span><span>lines</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>line</span><span>&gt;</span>My mistress' eyes are nothing like the sun,<span>&lt;/</span><span>line</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>line</span><span>&gt;</span>Coral is far more red than her lips red.<span>&lt;/</span><span>line</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>line</span><span>&gt;</span>If snow be white, why then her breasts are dun,<span>&lt;/</span><span>line</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>line</span><span>&gt;</span>If hairs be wires, black wires grow on her head.<span>&lt;/</span><span>line</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>line</span><span>&gt;</span>I have seen roses damasked, red and white,<span>&lt;/</span><span>line</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>line</span><span>&gt;</span>But no such roses see I in her cheeks.<span>&lt;/</span><span>line</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>line</span><span>&gt;</span>And in some perfumes is there more delight<span>&lt;/</span><span>line</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>line</span><span>&gt;</span>Than in the breath that from my mistress reeks.<span>&lt;/</span><span>line</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>line</span><span>&gt;</span>I love to hear her speak, yet well I know<span>&lt;/</span><span>line</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>line</span><span>&gt;</span>That music hath a far more pleasing sound.<span>&lt;/</span><span>line</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>line</span><span>&gt;</span>I grant I never saw a goddess go,<span>&lt;/</span><span>line</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>line</span><span>&gt;</span>My mistress when she walks, treads on the ground.<span>&lt;/</span><span>line</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>line</span><span>&gt;</span>And yet, by Heaven, I think my love as rare<span>&lt;/</span><span>line</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>line</span><span>&gt;</span>As any she belied with false compare.<span>&lt;/</span><span>line</span><span>&gt;</span>
+<span>&lt;/</span><span>lines</span><span>&gt;</span>
+<span>&lt;/</span><span>sonnet</span><span>&gt;</span></pre>
+    <p>И есть соответсвенно схема&nbsp;<a href="https://bdpx.github.io/xml/lab3/sonnet.xsd">SONNET.XSD</a></p>
+    <pre><span>&lt;?xml</span> <span>version="1.0" encoding="UTF-8"?&gt;</span>
+<span>&lt;</span><span>xsd:schema</span> <span>xmlns:xsd</span>=<span>"http://www.w3.org/2001/XMLSchema"</span><span>&gt;</span>
+<span>&lt;</span><span>xsd:element</span> <span>name</span>=<span>"sonnet"</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>xsd:complexType</span><span>&gt;</span>
+&nbsp; &nbsp;  <span>&lt;</span><span>xsd:sequence</span><span>&gt;</span>
+&nbsp; &nbsp; &nbsp;  <span>&lt;</span><span>xsd:element</span> <span>ref</span>=<span>"author"</span><span>/&gt;</span>
+&nbsp; &nbsp; &nbsp;  <span>&lt;</span><span>xsd:element</span> <span>ref</span>=<span>"title"</span> <span>minOccurs</span>=<span>"0"</span><span>/&gt;</span>
+&nbsp; &nbsp; &nbsp;  <span>&lt;</span><span>xsd:element</span> <span>ref</span>=<span>"lines"</span><span>/&gt;</span>
+&nbsp; &nbsp;  <span>&lt;/</span><span>xsd:sequence</span><span>&gt;</span>
+&nbsp; &nbsp;  <span>&lt;</span><span>xsd:attribute</span> <span>name</span>=<span>"type"</span> <span>type</span>=<span>"sonnetType"</span>
+&nbsp; &nbsp; &nbsp;  <span>default</span>=<span>"Shakespearean"</span><span>/&gt;</span>
+&nbsp;  <span>&lt;/</span><span>xsd:complexType</span><span>&gt;</span>
+<span>&lt;/</span><span>xsd:element</span><span>&gt;</span>
+<span>&lt;</span><span>xsd:simpleType</span> <span>name</span>=<span>"sonnetType"</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>xsd:restriction</span> <span>base</span>=<span>"xsd:string"</span><span>&gt;</span>
+&nbsp; &nbsp;  <span>&lt;</span><span>xsd:enumeration</span> <span>value</span>=<span>"Petrarchan"</span><span>/&gt;</span>
+&nbsp; &nbsp;  <span>&lt;</span><span>xsd:enumeration</span> <span>value</span>=<span>"Shakespearean"</span><span>/&gt;</span>
+&nbsp;  <span>&lt;/</span><span>xsd:restriction</span><span>&gt;</span>
+<span>&lt;/</span><span>xsd:simpleType</span><span>&gt;</span>
+<span>&lt;</span><span>xsd:element</span> <span>name</span>=<span>"author"</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>xsd:complexType</span><span>&gt;</span>
+&nbsp; &nbsp;  <span>&lt;</span><span>xsd:sequence</span><span>&gt;</span>
+&nbsp; &nbsp; &nbsp;  <span>&lt;</span><span>xsd:element</span> <span>ref</span>=<span>"lastName"</span><span>/&gt;</span>
+&nbsp; &nbsp; &nbsp;  <span>&lt;</span><span>xsd:element</span> <span>ref</span>=<span>"firstName"</span><span>/&gt;</span>
+&nbsp; &nbsp; &nbsp;  <span>&lt;</span><span>xsd:element</span> <span>ref</span>=<span>"nationality"</span><span>/&gt;</span>
+&nbsp; &nbsp; &nbsp;  <span>&lt;</span><span>xsd:element</span> <span>ref</span>=<span>"yearOfBirth"</span> <span>minOccurs</span>=<span>"0"</span><span>/&gt;</span>
+&nbsp; &nbsp; &nbsp;  <span>&lt;</span><span>xsd:element</span> <span>ref</span>=<span>"yearOfDeath"</span> <span>minOccurs</span>=<span>"0"</span><span>/&gt;</span>
+&nbsp; &nbsp;  <span>&lt;/</span><span>xsd:sequence</span><span>&gt;</span>
+ &nbsp;  <span>&lt;/</span><span>xsd:complexType</span><span>&gt;</span>
+<span>&lt;/</span><span>xsd:element</span><span>&gt;</span>
+<span>&lt;</span><span>xsd:element</span> <span>name</span>=<span>"lastName"</span> <span>type</span>=<span>"xsd:string"</span><span>/&gt;</span>
+<span>&lt;</span><span>xsd:element</span> <span>name</span>=<span>"firstName"</span> <span>type</span>=<span>"xsd:string"</span><span>/&gt;</span>
+<span>&lt;</span><span>xsd:element</span> <span>name</span>=<span>"nationality"</span> <span>type</span>=<span>"xsd:string"</span><span>/&gt;</span>
+<span>&lt;</span><span>xsd:element</span> <span>name</span>=<span>"yearOfBirth"</span> <span>type</span>=<span>"xsd:string"</span><span>/&gt;</span>
+<span>&lt;</span><span>xsd:element</span> <span>name</span>=<span>"yearOfDeath"</span> <span>type</span>=<span>"xsd:string"</span><span>/&gt;</span>
+<span>&lt;</span><span>xsd:element</span> <span>name</span>=<span>"title"</span> <span>type</span>=<span>"xsd:string"</span><span>/&gt;</span>
+<span>&lt;</span><span>xsd:element</span> <span>name</span>=<span>"lines"</span><span>&gt;</span>
+&nbsp;  <span>&lt;</span><span>xsd:complexType</span><span>&gt;</span>
+&nbsp; &nbsp;  <span>&lt;</span><span>xsd:sequence</span><span>&gt;</span>
+&nbsp; &nbsp; &nbsp;  <span>&lt;</span><span>xsd:element</span> <span>ref</span>=<span>"line"</span> <span>minOccurs</span>=<span>"14"</span> <span>maxOccurs</span>=<span>"14"</span><span>/&gt;</span>
+&nbsp; &nbsp;  <span>&lt;/</span><span>xsd:sequence</span><span>&gt;</span>
+&nbsp;  <span>&lt;/</span><span>xsd:complexType</span><span>&gt;</span>
+<span>&lt;/</span><span>xsd:element</span><span>&gt;</span>
+<span>&lt;</span><span>xsd:element</span> <span>name</span>=<span>"line"</span> <span>type</span>=<span>"xsd:string"</span><span>/&gt;</span>
+<span>&lt;/</span><span>xsd:schema</span><span>&gt;</span></pre>
+    <p>Готовый DomValidator для проверки правильности XML документа на Java можно скачать&nbsp;<a target="_blank"
+            href="https://bdpx.github.io/xml/dist/DomValidator.java">здесь</a>.</p>
+    <p>Скомпилировать DOMValidator можно коммандой:</p>
+    <p><code>javac domvalidator.java</code></p>
+    <p>Проверить правильность SONNET.XML относительно схемы SONNET.XSD (должна находится в том же каталоге) можно
+        коммандой</p>
+    <p><code>java DomValidator sonnet.xml xsd</code></p>
+    <p>И при необходимости сам Xerces можно скачать&nbsp;<a target="_blank"
+            href="https://bdpx.github.io/xml/dist/xerces-j.rar">отсюда</a>&nbsp;или с&nbsp;<a target="_blank"
+            href="http://xerces.apache.org/">официального сайта</a>.</p>
+    <div class="next"><a href="xml4.html">Следующая работа</a></div>
+</div>
+<div id="vis">
+    <div class="font">
+        Размер шрифта:</div>
+    <div class="fontA" onclick="fonta()">А</div>
+    <div class="fontAA" onclick="fontaa()">А</div>
+    <div class="fontAAA" onclick="fontaaa()">А</div>
+    <div class="color">Цвет сайта:</div>
+    <div class="colorW" onclick="clwhite()">A</div>
+    <div class="colorBK" onclick="clblack()">A</div>
+    <div class="colorBE" onclick="clblue()">A</div>
+    <div class="imgOnOff">Изображение:</div>
+    <div class="imgOn" onclick="imgon()">Вкл.</div>
+    <div class="imgOff" onclick="imgoff()">Выкл.</div>
+    <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

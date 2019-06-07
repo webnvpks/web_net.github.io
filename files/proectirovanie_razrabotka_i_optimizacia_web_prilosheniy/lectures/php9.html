@@ -1,0 +1,583 @@
+<title>PHP MySQL</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+    <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+        <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff"
+                d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+            </path>
+        </svg>
+    </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+    <p class="name">
+        Проектирование, разработка и оптимизация веб-приложений
+    </p>
+    <div class="links">
+        <a href="../../../index.html" class="link">Главная</a>
+        <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+        <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+        <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+        <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+    </div>
+</div>
+<div class="content">
+    <h1>Связь с базами данных MySQL</h1>
+    <p>СУБД <strong>MySQL</strong> - одна из множества баз данных, поддерживаемых в PHP.
+        Система MySQL распространяется бесплатно и обладает достаточной мощностью
+        для решения реальных задач.</p>
+
+    <h2>Краткое введение в MySQL</h2>
+    <p><strong>SQL</strong> - это аббревиатура от слов <i>Structured Query Language</i>, что
+        означает структурированный язык запросов. Этот язык является стандартным
+        средством для доступа к различным базам данных.
+    </p>
+    <p>Система MySQL представляет собой сервер, к которому могут подключаться
+        пользователи удаленных компьютеров.
+    </p>
+    <p>Для работы с базами данных удобно пользоваться средством, входящее
+        в комплект Web-разработчика: Denwer
+        phpMyAdmin.
+        Здесь можно создать новую базу данных, создать новую таблицу в выбранной
+        базе данных, заполнить таблицу данными, а также добавлять, удалять и
+        редактировать данные.
+    </p>
+    <p>В MySQL определены три базовых типа данных: числовой, дата и время и
+        строчный. Каждая из этих категорий подразделяется на множество типов.
+        Основные из них:
+    </p>
+    <p></p>
+    <table border="" cellspacing="0" cellpadding="5">
+        <tbody>
+            <tr>
+                <th>Тип</th>
+                <th>Описание</th>
+            </tr>
+            <tr>
+                <td>INT</td>
+                <td>Целое число
+                </td>
+            </tr>
+            <tr>
+                <td>TINYINT</td>
+                <td>Маленькое целое число (-127 до 128 или от 0 до 255)
+                </td>
+            </tr>
+            <tr>
+                <td>FLOAT</td>
+                <td>Вещественное число с плавающей точкой
+                </td>
+            </tr>
+            <tr>
+                <td>DATE</td>
+                <td>Дата. Отображается в виде ГГГГ-ММ-ДД
+                </td>
+            </tr>
+            <tr>
+                <td>TIME</td>
+                <td>Время. Отображается в виде ЧЧ:ММ:СС
+                </td>
+            </tr>
+            <tr>
+                <td>DATETIME</td>
+                <td>Дата и время. Отображается в виде ГГГГ-ММ-ДДЧЧ:ММ:СС
+                </td>
+            </tr>
+            <tr>
+                <td>YEAR[(2|4)]</td>
+                <td>Год. Можно определить двух- или четырехциферный формат
+                </td>
+            </tr>
+            <tr>
+                <td>CHAR(M)</td>
+                <td>Строка фиксированной длины М (M&lt;=255)
+                </td>
+            </tr>
+            <tr>
+                <td>VARCHAR(M)</td>
+                <td>Строка произвольной длины до М (M&lt;=255)
+                </td>
+            </tr>
+            <tr>
+                <td>TEXT</td>
+                <td>Длинные текстовые фрагменты (&lt;=65535)
+                </td>
+            </tr>
+            <tr>
+                <td>BLOB</td>
+                <td>Большие двоичные объекты (изображения, звуки)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p></p>
+    <p>Каждый столбец после своего типа данных содержит и другие спецификаторы:
+    </p>
+    <p></p>
+    <table border="" cellspacing="0" cellpadding="5">
+        <colgroup>
+            <col valign="top">
+        </colgroup>
+        <tbody>
+            <tr>
+                <th>Тип</th>
+                <th>Описание</th>
+            </tr>
+            <tr>
+                <td>NOT NULL</td>
+                <td>Все строки таблицы должны иметь значение в этом атрибуте.
+                    Если не указано, поле может быть пустым (<tt>NULL</tt>)</td>
+            </tr>
+            <tr>
+                <td>AUTO_INCREMENT</td>
+                <td>
+                    Специальная возможность MySQL, которую можно задействовать в
+                    числовых столбцах. Если при вставке строк в таблицу оставлять такое поле пустым,
+                    MySQL автоматически генерирует уникальное значение идентификатора. Это значение
+                    будет на единицу больше максимального значения, уже существующего в столбце. В
+                    каждой таблице может быть не больше одного такого поля. Столбцы с
+                    <tt>AUTO_INCREMENT</tt> должны быть проиндексированными</td>
+            </tr>
+            <tr>
+                <td>PRIMARY KEY</td>
+                <td>Столбец является первичным
+                    ключом для таблицы. Данные в этом столбце должны быть уникальными.
+                    MySQL автоматически индексирует этот столбец</td>
+            </tr>
+            <tr>
+                <td>UNSIGNED</td>
+                <td>После целочисленного типа означает, что его значение
+                    может быть либо положительным, либо нулевым</td>
+            </tr>
+            <tr>
+                <td>COMMENT</td>
+                <td>Название столбца таблицы</td>
+            </tr>
+        </tbody>
+    </table>
+    <p></p>
+    <p><strong>Создание новой базы данных MySQL</strong> осуществляется при помощи SQL-команды <b>CREATE DATABASE</b>.
+    </p>
+    <pre>CREATE DATABASE IF NOT EXISTS `base`
+	DEFAULT CHARACTER SET cp1251 COLLATE cp1251_bin
+</pre>
+    <p><strong>Создание новой таблицы</strong> осуществляется при помощи SQL-команды <b>CREATE TABLE</b>.
+        Например, таблица <tt>books</tt> для книжного магазина будет содержать пять полей:
+        ISBN, автор, название, цена и количество экземпляров:
+    </p>
+    <pre>CREATE TABLE books (ISBN CHAR(13) NOT NULL,
+                    PRIMARY KEY (ISBN),
+                    author VARCHAR(30),
+                    title VARCHAR(60),
+                    price FLOAT(4,2),
+                    quantity TINYINT UNSIGNED);
+</pre>
+    <p>Чтобы избежать сообщения об ошибке, если таблица уже есть необходимо изменить первую строчку, добавив фразу "IF
+        NOT EXISTS":</p>
+    <pre>CREATE TABLE IF NOT EXISTS books ...
+</pre>
+    <p>Для создания <b>автообновляемого поля</b> с текущей датой типа TIMESTAMP или DATETIME используйте следующую
+        конструкцию:</p>
+    <pre class="adb"><code class="language-php">CREATE TABLE t1 (
+ts TIMESTAMP <span class="keyword">DEFAULT</span> CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+dt DATETIME <span class="keyword">DEFAULT</span> CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);</code></pre>
+    <p><strong>Добавление</strong> данных в эту таблицу осуществляется при помощи SQL-команды
+        <b>INSERT</b>. Например:
+    </p>
+    <pre>INSERT INTO books ( ISBN, author, title, price, quantity )
+           VALUES ('5-8459-0184-7', 'Зандстра Мэт',
+                   'Освой самостоятельно PHP4 за 24 часа', '129', '5');
+</pre>
+    <p>Для извлечения данных из таблицы служит оператор <b>SELECT</b>.
+        Он извлекает данные из базы, выбирая строки, которые отвечают
+        заданному критерию поиска. Оператор <tt>SELECT</tt> сопровождает немалое
+        количество опций и вариантов использования.
+    </p>
+    <p>Символ <tt>*</tt> означает, что необходимы все поля. Например:
+    </p>
+    <pre>SELECT * FROM books;
+</pre>
+    <p>Для получения доступа только к некоторому полю следует указать его имя в
+        инструкции <tt>SELECT</tt>. Например:
+    </p>
+    <pre>SELECT author, title, price FROM books;
+</pre>
+    <p>Чтобы получить доступ к подмножеству строк в таблице, следует указать
+        критерий выбора, который устанавливает конструкция <b>WHERE</b>. Например,
+        чтобы выбрать имеющиеся в наличии недорогие книги о PHP, надо составить запрос:
+    </p>
+    <pre>SELECT * FROM books WHERE
+	price &lt; 200 AND title LIKE '%PHP%' AND quantity != 0;
+</pre>
+    <p>% Соответствует любому количеству символов, даже нулевых</p>
+    <p>_ Соответствует ровно одному символу</p>
+    <p>Для того, чтобы строки, извлеченные по запросу, перечислялись в определенном
+        порядке, используется конструкция <b>ORDER BY</b>. Например:
+    </p>
+    <pre>SELECT * FROM books ORDER BY price;
+</pre>
+    <p>По умолчанию <strong>порядок</strong> <strong>сортировки</strong> идет по возрастанию. Изменить порядок
+        сортировки на обратный можно с помощью ключевого слова <b>DESC</b>:
+    </p>
+    <pre>SELECT * FROM books ORDER BY price DESC;
+</pre>
+    <p><strong>Сортировать</strong> можно и по нескольким столбцам. Вместо названий столбцов
+        можно использовать их порядковые номера:
+    </p>
+    <pre>SELECT * FROM books ORDER BY 4, 2, 3;
+</pre>
+    <p>Для изменения ранее записанных в таблицу значений нужно воспользоваться
+        командой <b>UPDATE</b>. Например, цену всех книг повысили на 10%:
+    </p>
+    <pre>UPDATE books SET price = price * 1.1;
+</pre>
+    <p>Конструкция <tt>WHERE</tt> ограничит работу <tt>UPDATE</tt> определенным
+        строками. Например:
+    </p>
+    <pre>UPDATE books SET price = price * 1.05 WHERE price &lt;= 250;
+</pre>
+    <p>Для удаления строк из базы данных используется оператор <b>DELETE</b>.
+        Ненужные строки указываются при помощи конструкции <tt>WHERE</tt>. Например,
+        какие-то книги проданы:
+    </p>
+    <pre>DELETE FROM books WHERE quantity = 0;
+</pre>
+    <p>Если нужно удалить все записи</p>
+    <pre>TRUNCATE TABLE table_name</pre>
+    <p>Для полного удаления таблицы используется:</p>
+    <pre>DROP TABLE table_name</pre>
+
+    <h2>Связь PHP с базой данных MySQL</h2>
+    <p>Поработав с phpMyAdmin над созданием
+        базы данных, можно приступить к подключению этой базы данных к внешнему Web-интерфейсу.
+    </p>
+    <p>Чтобы получить доступ к базе данных из Web, используя PHP, надо сделать
+        следующие основные шаги:
+    </p>
+    <ul>
+        <li>Подключение к серверу MySQL.
+        </li>
+        <li>Выбор базы данных.
+        </li>
+        <li>Выполнение запроса к базе данных:
+            <ul>
+                <li><strong>добавление</strong>;
+                </li>
+                <li><strong>удаление</strong>;
+                </li>
+                <li><strong>изменение</strong>;
+                </li>
+                <li><strong>поиск</strong>;
+                </li>
+                <li><strong>сортировка</strong>.
+                </li>
+            </ul>
+        </li>
+        <li>Получение результата запроса.
+        </li>
+        <li>Отсоединение от базы данных.
+        </li>
+    </ul>
+    <p>Для подключения к серверу базы данных в PHP есть функция
+        <b>mysql_connect( )</b>. Ее аргументы: имя компьютера, имя пользователя и пароль.
+        Эти аргументы можно опустить. По умолчанию имя компьютера = <tt>localhost</tt>,
+        тогда имя пользователя и пароль не требуется. Если PHP используется в сочетании
+        с сервером Apache, то можно воспользоваться функцией <b>mysql_pconnect()</a></b>.
+        В этом случае соединение с сервером не исчезает после завершения работы
+        программы или вызова функции <b>mysql_close()</a></b>.
+        Функции <b>mysql_connect()</a></b> и <b>mysql_pconnect()</a></b> возвращают
+        идентификатор подключения, если все прошло успешно. Например:
+    </p>
+    <pre>$link = mysql_pconnect ();
+if ( !$link ) die ("Невозможно подключение к MySQL");
+</pre>
+    <p>После того, как соединение с сервером MySQL установлено, нужно выбрать
+        базу данных. Для этого используется функция <b>mysql_select_db()</a></b>.
+        Ее аргумент: имя базы данных. Функция возвращает <tt>true</tt>, если указанная
+        база данных существует и доступ к ней возможен. Например:
+    </p>
+    <pre>$db = "sample";
+mysql_select_db ( $db ) or die ("Невозможно открыть $db");
+</pre>
+    <p>Для добавления, удаления, изменения и выбора данных нужно сконструировать и
+        выполнить запрос SQL. Для этого в языке PHP существует функция
+        <b>mysql_query()</a></b>. Ее аргумент: строка с запросом.
+        Функция возвращает идентификатор запроса.
+    </p>
+    <h4>Пример 1</h4>
+
+    <pre class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">title</span>&gt;</span>Добавление записи в таблицу<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="pi">&lt;?php
+$db = "sample";
+$link = mysql_pconnect ();
+if ( !$link )
+   die ("Невозможно подключение к MySQL");
+mysql_select_db ( $db ) or die ("Невозможно открыть $db");
+$query = "INSERT INTO books
+          VALUES ('966-7393-80-1', 'Аллен Вайк',
+          'PHP. Справочник', '213', '4')";
+mysql_query ( $query );
+mysql_close ( $link );
+?&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+
+    <p>При каждом выполнении примера 1 в таблицу будет добавляться новая запись,
+        содержащая одни и те же данные. Разумеется имеет смысл добавлять в базу данные,
+        введенные пользователем.
+    </p>
+    <p>В примере 2.1 приведена HTML-форма для добавления новых книг в базу данных.
+
+    </p>
+    <h4>Пример 2.1</h4>
+    <pre class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">title</span>&gt;</span>HTML-форма добавления новых книг<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">form</span> <span class="attribute">a</span>с<span class="attribute">tion</span>=<span class="value">"insert_book.php"</span> <span class="attribute">method</span>=<span class="value">"post"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">table</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span>ISBN<span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">name</span>=<span class="value">"isbn"</span> <span class="attribute">maxlength</span>=<span class="value">13</span> <span class="attribute">size</span>=<span class="value">13</span>&gt;</span><span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span>Автор<span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">name</span>=<span class="value">"author"</span> <span class="attribute">maxlength</span>=<span class="value">30</span> <span class="attribute">size</span>=<span class="value">30</span>&gt;</span><span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span>Название<span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">name</span>=<span class="value">"title"</span> <span class="attribute">maxlength</span>=<span class="value">60</span> <span class="attribute">size</span>=<span class="value">30</span>&gt;</span><span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span>Цена<span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">name</span>=<span class="value">"price"</span> <span class="attribute">maxlength</span>=<span class="value">7</span> <span class="attribute">size</span>=<span class="value">7</span>&gt;</span><span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span>Количество<span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">name</span>=<span class="value">"quantity"</span> <span class="attribute">maxlength</span>=<span class="value">3</span> <span class="attribute">size</span>=<span class="value">3</span>&gt;</span><span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span>&gt;</span><span class="tag">&lt;<span class="title">td</span> <span class="attribute">colspan</span>=<span class="value">2</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"Ввод"</span>&gt;</span><span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">table</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+    <p>Результаты заполнения этой формы передаются в insert_book.php.
+
+    </p>
+    <h4>Пример 2.2</h4>
+    <pre class="adb"><code class="language-html php">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Программа добавления новых книг (файл insert_book.php)&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<span class="preprocessor">&lt;?php</span>
+<span class="keyword">if</span> (!<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'isbn'</span>]) || !<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'author'</span>]) ||
+    !<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'title'</span>]) || !<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'price'</span>]) ||
+    !<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'quantity'</span>])){
+        <span class="keyword">die</span> (<span class="string">"Не все данные введены.&lt;br&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;            Пожалуйста, вернитесь назад и закончите ввод"</span>);
+}
+<span class="variable">$isbn</span>   = trim ( <span class="variable">$_POST</span>[<span class="string">'isbn'</span>] );
+<span class="variable">$author</span> = trim ( <span class="variable">$_POST</span>[<span class="string">'author'</span>] );
+<span class="variable">$title</span>  = trim ( <span class="variable">$_POST</span>[<span class="string">'title'</span>] ) ;
+<span class="variable">$isbn</span>   = addslashes ( <span class="variable">$isbn</span> );
+<span class="variable">$author</span> = addslashes ( <span class="variable">$author</span> );
+<span class="variable">$title</span>  = addslashes ( <span class="variable">$title</span> ) ;
+<span class="variable">$db</span> = <span class="string">"sample"</span>;
+<span class="variable">$link</span> = mysql_connect();
+<span class="keyword">if</span> ( !<span class="variable">$link</span> ) <span class="keyword">die</span> (<span class="string">"Невозможно подключение к MySQL"</span>);
+mysql_select_db ( <span class="variable">$db</span> ) <span class="keyword">or</span> <span class="keyword">die</span> (<span class="string">"Невозможно открыть $db"</span>);
+<span class="variable">$query</span> = <span class="string">"INSERT INTO books VALUES ('"</span>
+    .<span class="variable">$isbn</span>.<span class="string">"', '"</span>.<span class="variable">$author</span>.<span class="string">"', '"</span>.<span class="variable">$title</span>.<span class="string">"', '"</span>
+    .floatval(<span class="variable">$_POST</span>[<span class="string">'price'</span>]).<span class="string">"', '"</span>.intval(<span class="variable">$_POST</span>[<span class="string">'quantity'</span>]).<span class="string">"')"</span>;
+<span class="variable">$result</span> = mysql_query ( <span class="variable">$query</span> );
+<span class="keyword">if</span> (<span class="variable">$result</span>) <span class="keyword">echo</span> <span class="string">"Книга добавлена в базу данных."</span>;
+mysql_close ( <span class="variable">$link</span> );
+<span class="preprocessor">?&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    <p>В примере 2.2 введенные строковые данные обработаны функцией
+        <b>addslashes()</a></b>. Эта функция добавляет обратные слеши перед одинарными
+        кавычками ('), двойными кавычками ("), обратным слешем (\) и null-байтом.
+        Дело в том, что по требованиям систаксиса запросов баз данных такие символы
+        дожны заключаться в кавычки.
+    </p>
+    <p>Для определения количества записей в результате запроса используется
+        функция <b>mysql_num_rows()</a></b>.
+    </p>
+    <p>Все записи результата запроса можно просмотреть в цикле.
+        Перед этим с помощью функции <b>mysql_fetch_[]</a></b> для каждой записи
+        получают ассоциативный массив.
+    </p>
+    <p>В примере 3.1 приведена HTML-форма для поиска определенных книг в базе данных.
+    </p>
+    <h4>Пример 3.1</h4>
+    <pre class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">title</span>&gt;</span>HTML-форма поиска книг<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">form</span> <span class="attribute">a</span>с<span class="attribute">tion</span>=<span class="value">"search_book.php"</span> <span class="attribute">method</span>=<span class="value">"post"</span>&gt;</span>
+    Ищем по:<span class="tag">&lt;<span class="title">br</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">select</span> <span class="attribute">name</span>=<span class="value">"searchtype"</span> <span class="attribute">size</span>=<span class="value">3</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span>=<span class="value">"author"</span> <span class="attribute">selected</span>&gt;</span>Автору
+        <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span>=<span class="value">"title"</span>&gt;</span>Названию
+        <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span>=<span class="value">"isbn"</span>&gt;</span>ISBN
+    <span class="tag">&lt;/<span class="title">select</span>&gt;</span> <span class="tag">&lt;<span class="title">br</span>&gt;</span>
+    Что ищем:<span class="tag">&lt;<span class="title">br</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">name</span>=<span class="value">"searchterm"</span>&gt;</span> <span class="tag">&lt;<span class="title">br</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">submit</span> <span class="attribute">value</span>=<span class="value">"Поиск"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+    <p>Результаты заполнения этой формы передаются в search_book.php.
+    </p>
+    <h4>Пример 3.2</h4>
+    <pre class="adb"><code class="language-php">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Программа поиска книг (файл search_book.php)&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<span class="preprocessor">&lt;?php</span>
+<span class="variable">$searchterm</span> = trim ( <span class="variable">$_POST</span>[<span class="string">'searchterm'</span>] );
+<span class="keyword">if</span> (!<span class="variable">$searchterm</span>)
+    <span class="keyword">die</span> (<span class="string">"Не все данные введены.&lt;br&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;Пожалуйста, вернитесь назад и закончите ввод"</span>);
+<span class="variable">$searchterm</span> = addslashes (<span class="variable">$searchterm</span>);
+<span class="variable">$link</span> = mysql_pconnect ();
+<span class="keyword">if</span> ( !<span class="variable">$link</span> ) <span class="keyword">die</span> (<span class="string">"Невозможно подключение к MySQL"</span>);
+<span class="variable">$db</span> = <span class="string">"sample"</span>;
+mysql_select_db ( <span class="variable">$db</span> ) <span class="keyword">or</span> <span class="keyword">die</span> (<span class="string">"Невозможно открыть $db"</span>);
+<span class="variable">$query</span> = <span class="string">"SELECT * FROM books WHERE "</span>
+    .<span class="variable">$_POST</span>[<span class="string">'searchtype'</span>].<span class="string">" like '%"</span>.<span class="variable">$searchterm</span>.<span class="string">"%'"</span>;
+<span class="variable">$result</span> = mysql_query ( <span class="variable">$query</span> );
+<span class="variable">$n</span> = mysql_num_rows ( <span class="variable">$result</span> );
+<span class="keyword">for</span> ( <span class="variable">$i</span>=<span class="number">0</span>; <span class="variable">$i</span>&lt;<span class="variable">$n</span>; <span class="variable">$i</span>++ )
+{
+    <span class="variable">$row</span> = mysql_fetch_array(<span class="variable">$result</span>);
+    <span class="keyword">echo</span> <span class="string">"&lt;p&gt;&lt;b&gt;"</span>.(<span class="variable">$i</span>+<span class="number">1</span>). <span class="variable">$row</span>[<span class="string">'title'</span>]. <span class="string">"&lt;/b&gt;&lt;br&gt;"</span>;
+    <span class="keyword">echo</span> <span class="string">"Автор: "</span>.<span class="variable">$row</span>[<span class="string">'author'</span>].<span class="string">"&lt;br&gt;"</span>;
+    <span class="keyword">echo</span> <span class="string">"ISBN: "</span>.<span class="variable">$row</span>[<span class="string">'ISBN'</span>].<span class="string">"&lt;br&gt;"</span>;
+    <span class="keyword">echo</span> <span class="string">"Цена: "</span>.<span class="variable">$row</span>[<span class="string">'price'</span>].<span class="string">"&lt;br&gt;"</span>;
+    <span class="keyword">echo</span> <span class="string">"Количество: "</span>.<span class="variable">$row</span>[<span class="string">'quantity'</span>].<span class="string">"&lt;/p&gt;"</span>;
+}
+<span class="keyword">if</span> ( <span class="variable">$n</span> == <span class="number">0</span> ) <span class="keyword">echo</span> <span class="string">"Ничего не можем предложить. Извините"</span>;
+mysql_close ( <span class="variable">$link</span> );
+<span class="preprocessor">?&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <h4>Альтернативный вариант</h4>
+    <pre class="adb"><code class="language-php">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Программа поиска книг (файл search_book.php)&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?
+<span class="variable">$searchterm</span>=trim ( <span class="variable">$_POST</span>[<span class="string">'searchterm'</span>] );
+<span class="keyword">if</span> (!<span class="variable">$searchterm</span>)
+    <span class="keyword">die</span> (<span class="string">"Не все данные введены.&lt;br&gt;Пожалуйста, вернитесь назад и закончите ввод"</span>);
+<span class="variable">$searchterm</span> = addslashes (<span class="variable">$searchterm</span>);
+mysql_connect() <span class="keyword">or</span>  <span class="keyword">die</span> (<span class="string">"Невозможно подключение к MySQL"</span>);
+mysql_select_db ( <span class="string">"sample"</span> ) <span class="keyword">or</span> <span class="keyword">die</span> (<span class="string">"Невозможно открыть  БД"</span>);
+<span class="variable">$result</span> = mysql_query ( <span class="string">"SELECT * FROM books WHERE "</span>.<span class="variable">$_POST</span>[<span class="string">'searchtype'</span>].<span class="string">" like '%"</span>.<span class="variable">$searchterm</span>.<span class="string">"%'"</span> );
+<span class="variable">$i</span>=<span class="number">1</span>;
+<span class="keyword">while</span>(<span class="variable">$row</span> = mysql_fetch_array(<span class="variable">$result</span>))
+{
+   <span class="keyword">echo</span> <span class="string">"&lt;p&gt;&lt;b&gt;"</span>.(<span class="variable">$i</span>++) . <span class="variable">$row</span>[<span class="string">'title'</span>].<span class="string">"&lt;/b&gt;&lt;br&gt;"</span>;
+   <span class="keyword">echo</span> <span class="string">"Автор: "</span>.<span class="variable">$row</span>[<span class="string">'author'</span>].<span class="string">"&lt;br&gt;"</span>;
+   <span class="keyword">echo</span> <span class="string">"ISBN: "</span>.<span class="variable">$row</span>[<span class="string">'ISBN'</span>].<span class="string">"&lt;br&gt;"</span>;
+   <span class="keyword">echo</span> <span class="string">"Цена: "</span>.<span class="variable">$row</span>[<span class="string">'price'</span>].<span class="string">"&lt;br&gt;"</span>;
+   <span class="keyword">echo</span> <span class="string">"Количество: "</span>.<span class="variable">$row</span>[<span class="string">'quantity'</span>].<span class="string">"&lt;/p&gt;"</span>;
+}
+<span class="keyword">if</span> ( <span class="variable">$i</span> == <span class="number">1</span> ) <span class="keyword">echo</span> <span class="string">"Ничего не можем предложить. Извините"</span>;
+mysql_close( );
+<span class="preprocessor">?&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <p>Итак, как работает архитектура Web-баз данных:
+    </p>
+    <ol>
+        <li>Web-браузер пользователя выдает HTTP-запрос определенной Web-страницы.
+            Например, пользователь, используя HTML-форму, ищет все книги о PHP. Страница
+            обработки формы называется search_book.php.
+        </li>
+        <li>Web-сервер принимает запрос на search_book.php, извлекает этот файл и
+            передает на обработку механизму PHP.
+        </li>
+        <li>PHP выполняет соединение с MySQL-сервером и отправляет запрос.
+        </li>
+        <li>Сервер принимает запрос к базе данных, обрабатывает его и отправляет
+            результат (список книг) обратно механизму PHP.
+        </li>
+        <li>Механизм PHP завершает выполнение сценария,
+            форматирует результат запроса в HTML. После этого результат в виде
+            HTML возвращается Web-серверу.
+        </li>
+        <li>Web-сервер пересылает HTML в браузер, и пользователь имеет возможность
+            просмотреть запрошенный список книг.
+        </li>
+    </ol>
+
+
+    <h3>Использование механизма транзакций</h3>
+    <p>Использование механизма транзакция на примере как передать деньги от одного человека другому</p>
+    <pre class="adb"><code class="language-php"><span class="keyword">if</span>(
+    mysql_query (<span class="string">"BEGIN"</span>) &amp;&amp;
+    mysql_query (<span class="string">"UPDATE money SET amt = amt - 6 WHERE name = 'Eve'"</span>) &amp;&amp;
+    mysql_query (<span class="string">"UPDATE money SET amt = amt + 6 WHERE name = 'Ida'"</span>) &amp;&amp;
+    mysql_query (<span class="string">"COMMIT"</span>)
+){
+    <span class="keyword">echo</span> <span class="string">"Успешно"</span>;
+}<span class="keyword">else</span>{
+    mysql_query (<span class="string">"ROLLBACK"</span>);
+    <span class="keyword">echo</span> <span class="string">"Не успешно"</span>;
+}</code></pre>
+
+
+    <h3>SELECT … FOR UPDATE</h3>
+    <p>Если Вы запускаете несколько процессов, которые делают select запрос к одной и той же таблице, то они могут
+        выбрать одну и ту же запись одновременно.</p>
+    <p>Чтобы избежать вышеупомянутой ситуации необходимо выполнить не просто SELECT запрос, а его расширенную версию, о
+        которой многие и не подозревают: SELECT … FOR UPDATE.</p>
+
+    <p>Таким образом, при выполнении данного запроса, все затронутые записи в базе данных будут заблокированы до
+        завершения сеанса работы с БД или до момента обновления данных записей.
+        Другой скрипт не сможет выбрать заблокированные записи до тех пор, пока не наступит одно из упомянутых условий.
+    </p>
+
+    <p>Однако не всё так просто. Вам нужно выполнить ещё несколько условий. Во-первых, ваша таблица должна быть создана
+        на основе архитектуры InnoDB.
+        В противном случае блокировка просто не будет срабатывать. Во-вторых, перед выполнением выборки необходимо
+        отключить авто-коммит запроса.
+        Т.е. другими словами автоматическое выполнение запроса. После того как вы укажите UPDATE запрос,
+        необходимо будет ещё раз обратиться к базе и закоммитить изменения с помощью команды COMMIT:</p>
+    <pre class="adb"><code class="language-php">mysql_query(<span class="string">"SET autocommit = 0"</span>);
+<span class="variable">$result</span> = mysql_query(<span class="string">"SELECT * FROM table WHERE locked = 0 LIMIT 1 FOR UPDATE"</span>);
+
+<span class="variable">$row</span> = mysql_fetch_assoc(<span class="variable">$result</span>);
+
+mysql_query(<span class="string">"UPDATE table SET locked = 1 WHERE id = 1;"</span>);
+mysql_query(<span class="string">"COMMIT;"</span>);</code></pre>
+    <p>Представьте что у нас есть 2 записи в таблице. Мы запускаем два параллельных скрипта с данным содержанием.
+        В результате, первый процесс, который сможет достучаться до базы сделает выборку записи и сразу же заменит
+        значение в поле locked на 1.
+        В результате второй скрипт проигнорирует первую запись. В данном случае, даже если скрипты достучались бы до БД
+        одновременно,
+        второй скрипт всё равно не смог бы выбрать первую запись, т.к. при выборке первым процессом она будет
+        заблокирована.</p>
+    <div class="next"><a href="php10.html">Следующая лекция</a></div><br>
+</div>
+<div id="vis">
+    <div class="font">
+        Размер шрифта:</div>
+    <div class="fontA" onclick="fonta()">А</div>
+    <div class="fontAA" onclick="fontaa()">А</div>
+    <div class="fontAAA" onclick="fontaaa()">А</div>
+    <div class="color">Цвет сайта:</div>
+    <div class="colorW" onclick="clwhite()">A</div>
+    <div class="colorBK" onclick="clblack()">A</div>
+    <div class="colorBE" onclick="clblue()">A</div>
+    <div class="imgOnOff">Изображение:</div>
+    <div class="imgOn" onclick="imgon()">Вкл.</div>
+    <div class="imgOff" onclick="imgoff()">Выкл.</div>
+    <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

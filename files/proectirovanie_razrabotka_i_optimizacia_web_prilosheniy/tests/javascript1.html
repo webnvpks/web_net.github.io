@@ -1,0 +1,248 @@
+<title>JavaScript тест №1</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<script src="../../js/md5.js"></script>
+<script src="../../js/test_js.js"></script>
+<div class="body">
+    <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+        <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff"
+                d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+            </path>
+        </svg>
+    </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+    <p class="name">
+        Проектирование, разработка и оптимизация веб-приложений
+    </p>
+    <div class="links">
+        <a href="../../../index.html" class="link">Главная</a>
+        <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+        <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+        <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+        <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+    </div>
+</div>
+<div class="content">
+    <h1>Тест по JavaScript №1</h1>
+    <div class="test_question" id="test_question1">
+        <h3>1. Можно ли инициировать DOM-событие из javascript?
+            Например, сэмулировать клик мышкой на элементе, чтобы javascript-код кликнул за пользователя.</h3>
+        <p><input type="radio" id="question1" name="question1" value="js111">Да, можно</p>
+        <p><input type="radio" id="question1" name="question1" value="js112">Нет, нельзя</p>
+        <p><input type="radio" id="question1" name="question1" value="js113">В некоторых браузерах можно</p>
+        <div class="c_answer" id="c_answer1"></div>
+    </div>
+    <div class="test_question" id="test_question2">
+        <h3>2. Какие из этих тегов соответствуют стандарту HTML (sсript) ?</h3>
+        <p><input type="radio" id="question2" name="question2" value="js121">&lt;script&gt;</p>
+        <p><input type="radio" id="question2" name="question2" value="js122">&lt;script type="text/javascript"&gt;</p>
+        <p><input type="radio" id="question2" name="question2" value="js123">&lt;script language="javascript"&gt;</p>
+        <p><input type="radio" id="question2" name="question2" value="js124">&lt;script language="javascript"
+            type="text/javascript"&gt;</p>
+        <div class="c_answer" id="c_answer2"></div>
+    </div>
+    <div class="test_question" id="test_question3">
+        <h3>3. Какой оператор из этих - выполняет не только математические операции?</h3>
+        <p><input type="radio" id="question3" name="question3" value="js131">*</p>
+        <p><input type="radio" id="question3" name="question3" value="js132">/</p>
+        <p><input type="radio" id="question3" name="question3" value="js133">+</p>
+        <p><input type="radio" id="question3" name="question3" value="js134">-</p>
+        <div class="c_answer" id="c_answer3"></div>
+    </div>
+    <div class="test_question" id="test_question4">
+        <h3>4. Что из этого - не событие мыши ?</h3>
+        <p><input type="radio" id="question4" name="question4" value="js141">onmousescroll</p>
+        <p><input type="radio" id="question4" name="question4" value="js142">onclick</p>
+        <p><input type="radio" id="question4" name="question4" value="js143">onmouseover </p>
+        <p><input type="radio" id="question4" name="question4" value="js144">onmousemove</p>
+        <p><input type="radio" id="question4" name="question4" value="js145">onmousewheel </p>
+        <div class="c_answer" id="c_answer4"></div>
+    </div>
+    <div class="test_question" id="test_question5">
+        <h3>5. Какие конструкции для циклов есть в javascript?</h3>
+        <p><input type="radio" id="question5" name="question5" value="js151">Только две: for и while</p>
+        <p><input type="radio" id="question5" name="question5" value="js152">Только одна: for</p>
+        <p><input type="radio" id="question5" name="question5" value="js153">Три: for, while и do...while.</p>
+        <div class="c_answer" id="c_answer5"></div>
+    </div>
+    <div class="test_question" id="test_question6">
+        <h3>6. В каком случае из перечисленных событие не попадет на обработку javascript?</h3>
+        <p><input type="radio" id="question6" name="question6" value="js161">Если в момент его наступления
+            обрабатывается другое событие</p>
+        <p><input type="radio" id="question6" name="question6" value="js162">Если страничка просматривается локально,
+            т.е offline</p>
+        <p><input type="radio" id="question6" name="question6" value="js163">Только если javascript отключен</p>
+        <div class="c_answer" id="c_answer6"></div>
+    </div>
+    <div class="test_question" id="test_question7">
+        <h3>7. Что делает код:
+            <br>break me;
+        </h3>
+        <p><input type="radio" id="question7" name="question7" value="js171">Ломает интерпретатор javascript</p>
+        <p><input type="radio" id="question7" name="question7" value="js172">Выходит из текущего блока цикла или switch
+            на метку "me"</p>
+        <p><input type="radio" id="question7" name="question7" value="js173">Выдает ошибку</p>
+        <p><input type="radio" id="question7" name="question7" value="js174">В разных браузерах по-разному</p>
+        <div class="c_answer" id="c_answer7"></div>
+    </div>
+    <div class="test_question" id="test_question8">
+        <h3>8. Какое событие не вызывается кликом мыши ?</h3>
+        <p><input type="radio" id="question8" name="question8" value="js181">onfocus</p>
+        <p><input type="radio" id="question8" name="question8" value="js182">onclick</p>
+        <p><input type="radio" id="question8" name="question8" value="js183">onkeydown</p>
+        <p><input type="radio" id="question8" name="question8" value="js184">onmousedown</p>
+        <div class="c_answer" id="c_answer8"></div>
+    </div>
+    <div class="test_question" id="test_question9">
+        <h3>9. Какой из этих вариантов задает массив из элементов "a", "b" ?</h3>
+        <p><input type="radio" id="question9" name="question9" value="js191">var a = new Array("a","b")</p>
+        <p><input type="radio" id="question9" name="question9" value="js192">var a = { "a", "b" }</p>
+        <p><input type="radio" id="question9" name="question9" value="js193">var a = ( "a", "b" )</p>
+        <div class="c_answer" id="c_answer9"></div>
+    </div>
+    <div class="test_question" id="test_question10">
+        <h3>10. Сколько параметров можно передать функции ?</h3>
+        <p><input type="radio" id="question10" name="question10" value="js1101">Ровно столько, сколько указано в
+            определении функции</p>
+        <p><input type="radio" id="question10" name="question10" value="js1102">Сколько указано в определении функции
+            или меньше</p>
+        <p><input type="radio" id="question10" name="question10" value="js1103">Сколько указано в определении функции
+            или больше</p>
+        <p><input type="radio" id="question10" name="question10" value="js1104">Любое количество</p>
+        <div class="c_answer" id="c_answer10"></div>
+    </div>
+    <div class="test_question" id="test_question11">
+        <h3>11. Верно ли следующее утверждение:
+            Любое содержимое тэга script нужно обязательно заключать в специальную секцию &lt;![CDATA[...]]&gt;, чтобы
+            документ соответствовал стандарту XHTML 1.0 ?</h3>
+        <p><input type="radio" id="question11" name="question11" value="js1111">Да</p>
+        <p><input type="radio" id="question11" name="question11" value="js1112">Нет</p>
+        <div class="c_answer" id="c_answer11"></div>
+    </div>
+    <div class="test_question" id="test_question12">
+        <h3>12. Верно ли следующее утверждение:
+            <br><cite>Содержимое тэга script нужно заключать в комментарии &lt;!-- .. --&gt;, чтобы браузеры, которые не
+                поддерживают javascript, работали корректно</cite>&nbsp;?</h3>
+        <p><input type="radio" id="question12" name="question12" value="js1121">Да</p>
+        <p><input type="radio" id="question12" name="question12" value="js1122">Нет</p>
+        <div class="c_answer" id="c_answer12"></div>
+    </div>
+    <div class="test_question" id="test_question13">
+        <h3>13. Какие из этих вызовов корректно бросят исключение ?</h3>
+        <p><input type="radio" id="question13" name="question13" value="js1131">throw "Ошибка"</p>
+        <p><input type="radio" id="question13" name="question13" value="js1132">throw new Error("Ошибка")</p>
+        <p><input type="radio" id="question13" name="question13" value="js1133">throw { message: "Ошибка" }</p>
+        <p><input type="radio" id="question13" name="question13" value="js1134">throw Error("Ошибка")</p>
+        <p><input type="radio" id="question13" name="question13" value="js1135">Все</p>
+        <div class="c_answer" id="c_answer13"></div>
+    </div>
+    <div class="test_question" id="test_question14">
+        <h3>14. Какие варианты правильно объявляют переменную для f, возвращающей сумму двух аргументов ?</h3>
+        <p><input type="radio" id="question14" name="question14" value="js1141">var f = function(a,b) { return a+b }</p>
+        <p><input type="radio" id="question14" name="question14" value="js1142">var f = new Function('a,b', 'return
+            a+b')</p>
+        <p><input type="radio" id="question14" name="question14" value="js1143">var f = new Function('a', 'b', 'return
+            a+b')</p>
+        <p><input type="radio" id="question14" name="question14" value="js1144">Все.</p>
+        <div class="c_answer" id="c_answer14"></div>
+    </div>
+    <div class="test_question" id="test_question15">
+        <h3>15. Где в документе может располагаться тэг script по стандарту HTML ?</h3>
+        <p><input type="radio" id="question15" name="question15" value="js1151">Только в HEAD</p>
+        <p><input type="radio" id="question15" name="question15" value="js1152">Только в BODY</p>
+        <p><input type="radio" id="question15" name="question15" value="js1153">В HEAD или в BODY</p>
+        <p><input type="radio" id="question15" name="question15" value="js1154">Где угодно, главное чтоб был</p>
+        <div class="c_answer" id="c_answer15"></div>
+    </div>
+    <div class="test_question" id="test_question16">
+        <h3>16. Как правильно вывести приветствие через 5 секунд после запуска скрипта ?</h3>
+        <p><input type="radio" id="question16" name="question16" value="js1161">sleep(5); alert("Привет!");</p>
+        <p><input type="radio" id="question16" name="question16" value="js1162">sleep(5000); alert("Привет!");</p>
+        <p><input type="radio" id="question16" name="question16" value="js1163">setTimeout('alert("Привет!")', 5000);
+        </p>
+        <p><input type="radio" id="question16" name="question16" value="js1164">setTimeout(function()
+            {alert("Привет!")}, 5);</p>
+        <div class="c_answer" id="c_answer16"></div>
+    </div>
+    <div class="test_question" id="test_question17">
+        <h3>17. Что такое ECMAScript??</h3>
+        <p><input type="radio" id="question17" name="question17" value="js1171">Новый язык программирования</p>
+        <p><input type="radio" id="question17" name="question17" value="js1172">Переработанная реализация Javascript</p>
+        <p><input type="radio" id="question17" name="question17" value="js1173">Спецификация языка Javascript</p>
+        <div class="c_answer" id="c_answer17"></div>
+    </div>
+    <div class="test_question" id="test_question18">
+        <h3>18. Можно ли через javascript подключить внешний js-файл, отсутствующий на странице?</h3>
+        <p><input type="radio" id="question18" name="question18" value="js1181">Да, но только один раз</p>
+        <p><input type="radio" id="question18" name="question18" value="js1182">Да, но только до загрузки страницы</p>
+        <p><input type="radio" id="question18" name="question18" value="js1183">Да, сколько угодно файлов когда угодно
+        </p>
+        <div class="c_answer" id="c_answer18"></div>
+    </div>
+    <div class="test_question" id="test_question19">
+        <h3>19. Можно ли в скрипте перевести посетителя на другую страницу сайта?</h3>
+        <p><input type="radio" id="question19" name="question19" value="js1191">Да, куда угодно</p>
+        <p><input type="radio" id="question19" name="question19" value="js1192">Да, но только в рамках текущего сайта
+        </p>
+        <p><input type="radio" id="question19" name="question19" value="js1193">Нет, нельзя</p>
+        <div class="c_answer" id="c_answer19"></div>
+    </div>
+    <div class="test_question" id="test_question20">
+        <h3>20. Какие обработчики событий сработают при клике на div?
+            <br>div.onclick = function() { alert(1) }
+            <br>div.onclick = function() { alert(2) }
+        </h3>
+        <p><input type="radio" id="question20" name="question20" value="js1201">Только первый</p>
+        <p><input type="radio" id="question20" name="question20" value="js1202">Только второй</p>
+        <p><input type="radio" id="question20" name="question20" value="js1203">Первый, затем второй</p>
+        <div class="c_answer" id="c_answer20"></div>
+    </div>
+    <div class="test_question" id="test_question21">
+        <h3>21. a = new Array(1,2,3)
+            <br>b = new Array(1,2,3)
+            <br>Правда ли что a == b ?</h3>
+        <p><input type="radio" id="question21" name="question21" value="js1211">Правда</p>
+        <p><input type="radio" id="question21" name="question21" value="js1212">Неправда</p>
+        <p><input type="radio" id="question21" name="question21" value="js1213">Зависит от множества случайных
+            обстоятельств..</p>
+        <div class="c_answer" id="c_answer21"></div>
+    </div>
+    <div class="test_question" id="test_question22">
+        <h3>22. Есть ли какая-нибудь разница между этими двумя определениями функции ?
+            <br>function f(a,b) { return a+b }
+            <br>var f = function(a,b) { return a+b }
+        </h3>
+        <p><input type="radio" id="question22" name="question22" value="js1221">Да, есть</p>
+        <p><input type="radio" id="question22" name="question22" value="js1222">Нет, вообще без разницы</p>
+        <div class="c_answer" id="c_answer22"></div>
+    </div>
+    <div class="test_check" onclick="test_check_javascript1()">
+        <h3>Завершить</h3>
+    </div>
+    <div class="test_rez">
+        <h3 id="rez">
+            <h3>
+    </div>
+    <div class="next"><a href="../tests.html">К содержанию</a></div>
+</div>
+<div id="vis">
+    <div class="font">
+        Размер шрифта:</div>
+    <div class="fontA" onclick="fonta()">А</div>
+    <div class="fontAA" onclick="fontaa()">А</div>
+    <div class="fontAAA" onclick="fontaaa()">А</div>
+    <div class="color">Цвет сайта:</div>
+    <div class="colorW" onclick="clwhite()">A</div>
+    <div class="colorBK" onclick="clblack()">A</div>
+    <div class="colorBE" onclick="clblue()">A</div>
+    <div class="imgOnOff">Изображение:</div>
+    <div class="imgOn" onclick="imgon()">Вкл.</div>
+    <div class="imgOff" onclick="imgoff()">Выкл.</div>
+    <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

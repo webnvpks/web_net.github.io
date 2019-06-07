@@ -1,0 +1,1544 @@
+<title>JavaScript Описание языка</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+    <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+        <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff"
+                d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+            </path>
+        </svg>
+    </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+    <p class="name">
+        Проектирование, разработка и оптимизация веб-приложений
+    </p>
+    <div class="links">
+        <a href="../../../index.html" class="link">Главная</a>
+        <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+        <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+        <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+        <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+    </div>
+</div>
+<div class="content">
+    <h1>JavaScript</h1>
+    <p><strong>JavaScript</strong> - предназначен для написания сценариев для активных
+        HTML-страниц. Язык JavaScript не имеет никакого отношения к языку <b>Java</b>.
+        Java разработан фирмой SUN. JavaScript - фирмой Netscape Communication Corporation.
+        Первоначальное название - <b>LiveScript</b>. После завоевания языком Java
+        всемирной известности LiveScript из коммерческих соображений переименовали
+        в JavaScript.</p>
+    <p>JavaScript не предназначен для создания автономных приложений.
+        Программа на JavaScript встраивается непосредственно в исходный текст
+        HTML-документа и интерпретируется брaузером по мере загрузки
+        этого документа. С помощью JavaScript можно динамически изменять текст
+        загружаемого HTML-документа и реагировать на события, связанные с действиями
+        посетителя или изменениями состоятия документа или окна.</p>
+    <p>Важная особенность JavaScript - объектная ориентированность.
+        Программисту доступны многочисленные объекты, такие, как документы,
+        гиперссылки, формы, фреймы и т.д. Объекты характеризуются описательной
+        информацией (свойствами) и возможными действиями (методами).</p>
+    <h2>Тег &lt;script&gt;</h2>
+    <p>Сценарий JavaScript встраивается в HTML-документ с помощью тега <strong>&lt;script&gt;</strong>.</p>
+    <h4>Пример</h4>
+    <pre><code >&lt;!DOCTYPE HTML&gt;
+&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Content-Type"</span> <span class="attribute">content</span>=<span class="value">"text/html; charset=utf-8"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">h1</span>&gt;</span>Начнем?<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">&lt;!--
+    document.write(<span class="string">"Привет!"</span>);
+<span class="comment">//--&gt;</span></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+    <p>Текст сценария оформляется как комментарий, чтобы не было проблем у
+        посетителей, брaузеры которых не понимают <strong>JavaScript</strong>. Кроме того к символам,
+        завершающим комментарий добавляется еще два символа "<b>/</b>",
+        т.к. некоторые браузеры рассматривает строку,
+        состоящую только из символов "<b>--&gt;</b>", как ошибочную.</p>
+    <p>В первом примере для объекта с именем <b>document</b> вызывается метод
+        <b>write</b>. В качестве параметра ему передается текстовая строка
+        "Привет!". Строка закрывается символом "<b>;</b>", которым отделяются
+        друг от друга все операторы JavaScript.</p>
+    <p>Объект <b>document</b> – это HTML-документ, загруженный в окно
+        брaузера. Метод <b>write</b> записывает в тело HTML-документа
+        строку "Привет!". При этом документ будет выгдядеть так, как будто эта строка
+        находится в нем на месте сценария.</p>
+
+    <p>Для указания что скрипт вынесен в отдельный файл используется следующий код:</p>
+    <pre><code ><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/js.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></pre>
+    <p>Для ускорения загрузки страницы можно разрешить браузеру загружать скрипты паралельно с остальным кодом.
+        Для указания паралельной неблокирующей загрузки скриптов используется атрибут <code>async="async"</code>
+        или<code> defer="defer"</code>:</p>
+    <pre><code ><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/js.js"</span> <span class="attribute">async</span>=<span class="value">"async"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></pre>
+
+    <pre><code ><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/js.js"</span> <span class="attribute">defer</span>=<span class="value">"defer"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></pre>
+
+    <p>В обоих случаях скрипты, помеченные как async или defer, начинают незамедлительно скачиваться, не вызывая при
+        этом остановок парсера,
+        причем оба скрипта поддерживают onload обработчик, позволяющий вызвать те или иные события, когда скрипт будет
+        загружен.
+        Каждый скрипт, помеченный <b>async</b>, будет выполнен в тот момент, когда для это появится возможность после
+        его полной загрузки,
+        но до того как будет выброшено событие о загрузке window. Это означает, что такие скрипты скорее всего будут
+        выполнены не в том порядке, в котором они указаны на странице.
+        А вот наличие <b>defer</b> скриптов гарантирует, что как они указаны, так они и будут загружаться.
+        Их выполнение начнется после завершения работы парсера, но до появления события DOMContentLoaded.</p>
+    <p>Будьте внимательны и осторожны при неблокирующей загрузке, т.к. использовать функции из такого js-файла можно
+        только после полной загрузки DOM-модели и всех скриптов.
+        Т.к. браузер, если это позволит сервер, будет кешировать загружаемые внешние файлы, то при первом вызове функции
+        будут доступны только после полной загрузки,
+        а при обновлении страницы, т.к. браузер возьмет файл из кеша - сразу. И отлавить такую ошибку будет непросто.
+    </p>
+
+    <p>Можно сокращать написание:</p>
+    <pre><code ><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/js.js"</span> <span class="attribute">async</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></pre>
+
+    <p>Имейте в виду, что JavaScript <u>различает строчные и прописные буквы</u>.
+        Кроме того символ дефиса в JavaScript распознается как
+        минус, т.е. если фон объекта в HTML-документе задается через свойство
+        <b>background-color</b>, то в JavaScript - через <b>backgroundColor</b>.</p>
+    <h4>Пример</h4>
+
+    <p>Цвет фона объекта меняется с белого на красный
+        при наведении на объект мыши:</p>
+    <pre><code ><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"attachment.png"</span> <span class="attribute">style</span>=<span class="value">"border:none;float:right;margin-left:5px;"</span>
+     <span class="attribute">OnMouseOver</span>=<span class="value">"this.style.backgroundColor='red';"</span>
+     <span class="attribute">OnMouseOut</span>=<span class="value">"this.style.backgroundColor='white';"</span> /&gt;</span></code></pre>
+
+    <h2 id="Var">Переменные в JavaScript</h2>
+    <p>Имя переменной не должно совпадать с зарезервированными ключевыми словами
+        JavaScript: abstract, boolean, break, byte, case, catch, char, class, const, continue, default,
+        do, double, else, extends, false, final, finally, float, for, function, goto, if, implements, import,
+        in, instanseof, int, interface, long, native, new, null, package, private, protected, public,
+        return, short, static, super, sinchronized, switch, this, throw, throws, transient, true, try,
+        typeof, var, void, wich.</p>
+    <p>Все переменные в JavaScript объявляются с помощью ключевого слова <strong>var</strong>.
+        При объявлении тип переменной не указывается. Этот тип присваивается переменной
+        только тогда, когда ей присваивается какое-либо значение. </p>
+    <p>Например:</p>
+    <pre>    var a;
+    var a=13, A=22, b="Строка";
+</pre>
+    <p>Типы данных:</p>
+    <ul>
+        <li>Числа.</li>
+        <li>Логические значения. Могут принимать значение true и false.</li>
+        <li>Строки. Последовательность символов, заключенная в одинарные или в двойные кавычки.
+            Строка, ограниченная одинарными кавычками может содержать двойные кавычки, а строка,
+            ограниченная двойными кавычками, может содержать одинарные кавычки.</li>
+    </ul>
+    <p>Например:</p>
+    <pre><code class="language-html javascript"><span class="keyword">var</span> str1=’Не говорите мне: ”Прощай! ”’;
+<span class="keyword">var</span> str2=”Не говорите мне: ’Прощай!’”;</code></pre>
+    <p>Для определения типа переменной можно использовать <b>typeof</b>, <p>Например:</p>
+    </p>
+    <pre><code class="language-html javascript"><span class="keyword">var</span> a = <span class="number">5</span>
+document.write(<span class="keyword">typeof</span> a) <span class="comment">// "number"</span>
+<span class="keyword">var</span> b = <span class="string">'test'</span>
+document.write( <span class="keyword">typeof</span>(b) ) <span class="comment">// "string"</span></code></pre>
+    <p><code>document.write</code> - используется для вывода результата в текущей поток вывода браузера.</p>
+    <p>Для проверки существования переменной можно использовать одну из следующих конструкций:</p>
+    <pre><code class="language-html javascript"><span class="keyword">if</span> (<span class="keyword">typeof</span>(<span class="keyword">var</span>) == <span class="string">"undefined"</span>) { ... }</code></pre>
+    <p>В современном javascript лучше писать:</p>
+    <pre><code class="language-html javascript"><span class="keyword">if</span> (<span class="string">'var'</span> <span class="keyword">in</span> window) { ... }</code></pre>
+    <p>Использовать просто if(var) нельзя, так как доступ к неопределенной переменной вызовет ошибку.
+        В некоторых источниках рекомендуют использовать if(window.var), но так проверять тоже нельзя, т.к. переменная
+        может быть, но иметь значение false.
+    </p>
+
+    <p>Число преобразуется в строку автоматически. Например:</p>
+    <pre>document.write(”145+263=”+(145+263));</pre>
+    <p>В строку можно вставить специальные символы:</p>
+    <table>
+        <tbody>
+            <tr>
+                <td style="width:54px">\’</td>
+                <td>Одинарная кавычка</td>
+            </tr>
+            <tr>
+                <td>\”</td>
+                <td>Двойная кавычка</td>
+            </tr>
+            <tr>
+                <td>\\</td>
+                <td>Обратная косая черта</td>
+            </tr>
+            <tr>
+                <td>\n</td>
+                <td>Переход на новую строку</td>
+            </tr>
+            <tr>
+                <td>\r</td>
+                <td>Возврат каретки</td>
+            </tr>
+            <tr>
+                <td>\t</td>
+                <td>Табуляция</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>Например:</p>
+    <pre><code class="language-html css"><span class="tag">alert</span>(”черный\<span class="tag">tblack</span>\<span class="tag">t</span><span class="id">#000000</span>\<span class="tag">n</span>белый\<span class="tag">twhite</span>\<span class="tag">t</span><span class="id">#FFFFFF</span>”);</code></pre>
+
+    <p>Для преобразования строк в числа используют специальные функции <b>parseInt</b> и <b>parseFloat</b>.</p>
+
+    <h4>Пример</h4>
+    <pre><code >&lt;!DOCTYPE HTML&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Content-Type"</span> <span class="attribute">content</span>=<span class="value">"text/html; charset=utf-8"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">h1</span>&gt;</span>Пример преобразования типов<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">&lt;!--
+    <span class="keyword">var</span> Buf=<span class="string">""</span>;
+    Buf=<span class="number">100</span>+<span class="string">"&amp;nbsp;- число сто&lt;br&gt;"</span>;
+    Buf+=(parseInt(<span class="string">"50"</span>)+<span class="number">50</span>)+<span class="string">"&amp;nbsp;- число сто&lt;br&gt;"</span>;
+    document.write(Buf);
+<span class="comment">//--&gt;</span></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+    <h5>Примеры использования простейших преобразований типов:</h5>
+    <pre><code class="language-html php"><span class="keyword">var</span> myVar   = <span class="string">"3.14159"</span>,
+    str     = <span class="string">""</span>+ myVar,<span class="comment">//  в string</span>
+    int     = ~~myVar,  <span class="comment">//  в integer</span>
+    float   = <span class="number">1</span>*myVar,  <span class="comment">//  во float</span>
+    bool    = !!myVar,  <span class="comment">//  в boolean - все непустые строки и числа кроме 0 будут true</span>
+    <span class="keyword">array</span>   = [myVar];  <span class="comment">//  в array</span></code></pre>
+
+    <p>Конвертирование в даты (new Date(myVar)) и регулярные выражения (new RegExp(myVar)) нужно делать
+        с использованием конструкторов. Для создания регулярных выражений используйте структуру:
+        <code>/регулярное_выражение/флаги</code>.</p>
+
+    <h2 id="Oper">Операторы языка JavaScript</h2>
+
+    <p>Операторы JavaScript напоминают общеизвестные операторы языка С++.</p>
+
+    <h3>Унарные операторы</h3>
+    <table>
+        <tbody>
+            <tr>
+                <td>-</td>
+                <td>Изменение знака на противоположный</td>
+            </tr>
+            <tr>
+                <td>!</td>
+                <td>Дополнение. Используется для реверсирования значения логических переменных</td>
+            </tr>
+            <tr>
+                <td>++</td>
+                <td>Увеличение значения переменной. Может применяться и как префикс, и как суффикс</td>
+            </tr>
+            <tr>
+                <td>--</td>
+                <td>Уменьшение значения переменной. Может применяться и как префикс, и как суффикс</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Бинарные операторы</h3>
+
+    <table>
+        <tbody>
+            <tr>
+                <td style="width:54px">-</td>
+                <td>Вычитание </td>
+            </tr>
+            <tr>
+                <td>+</td>
+                <td>Сложение </td>
+            </tr>
+            <tr>
+                <td>*</td>
+                <td>Умножение </td>
+            </tr>
+            <tr>
+                <td>/</td>
+                <td>Деление </td>
+            </tr>
+            <tr>
+                <td>%</td>
+                <td>Остаток от деления </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Операторы для работы с отдельными битами</h3>
+
+    <table>
+        <tbody>
+            <tr>
+                <td style="width:54px">&amp;</td>
+                <td>И </td>
+            </tr>
+            <tr>
+                <td>|</td>
+                <td>ИЛИ </td>
+            </tr>
+            <tr>
+                <td>^</td>
+                <td>ИСКЛЮЧАЮЩЕЕ ИЛИ </td>
+            </tr>
+            <tr>
+                <td>~</td>
+                <td>НЕ </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Операторы сдвига</h3>
+
+    <table>
+        <tbody>
+            <tr>
+                <td style="width:54px">&gt;&gt;</td>
+                <td>Сдвиг вправо </td>
+            </tr>
+            <tr>
+                <td>&lt;&lt;</td>
+                <td>Сдвиг влево </td>
+            </tr>
+            <tr>
+                <td>&gt;&gt;&gt;</td>
+                <td>Сдвиг вправо с заполнением освобождаемых разрядов нулями </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Операторы отношения</h3>
+    <table>
+        <tbody>
+            <tr>
+                <td style="width:54px">&gt;</td>
+                <td>Больше </td>
+            </tr>
+            <tr>
+                <td>&gt;=</td>
+                <td>Больше или равно </td>
+            </tr>
+            <tr>
+                <td>&lt;</td>
+                <td>Меньше </td>
+            </tr>
+            <tr>
+                <td>&lt;=</td>
+                <td>Меньше или равно </td>
+            </tr>
+            <tr>
+                <td>==</td>
+                <td>Равно </td>
+            </tr>
+            <tr>
+                <td>!=</td>
+                <td>Не равно </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>В условных операторах также применяются логические операторы:
+        || (ИЛИ) и &amp;&amp; (И).</p>
+
+    <h3>Оператор присваивания и его комбинации</h3>
+
+    <p>Допускается комбинирование оператора присваивания с другими, как и в языке С. </p>
+
+    <p></p>
+    <table>
+        <tbody>
+            <tr>
+                <td style="width:64px">=</td>
+                <td>Присваивание </td>
+            </tr>
+            <tr>
+                <td>+=</td>
+                <td>Сложение или слияние строк (n=n+7; аналог. n+=7;) </td>
+            </tr>
+            <tr>
+                <td>–=</td>
+                <td>Вычитание (n=n-7; аналог. n-=7;) </td>
+            </tr>
+            <tr>
+                <td>*=</td>
+                <td>Умножение </td>
+            </tr>
+            <tr>
+                <td>/=</td>
+                <td>Деление </td>
+            </tr>
+            <tr>
+                <td>&gt;&gt;=</td>
+                <td>Сдвиг вправо </td>
+            </tr>
+            <tr>
+                <td>&lt;&lt;=</td>
+                <td>Сдвиг влево </td>
+            </tr>
+            <tr>
+                <td>&gt;&gt;&gt;=</td>
+                <td>Сдвиг вправо с заполнением освобождаемых разрядов нулями </td>
+            </tr>
+            <tr>
+                <td>&amp;=</td>
+                <td>И </td>
+            </tr>
+            <tr>
+                <td>|=</td>
+                <td>ИЛИ </td>
+            </tr>
+            <tr>
+                <td>^=</td>
+                <td>ИСКЛЮЧАЮЩЕЕ ИЛИ </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Условные операторы</h3>
+
+    <p>В языке JavaScript два условных оператора: <b>if-else</b> и <b>?:</b>.</p>
+
+    <h4>Пример оператора <strong>if-else</strong></h4>
+    <pre><code >if(Vol<span class="tag">&lt;<span class="title">2)
+{
+</span>    <span class="attribute">b</span>=<span class="value">true;</span>
+    <span class="attribute">ss</span>=<span class="value">"w002.htm"</span>;
+}
+<span class="attribute">else</span> <span class="attribute">if</span>(<span class="attribute">Vol</span>&gt;</span>100)
+{
+    b=true;
+    ss="w100.htm";
+}</code></pre>
+
+    <h4>Пример "скрипт приветствия (по времени суток)"</h4>
+    <pre><code class="language-html javascript">&lt;script&gt;<span class="xml"><span class="comment">&lt;!--
+    var h=(new Date()).getHours();
+    if (h &lt; 6) document.write("Доброй ночи!");
+    if (h &gt; 5 &amp;&amp; h &lt; 12) document.write("С добрым утром!");
+    if (h &gt; 11 &amp;&amp; h &lt; 18) document.write("Добрый день!");
+    if (h &gt; 17 &amp;&amp; h &lt; 24) document. write("Добрый вечер!");
+    //--&gt;</span>
+<span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></code></pre>
+
+    <h4>Пример оператора ?:</h4>
+    <pre><code >b = (Vol<span class="tag">&lt;<span class="title">2</span> || <span class="attribute">Vol</span>&gt;</span>100) ? true:false;</code></pre>
+
+    <h4>Пример оператора switch - case:</h4>
+    <pre><code class="language-html javascript"><span class="keyword">switch</span>(variable) {
+    <span class="keyword">case</span> value_1: {
+        <span class="comment">//блок операторов_1</span>
+        <span class="keyword">break</span>;
+    }
+    <span class="keyword">case</span> value_2: {
+        <span class="comment">//блок операторов_2</span>
+        <span class="keyword">break</span>;
+    }
+    <span class="keyword">case</span> value_n: {
+        <span class="comment">//блок операторов_n</span>
+        <span class="keyword">break</span>;
+    }
+    <span class="keyword">default</span>: {
+        <span class="comment">//блок операторов по умолчанию</span>
+    }
+}</code></pre>
+
+    <h3>Операторы цикла</h3>
+
+    <p>В языке JavaScript три оператора цикла:
+        <b>for</b>, <b>for-in</b>, <b>while</b>.</p>
+
+    <h4>Пример оператора <strong>for</strong></h4>
+    <pre><code >for(i=0; i<span class="tag">&lt;<span class="title">n;</span> <span class="attribute">i</span>++)
+{
+    <span class="attribute">text</span>+=<span class="value">" "</span>;
+}</span></code></pre>
+
+    <h4>Пример оператора <strong>for-in</strong></h4>
+    <pre><code >var sprops="<span class="tag">&lt;<span class="title">H2</span>&gt;</span>Свойства объекта window<span class="tag">&lt;/<span class="title">H2</span>&gt;</span>"
+for(props in window)
+    sprops+="<span class="tag">&lt;<span class="title">b</span>&gt;</span>" + props + "<span class="tag">&lt;/<span class="title">b</span>&gt;</span>" + ":" + window[props].toLocaleString().substr(0,90) + "<span class="tag">&lt;<span class="title">br</span>&gt;</span>";
+document.write(sprops);</code></pre>
+    <h4>Пример использования оператора <strong>while</strong>, <b>continue</b>, <b>break</b></h4>
+    <pre><code ><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+<span class="keyword">var</span> i=<span class="number">0</span>;
+<span class="keyword">var</span> n=<span class="number">10</span>;
+<span class="keyword">var</span> text=<span class="string">''</span>;
+<span class="keyword">while</span>(i&lt;n)
+{
+    text+=<span class="string">", "</span>+i;
+    i++;
+    <span class="keyword">if</span>(i&lt;<span class="number">5</span>)<span class="keyword">continue</span>;
+    text+=<span class="string">", ! "</span>;
+    <span class="keyword">if</span>(i&gt;<span class="number">8</span>)<span class="keyword">break</span>;
+}
+document.write(text);
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></pre>
+    <p>Кроме этих операторов в организации цикла могут участвовать еще два
+        оператора: <b>break</b> (выход из цикла) и
+        <b>continue</b> (переход на следующий шаг).</p>
+    <h3>Прочие операторы</h3>
+    <table>
+        <tbody>
+            <tr>
+                <td style="width:54px">.</td>
+                <td>Доступ к полю объекта. ( document.write(Buf); ) </td>
+            </tr>
+            <tr>
+                <td>[ ]</td>
+                <td>Индексирование массива ( dim[i] ) </td>
+            </tr>
+            <tr>
+                <td>( )</td>
+                <td>Изменение порядка вычислений или передача параметров функции </td>
+            </tr>
+            <tr>
+                <td>,</td>
+                <td>Разделение выражений в многократном вычислении </td>
+            </tr>
+        </tbody>
+    </table>
+    <h4>Пример оператора "запятая"</h4>
+    <pre><code >for(i=0; i<span class="tag">&lt;<span class="title">n;</span> <span class="attribute">i</span>++, <span class="attribute">j</span>++)</span></code></pre>
+
+    <h4>Неявное преобразование типов</h4>
+    <div class="info">Будьте внимательны при использовании неявного преобразований типов.</div>
+    <pre><code class="language-html javascript"><span class="comment">// Все эти сравнения выдадут 'true'!</span>
+console.log(<span class="literal">false</span> == <span class="string">'0'</span>);
+console.log(<span class="literal">null</span> == <span class="literal">undefined</span>);
+console.log(<span class="string">" \t\r\n"</span> == <span class="number">0</span>);
+console.log(<span class="string">''</span> == <span class="number">0</span>);
+
+<span class="comment">// И эти тоже!</span>
+<span class="keyword">if</span> ({}) <span class="comment">// ...</span>
+<span class="keyword">if</span> ([]) <span class="comment">// ...</span>
+
+<span class="comment">// а вот с NaN картина ещё интереснее:</span>
+console.log(<span class="literal">NaN</span> == <span class="literal">NaN</span>);    <span class="comment">// false</span>
+console.log(<span class="literal">NaN</span> === <span class="literal">NaN</span>);   <span class="comment">// false</span>
+console.log(isNaN(<span class="literal">NaN</span>));    <span class="comment">// true</span></code></pre>
+
+    <h2>Встроенные функции JavaScript</h2>
+
+    <h2 id="Function">Функции JavaScript</h2>
+
+    <p>Все функции JavaScript рекомендуется помещать в контейнер
+        &lt;HEAD&gt;...&lt;/HEAD&gt;. Тем самым вы обеспечите их
+        гарантированную доступность при обработке HTML-документа.</p>
+
+    <h4>Пример</h4>
+    <pre><code ><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">Content-Type</span> <span class="attribute">content</span>=<span class="value">"text/html; charset=utf-8"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">&lt;!--
+        <span class="function"><span class="keyword">function</span> <span class="title">ItR</span><span class="params">(a)</span>
+        {</span>
+            <span class="keyword">var</span> o = document.getElementById(a);
+            o.style.backgroundColor=<span class="string">"red"</span>;
+        }
+        <span class="function"><span class="keyword">function</span> <span class="title">ItW</span><span class="params">(a)</span>
+        {</span>
+            <span class="keyword">var</span> o = document.getElementById(a);
+            o.style.backgroundColor=<span class="string">"white"</span>;
+        }
+        <span class="comment">//--&gt;</span>
+    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">H2</span>&gt;</span>Изменение фона при наведении <span class="tag">&lt;/<span class="title">H2</span>&gt;</span>
+<span class="tag">&lt;<span class="title">img</span> <span class="attribute">id</span>=<span class="value">"Ba"</span> <span class="attribute">src</span>=<span class="value">"ba.gif"</span> <span class="attribute">border</span>=<span class="value">"0"</span> <span class="attribute">OnMouseOver</span>=<span class="value">"ItR('Ba')"</span> <span class="attribute">OnMouseOut</span>=<span class="value">"ItW('Ba')"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">img</span> <span class="attribute">id</span>=<span class="value">"Be"</span> <span class="attribute">src</span>=<span class="value">"be.gif"</span> <span class="attribute">border</span>=<span class="value">"0"</span> <span class="attribute">OnMouseOver</span>=<span class="value">"ItR('Be')"</span> <span class="attribute">OnMouseOut</span>=<span class="value">"ItW('Be')"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+    <h2>Объекты JavaScript</h2>
+
+    <p>Язык JavaScript является объектно-ориентированным. Объекты JavaScript представляют собой
+        наборы свойств и методов. Можно сказать, что свойства объектов - это данные,
+        связанные с объектом, а методы - функции для обработки данных объекта.</p>
+    <p>В языке JavaScript имеется три вида объектов: встроенные объекты,
+        объекты брaузера и объекты, создаваемые программистом.
+    </p>
+    <p>JavaScript поддерживает следующий набор встроенных объектов: <b>Array</b>,
+        <b>Boolean</b>, <b>Date</b>, <b>Global</b>, <b>Function</b>, <b>Math</b>,
+        <b>Number</b>, <b>String</b>.</p>
+
+
+    <a id="Array"></a>
+    <h2>Встроенный объект Array. Массивы в JavaScript</h2>
+
+    <p>Массив в JavaScript является экземпляром встроенного объекта <b>Array</b>.
+        Нумерация элементов в массиве начинается с нуля. Создать массив можно
+        следующими способами:</p>
+    <pre><code class="language-html php"><span class="keyword">var</span> a1 = <span class="keyword">new</span> <span class="keyword">Array</span>();
+<span class="keyword">var</span> a2 = <span class="keyword">new</span> <span class="keyword">Array</span>(<span class="number">3</span>); <span class="comment">// создает массив длиной 10</span>
+<span class="keyword">var</span> a3 = <span class="keyword">new</span> <span class="keyword">Array</span>(<span class="string">'раз'</span>,<span class="string">'два'</span>,<span class="string">'три'</span>);
+<span class="keyword">var</span> b1 = []
+<span class="keyword">var</span> b2 = [<span class="number">3</span>] <span class="comment">// создает массив из одного эллемента со значением 3</span>
+<span class="keyword">var</span> b3 = [<span class="string">"a"</span>, <span class="number">1</span>, <span class="keyword">true</span>]</code></pre>
+
+    <p><b>a1</b> - массив, в котором нет ни одного элемента.</p>
+    <p><b>a2</b> - массив из трех элементов с неопределенным (undefined) значением.</p>
+    <p><b>a3</b> - массив, заданный списком своих элементов.</p>
+    <p>Число элементов в массиве можно изменить, просто задав значение
+        соответствующего элемента:</p>
+    <pre>a3[5]='шесть';</pre>
+    <p>Типы данных элементов массива в JavaScript могут быть различными:
+    </p>
+    <pre>a3[3]=4; a3[4]=5; a3[7]=false;</pre>
+    <p>Разумеется, необходимо предусмотреть корректную работу с массивом, содержащим
+        элементы с разными типами данных.</p>
+    <p>Для создания многомерного массива каждому элементу массива нужно
+        присвоить другой массив:</p>
+    <pre>var myArray = new Array(2);
+for (i=0; i&lt;3; i++){myArray[i] = new Array(2);}</pre>
+    <p>Так можно создать массив, состоящий из трех строк и трех столбцов.</p>
+
+    <p>Это все числовые массивы. Также существуют и ассоциативные массивы:</p>
+    <pre><code class="language-html php"><span class="keyword">var</span> a=<span class="keyword">new</span> <span class="keyword">Array</span>()
+a[<span class="string">'top'</span>]=<span class="string">'Верх'</span>
+a[<span class="string">'bottom'</span>]=<span class="string">'Низ'</span>
+<span class="comment">//а потом обращатся:</span>
+<span class="keyword">var</span> c=a[<span class="string">'top'</span>]</code></pre>
+
+    <h3>Свойства объекта Array</h3>
+    <ul>
+        <li><b>length</b>. Число элементов массива.
+        </li>
+    </ul>
+    <pre><code class="language-html php"><span class="keyword">var</span> c = <span class="keyword">new</span> <span class="keyword">Array</span>(<span class="string">'раз'</span>,<span class="string">'два'</span>,<span class="string">'три'</span>,<span class="number">4</span>,<span class="number">5</span>);
+document.write(<span class="string">'Число элементов массива c: '</span>+c.length+<span class="string">'\nc='</span>+c);</code></pre>
+
+    <h3>Методы объекта Array</h3>
+    <ul>
+        <li><b>push( )</b>. добавляюет значение с конца массива</li>
+        <li><b>pop( )</b>. вынимает значение с конца массива</li>
+        <li><b>shift( )</b>. добавляюет значение с начала массива</li>
+        <li><b>unshift ( )</b>. вынимает значение с начала массива. shift/unshift обычно приводят к перенумерации всего
+            массива.
+            shift сдвигает все элементы на единицу влево, а unshift - вправо.
+            Поэтому на больших массивах эти методы работают медленнее, чем push/pop.</li>
+
+        <li><b>concat( )</b>. Слияние двух массивов. Через параметр передается имя
+            второго массива: <code>c=a.concat(b);</code><br>
+            Здесь элементы массива <code>b</code> добавляются к элементам массива <code>a</code>.
+            Чтобы преобразовать строку в массив используется метод <b>split</b> объекта String:
+            <pre><code class="language-html javascript"><span class="comment">// строка для преобразования</span>
+    <span class="keyword">var</span> str = <span class="string">'1 2 3 4 5 6 7 8 9 10'</span>;
+    <span class="comment">// преобразуем в массив</span>
+    <span class="keyword">var</span> arr = str.split(<span class="string">' '</span>);
+    <span class="comment">// Переменная arr будет содержать элементы [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</span>
+    <span class="comment">// пример 2</span>
+    <span class="keyword">var</span> arr2 = str.split(<span class="string">' '</span>, <span class="number">3</span>);
+    <span class="comment">// Переменная arr2 будет содержать элементы [1, 2, 3]</span></code></pre>
+
+        </li>
+        <li><b>reverse( )</b>. Меняет порядок элементов массива на обратный.
+
+        </li>
+        <li><b>slice(begin[, end])</b>. Возвращает подмассив с индексами begin…end.
+            При этом элемент массива с конечным индексом в результат не войдет. Следует
+            помнить, что индексы отсчитываются от нуля.
+        </li>
+        <li><b>splice(index, deleteCount[, element1,…, elementN])</b>
+            Удалить deleteCount элементов, начиная с index, и вставить на их место element1…elementN</li>
+        <li><b>sort( fn )</b>. Сортирует массив. Если функция не передана, то все элементы сортируются как строки.
+            Вместо 0,6,18,24,25, он сортирует 0,18,24,25,6. Для сотрировки числового массива используйте следущий
+            вариант:
+            <pre><code class="language-html javascript"><span class="keyword">var</span> a=[<span class="number">15</span>,<span class="number">7</span>,<span class="number">100</span>,<span class="number">50</span>];
+a.sort(<span class="keyword">function</span>(a,b){<span class="keyword">return</span> a-b;});
+alert(a.join()); <span class="comment">// Выведет 7,15,50,100</span></code></pre>
+
+        </li>
+        <li><b>toString( )</b> - преобразует элементы массива в строку, используя в качестве символа-разделителя
+            запятую.</li>
+        <li><b>indexOf(искомый_элемент, индекс)</b>, <b>lastIndexOf(искомый_элемент, индекс)</b> - возвращает индекс
+            элемента, значение которого равно значению, переданному методу в качестве аргумента.
+            Первый аргумент метода указывает значение элемента, индекс которого нужно найти, второй аргумент
+            (необязательный), указывает индекс с которого будет начинаться поиск. Если одинаковых вхождений несколько,
+            выбирается наименьший (первый) индекс. Если элемент с искомым значением не найден, метод вернет -1. Внутри
+            метода для поиска используется строгое сравнение ( === )
+            lastIndexOf() - ищет с конца.
+            <pre><code class="language-html javascript"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">3</span>];
+a.indexOf(<span class="number">3</span>);    <span class="comment">//вернет 2</span>
+a.indexOf(<span class="number">3</span>,<span class="number">4</span>);  <span class="comment">//вернет 6</span>
+a.indexOf(<span class="number">35</span>);   <span class="comment">//вернет -1: нет элемента с таким значением</span>
+a.lastIndexOf(<span class="number">3</span>);  <span class="comment">//вернет 7</span></code></pre>
+        </li>
+        <li><b>forEach(callback, thisArg)</b> - callback-функция, которую метод forEach() будет вызывать для каждого
+            элемента массива, должна иметь три параметра:
+            первый параметр принимает в качестве аргумента - значение элемента массива, второй - индекс элемента, и
+            третий - сам массив.
+            Однако, если нужно использовать только значения элементов массива, можно написать функцию только с одним
+            параметром.
+            Второй аргумент - thisArg (необязательный) будет передан в качестве значения this
+            <pre><code class="language-html php"><span class="keyword">var</span> arr = [<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>];
+
+<span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">(value)</span> {</span>
+    <span class="keyword">var</span> sum = value * <span class="keyword">this</span>;
+    <span class="keyword">return</span> document.write(sum + <span class="string">"&lt;br&gt;"</span>);
+}
+
+arr.<span class="keyword">forEach</span>(foo, <span class="number">5</span>); <span class="comment">//второй аргумент будет передан в качестве значения this</span>
+
+<span class="comment">//пример с тремя параметрами</span>
+<span class="keyword">var</span> a = [<span class="number">17</span>,<span class="number">22</span>,<span class="number">13</span>];
+
+a.<span class="keyword">forEach</span>(function(el, idx, a) {
+        document.write(<span class="string">'a['</span>+idx+<span class="string">'] = '</span>+el+<span class="string">' в ['</span>+a+<span class="string">'] &lt;br&gt;'</span>);
+    });</code></pre>
+        </li>
+        <li><b>filter(callback, thisObject)</b> - возвращает новый массив, который будет содержать только те элементы
+            массива, для которых вызов функции callback возвратит true.
+            <pre><code class="language-html javascript"><span class="function"><span class="keyword">function</span> <span class="title">isBig</span><span class="params">(element, index, array)</span> {</span>  <span class="comment">//возвращает числа, которые больше или равны 10</span>
+    <span class="keyword">return</span> (element &gt;= <span class="number">10</span>); <span class="comment">//если значение элемента больше или равно 10 - выражение вернет true</span>
+}
+<span class="keyword">var</span> filtered = [<span class="number">11</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">50</span>, <span class="number">25</span>].filter(isBig);  <span class="comment">//filtered[11, 50, 25]</span></code></pre>
+        </li>
+        <li><b>map(callback)</b> - возвращает новый массив, который будет состоять из результатов вызова функции
+            callback(item, idx, ar) для каждого элемента массива.
+            <pre><code class="language-html javascript"><span class="keyword">var</span> a = [<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>];
+
+    <span class="keyword">var</span> b = a.map(<span class="keyword">function</span>(item, idx, arr) {
+    <span class="keyword">return</span> item * item; }); <span class="comment">// b = [25, 36, 49]</span></code></pre>
+        </li>
+
+        <li><b>every(callback)</b> - возвращает true, если для всех элементов массива указанная функция, используемая
+            для их проверки, вернет true.</li>
+        <li><b>some(callback)</b> - возвращает true, если во время проверки в указанной функции один или несколько
+            элементов вернут true.</li>
+
+        <li><b>reduce(callback, initialValue)</b>, <b>reduceRight(callback, initialValue)</b> - применяет указанную
+            функцию (callback) в отношении сразу двух значений в массиве, перебирая элементы слева направо, сохраняя при
+            этом промежуточный результат.
+            Аргументы функции callback: (previousValue, currentItem, index, array)<br>
+            previousValue - возвращаемый результат callback функции (он же промежуточный результат)<br>
+            currentItem - текущий элемент массива (элементы перебираются по очереди слева-направо)<br>
+            index - индекс текущего элемента<br>
+            array - обрабатываемый массив<br>
+            initialValue (инициализирующее значение) - объект, используемый в качестве первого аргумента первого вызова
+            функции callback. Проще говоря, значение previousValue при первом вызове равно initialValue. Если
+            initialValue нет, то оно равно первому элементу массива, а перебор начинается со второго</li>
+
+    </ul>
+
+    <p><b>delete</b> - Удалить элемент ассоциативного массива, <p>Например:</p>
+    </p>
+    <pre><code class="language-html javascript"><span class="keyword">var</span> arr = [];
+<span class="comment">// присваиваем значения</span>
+arr[<span class="string">'first'</span>] = <span class="string">'Первое значение'</span>;
+arr[<span class="string">'second'</span>] = <span class="string">'Второе значение'</span>;
+arr[<span class="string">'third'</span>] = <span class="string">'Третье значение'</span>;
+<span class="comment">// удаляем элемент с ключом second</span>
+<span class="keyword">delete</span> arr[<span class="string">'second'</span>];</code></pre>
+
+    <p>Для обхода ассоциативного массива используется следующий цикл:</p>
+    <pre><code class="language-html javascript"><span class="keyword">for</span> (<span class="keyword">var</span> x <span class="keyword">in</span> ar_list) <span class="comment">//выведем на экран все элементы</span>
+document.write(x+<span class="string">' : '</span>+ar_list[x] + <span class="string">"&lt;br&gt;"</span>);</code></pre>
+
+    <h2 id="Date">Встроенный объект Date</h2>
+
+    <p>С помощью методов встроенного объекта <b>Date</b> можно выполнять
+        различные действия с часами компьютера. Для использования большинства методов
+        объекта Date необходимо создать экземпляр этого объекта:</p>
+    <pre>var today = new Date();</pre>
+
+    <h3>Методы объекта Date</h3>
+    <ul>
+        <li><b>getYear</b>. Возвращает год:<br>
+            <code>var nYear = today.getYear();</code>
+        </li>
+        <li><b>getMonth</b>. Возвращает номер месяца:<br>
+            <code>var nMonth = today.getMonth();</code>
+            Имейте в виду, что январь - это 0, февраль - 1 и т.д.
+        </li>
+        <li><b>getDate</b>. Возвращает значение календарной даты в диапазоне от 1 до 31:<br>
+            <code>var nDate = today.getDate();</code>
+        </li>
+        <li><b>getDay</b>. Возвращает номер дня недели (для воскресенья - 0,
+            для понедельника - 1 и т.д.):<br>
+            <code>var nDay = today.getDay();</code>
+        </li>
+        <li><b>getHours</b>. Возвращает количество часов, прошедших после полуночи:<br>
+            <code>var nHours = today.getHours();</code>
+        </li>
+        <li><b>getMinutes</b>. Возвращает количество минут, прошедших с начала часа:<br>
+            <code>var nMinutes = today.getMinutes();</code>
+        </li>
+        <li><b>getSeconds</b>. Возвращает количество секунд, прошедших с начала минуты:<br>
+            <code>var nSeconds = today.getSeconds();</code>
+        </li>
+        <li><b>getTime</b>. Возвращает количество миллисекунд, прошедших с
+            00 часов 00 минут 1 января 1970 года:<br>
+            <code>var nMillisec = today.getTime();</code>
+        </li>
+        <li><b>getTimeZoneOffset</b>.
+            Возвращает смещение локального времени относительно времени по Гринвичу в
+            миллисекундах:<br>
+            <code>var nOffsetMillisec = today.getTimeZoneOffset();</code>
+        </li>
+        <li><b>parse</b>. Возвращает количество миллисекунд, прошедших с
+            00 часов 00 минут 1 января 1970 года по время, указанное в параметре функции.
+            Для вызова этого метода можно просто сослаться на имя класса <code>Date</code>,
+            а создавать объект класса Date не надо:<br>
+            <code>var nMS = Date.parse(prm);</code><br>
+            Параметр <code>prm</code> может принимать значения: локальные дата и время <code>("21
+Apr 2001 18:00:00");</code> дата и время по Гринвичу
+            <code>("21 Apr 2001 14:00:00 GMT");</code> дата и время по Гринвичу cо
+            смещением <code>("21 Apr 2001 18:00:00 GMT+0400")</code>.
+        </li>
+        <li><b>UTC</b>. Преобразовывает дату, заданную параметрами метода,
+            в количество миллисекунд, прошедших с 00 часов 00 минут 1 января 1970 года.
+            Для вызова этого метода, так же как и метода <b>parse</b>
+            можно просто сослаться на имя класса Date:<br>
+            <code>var nMSec = Date.UTC(year, month, date, hours, min, sec, ms);</code><br>
+            Имейте в виду, что январь - это 0, февраль - 1 и т.д.
+        </li>
+        <li><b>setYear</b>. Устанавливает год в объекте класса Date:<br>
+            <code>today.setYear(nYear);</code>
+        </li>
+        <li><b>setMonth</b>. Устанавливает номер месяца:<br>
+            <code>today.setMonth(nMonth);</code>
+        </li>
+        <li><b>setDate</b>. Устанавливает значение календарной даты в диапазоне от 1 до 31:<br>
+            <code>today.setDate(nDate);</code>
+        </li>
+        <li><b>setDay</b>. Устанавливает номер дня недели (для воскресенья - 0, для понедельника - 1 и
+            т.д.):<br>
+            <code>today.setDay(nDay);</code>
+        </li>
+        <li><b>setHours</b>. Устанавливает количество часов, прошедших после полуночи:<br>
+            <code>today.setHours(nHours);</code>
+        </li>
+        <li><b>setMinutes</b>. Устанавливает количество минут, прошедших с начала часа:<br>
+            <code>today.setMinutes(nMinutes);</code>
+        </li>
+        <li><b>setSeconds</b>. Устанавливает количество секунд, прошедших с начала минуты:<br>
+            <code>today.setSeconds(nSeconds);</code>
+        </li>
+        <li><b>setTime</b>. Устанавливает дату, соответствующую количеству миллисекунд, прошедших с 00
+            часов 00 минут 1 января 1970 года:<br>
+            <code>var nMillisec = today.setTime();</code>
+        </li>
+        <li><b>toGMTString</b>. Преобразует дату в строку, записанную в стандартном формате времени по
+            Гринвичу: <br><code>"Sat, 21 Apr 2001 14:00:00 GMT"</code>
+        </li>
+        <li><b>toLocaleString</b>. Преобразует дату в строку, записанную в стандартном формате локального времени:
+            <br><code>"04/16/2001 18:00:00"</code>.
+        </li>
+    </ul>
+
+    <h2>Объекты брaузера</h2>
+
+    <p>Объекты брaузера являются тем интерфейсом, с
+        помощью которого сценарий JavaScript
+        взаимодействует с посетителем и HTML-документом,
+        загруженным в окно брaузера, а также с самим брaузером. Обращаясь к свойствам и
+        методам этих объектов, можно выполнять различные операции над окном брaузера,
+        загруженным в это окно HTML-документом,
+        а также над отдельными объектами, размещенными в HTML-документе.</p>
+    <p>Практически в любом сценарии JavaScript необходимы такие объекты, как
+        окно - <b>window</b> и документ - <b>document</b>.</p>
+
+    <h3 id="Window">Свойства объекта window</h3>
+    <ul>
+        <li><b>name</b>. Имя окна, указанное при его открытии методом open,
+            а также в атрибуте <code>TARGET</code> тега <code>&lt;A&gt;</code> или в атрибуте <code>NAME</code>
+            тега <code>&lt;FORM&gt;</code>.
+        </li>
+        <li><b>self</b>, <b>window</b>. Синонимы имени окна. Относятся к текущему окну.
+        </li>
+        <li><b>top</b>. Синоним имени окна. Относится к окну верхнего уровня.
+        </li>
+        <li><b>parent</b>. Синоним имени окна. Относится к окну, содержащему набор
+            фреймов.
+        </li>
+        <li><b>frames</b>. Массив всех фреймов данного окна.
+        </li>
+        <li><b>length</b>. Количество фреймов в родительском окне.
+        </li>
+        <li><b>status</b>. Текущее сообщение, отображаемое в строке состояния окна
+            брaузера.
+        </li>
+    </ul>
+
+    <h3>Методы объекта window</h3>
+    <ul>
+        <li><b>alert</b>. Отображение диалоговой панели <b>Alert</b> с сообщением
+            и кнопкой <b>OK</b>. Через параметр передается сообщение, отображаемое в
+            диалоговой панели. После вызова этого метода выполнение сценария задерживается
+            до тех пор, пока посетитель не нажмет кнопку OK, расположенную в
+            диалоговой панели.</li>
+    </ul>
+
+    <h4>Пример</h4>
+    <pre><code ><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Content-Type"</span> <span class="attribute">content</span>=<span class="value">"text/html; charset=utf-8"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    alert(<span class="string">"Рад видеть Вас на моем сайте! Пошли дальше?"</span>);
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+    </p>
+    <ul>
+        <li><b>confirm</b>. Отображение диалоговой панели Confirm с кнопками
+            <b>OK</b> и <b>Отмена</b>. В зависимости от того, какая кнопка будет нажата,
+            метод возвращает соответственно значение <code>true</code> или <code>false</code>.
+        </li>
+    </ul>
+
+    <h4>Пример</h4>
+    <pre><code ><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Content-Type"</span> <span class="attribute">content</span>=<span class="value">"text/html; charset=utf-8"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="undefined">
+    &lt;!--
+    if(confirm("Рад видеть Вас на моем сайте! Пошли
+        дальше?"))
+            {document.write("Пошли!");}
+    else
+    {document.write("Не хочешь - не надо... ");}
+    //--&gt;
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+    <br></p>
+    <ul>
+        <li><b>prompt</b>. Отображение диалоговой панели <b>Prompt</b> с полем ввода и кнопками <b>OK</b>
+            и <b>Отмена</b>. В зависимости от того, какая кнопка будет нажата, метод
+            возвращает соответственно введенную строку или значение <code>null</code>. Метод имеет два параметра. Первый
+            - сообщение над полем ввода. Второй (необязательный) - начальное значение
+            строки ввода.
+        </li>
+    </ul>
+
+    <h4>Пример</h4>
+    <pre><code ><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Content-Type"</span> <span class="attribute">content</span>=<span class="value">"text/html; charset=utf-8"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">&lt;!--
+    <span class="keyword">var</span> yourName=prompt(<span class="string">"Как Вас зовут?"</span>, <span class="string">"Маша"</span>);
+    <span class="keyword">if</span>(yourName==<span class="string">"Маша"</span>)
+        {document.write(<span class="string">"Угадал!"</span>);}
+    <span class="keyword">else</span>
+        {document.write(<span class="string">"Не угадал. Вас зовут "</span> + yourName);}
+    <span class="comment">//--&gt;</span>
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+    </p>
+    <ul>
+        <li>
+            <b>open</b>. Открытие окна. Метод имеет три параметра. Первый задает URL HTML-документа,
+            предназначенного для загрузки в новое окно. Второй определяет имя окна для
+            использования в атрибуте <code>TARGET</code> тега <code>&lt;A&gt;</code> или в атрибуте <code>NAME</code>
+            тега &lt;FORM&gt;. Третий
+            (необязательный) задает в виде текстовой строки параметры, определяющие внешний
+            вид открываемого окна.</li>
+    </ul>
+
+    <table style="margin: 0 auto">
+        <tbody>
+            <tr>
+                <td style="width:102px">toolbar</td>
+                <td>Отображение стандартной инструментальной линейки<br><em>[=yes|no] | [=1|0]</em></td>
+            </tr>
+            <tr>
+                <td>location</td>
+                <td>Отображение поля ввода адреса документа<br><em>[=yes|no] | [=1|0]</em></td>
+            </tr>
+            <tr>
+                <td>status</td>
+                <td>Отображение строки состояния<br><em>[=yes|no] | [=1|0]</em></td>
+            </tr>
+            <tr>
+                <td>menubar</td>
+                <td>Отображение линейки меню<br><em>[=yes|no] | [=1|0]</em></td>
+            </tr>
+            <tr>
+                <td>scrollbars</td>
+                <td>Отображение полос прокрутки<br><em>[=yes|no] | [=1|0]</em></td>
+            </tr>
+            <tr>
+                <td>resizable</td>
+                <td>Изменение размеров нового окна<br><em>[=yes|no] | [=1|0]</em></td>
+            </tr>
+            <tr>
+                <td>width</td>
+                <td>Ширина окна в пикселах </td>
+            </tr>
+            <tr>
+                <td>height</td>
+                <td>Высота окна в пикселах </td>
+            </tr>
+            <tr>
+                <td>fullscreen</td>
+                <td>Полноэкранный режим</td>
+            </tr>
+            <tr>
+                <td>copyhistory</td>
+                <td>Сохранение истории загрузки документов в данное окно<br><em>[=yes|no] | [=1|0]</em></td>
+            </tr>
+            <tr>
+                <td>directories</td>
+                <td>Наличие в данном окне кнопок групп новостей<br><em>[=yes|no] | [=1|0]</em></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>Пример</h4>
+    <pre><code ><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">Content-Type</span> <span class="attribute">content</span>=<span class="value">"text/html; charset=utf-8"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body
+</span>    <span class="attribute">lang</span>=<span class="value">RU</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span>
+    <span class="attribute">language</span>=<span class="value">"JavaScript"</span>&gt;</span><span class="javascript">
+    &lt;!--
+    <span class="keyword">var</span>
+        newWindow=open(<span class="string">"ann.htm"</span>,<span class="string">""</span>,<span class="string">"toolbar=no,menubar=no,width=300,height=200"</span>)
+    <span class="comment">//--&gt;</span>
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+    <br></p>
+    <ul>
+        <li><b>close</b>. Закрытие созданного или основного окна: <br>
+            <code>newWindow.close();</code><br>
+            Текущее окно брaузера можно закрыть одним из следующих способов:<br>
+            <code>window.close(); self.close();</code>
+        </li>
+        <li><b>setTimeout</b>. Установка таймера. Применяется для ограничения времени ввода пароля,
+            создания бегущих строк и всевозможных анимационных эффектов. Метод имеет два параметра.
+            Первый задает выражение JavaScript, которое запускается по прошествии времени,
+            указанного вторым параметром в миллисекундах. Заданное выражение запускается один раз.</li>
+    </ul>
+
+    <h4>Пример</h4>
+    <pre><code ><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Content-Type"</span> <span class="attribute">content</span>=<span class="value">"text/html; charset=utf-8"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">H3</span>&gt;</span>Через 2 секунды Иоганн Себастьян Бах сменит Людвига ван Бетховена.<span class="tag">&lt;/<span class="title">H3</span>&gt;</span>
+<span class="tag">&lt;<span class="title">img</span> <span class="attribute">id</span>=<span class="value">"B_B"</span> <span class="attribute">src</span>=<span class="value">"be.gif"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">&lt;!--
+<span class="function"><span class="keyword">function</span> <span class="title">change</span><span class="params">()</span>{</span>
+    document.getElementById(<span class="string">"B_B"</span>).src=<span class="string">"ba.gif"</span>;
+}
+setTimeout(<span class="string">"change()"</span>, <span class="number">2000</span>);
+<span class="comment">//--&gt;</span>
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+    </p>
+    <ul>
+        <li><b>clearTimeout</b>. Сброс таймера. Для останова таймера метод <b>setTimeout</b>
+            нужно вызвать с возвратом идентификатора, т.е. <br>
+            <code>idTimer=setTimeout("change()", 2000);</code><br>
+            а затем этот идентификатор передать методу <b>clearTimeout</b>
+            в качестве параметра: <br>
+            <code>clearTimeout(idTimer);</code>
+        </li>
+    </ul>
+
+    <br>
+
+    <ul>
+        <li><b>setInterval(prm1,prm2)</b>. Установка периодического таймера. Метод имеет два параметра.
+            задает выражение JavaScript, которое периодически запускается по прошествии времени, указанного вторым
+            параметром в миллисекундах.</li>
+        <li><b>clearInterval(prm)</b>. Сброс таймера, установленного методом setInterval.
+            Для сброса таймера метод setInterval нужно вызвать с возвратом идентификатора, т.е.
+            <code>idTimer=setInterval(”change()”, 2000);</code> а затем этот идентификатор передать методу
+            clearTimeout в качестве параметра: <code>clearInterval(idTimer);</code></li>
+    </ul>
+
+
+    <h4>Пример</h4>
+    <pre><code ><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Content-Type"</span> <span class="attribute">content</span>=<span class="value">"text/html; charset=utf-8"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">H3</span>&gt;</span>Через 2 секунды Иоганн Себастьян Бах сменит Людвига ван Бетховена.<span class="tag">&lt;/<span class="title">H3</span>&gt;</span>
+<span class="tag">&lt;<span class="title">img</span> <span class="attribute">id</span>=<span class="value">"B_B"</span> <span class="attribute">src</span>=<span class="value">"be.gif"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">&lt;!--
+    <span class="keyword">var</span> a=<span class="string">"be"</span>;
+    <span class="function"><span class="keyword">function</span> <span class="title">change</span><span class="params">()</span>{</span>
+        a=(a==<span class="string">"be"</span>?<span class="string">"ba"</span>:<span class="string">"be"</span>);
+        document.getElementById(<span class="string">"B_B"</span>).src=a+<span class="string">".gif"</span>;
+    }
+    setInterval(<span class="string">"change()"</span>, <span class="number">2000</span>);
+    <span class="comment">//--&gt;</span>
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+    </p>
+    <ul>
+        <li><b>blur( )</b>. При вызове метода окно теряет фокус.
+        </li>
+    </ul>
+    <ul>
+        <li><b>focus( )</b>. При вызове метода окно получает фокус.
+        </li>
+    </ul>
+    <ul>
+        <li><b>MoveTo(x,y)</b>. Перемещает окно в точку с координатами.
+        </li>
+        <li><b>MoveBy(x,y)</b>. Перемещает окно на <code>x</code> пикселей по горизонтали вправо
+            и на <code>y</code> пикселей вниз.
+        </li>
+    </ul>
+    <ul>
+        <li><b>ResizeTo(x,y)</b>. Изменяет размер окна на указанные.
+        </li>
+        <li><b>ResizeBy(x,y)</b>. Увеличивает или уменьшает размер окна на заданное количество пикселей.
+        </li>
+    </ul>
+    <ul>
+        <li><b>print( )</b>. Печать документа. Вызывает окно выбора параметров печати.
+        </li>
+    </ul>
+    <ul>
+        <li><b>scroll(x,y), ScrollTo(x,y)</b>. Прокручивает окно так, что точка с кординатами <code>x,y</code>
+            становится левой верхней точкой окна.
+        </li>
+        <li><b>ScrollBy(x,y)</b>. Прокручивает окно на <code>x,y</code> пикселей.
+        </li>
+    </ul>
+    <ul>
+        <li><b>stop( )</b>. Прекращает загрузку документа в окно браузера.
+        </li>
+    </ul>
+
+    <h3 id="Document">Свойства объекта document</h3>
+
+    <ul>
+        <li><b>URL</b>. Полный URL документа.
+        </li>
+        <li><b>location</b>. Полный URL документа.
+        </li>
+        <li><b>referrer</b>. URL вызывающего документа.
+        </li>
+        <li><b>title</b>. Заголовок документа, определенный тегом <code>&lt;TITLE&gt;</code>.
+        </li>
+        <li><b>bgColor</b>. Цвет фона документа.
+        </li>
+        <li><b>fgColor</b>. Цвет текста.
+        </li>
+        <li><b>linkColor</b>. Цвет cсылок.
+        </li>
+        <li><b>alinkColor</b>. Цвет выбранных cсылок.
+        </li>
+        <li><b>vlinkColor</b>. Цвет посещенных cсылок.
+        </li>
+        <li><b>links</b>. Массив всех cсылок в документе.
+        </li>
+        <li><b>anchors</b>. Массив локальных меток. Применяется для организации
+            ссылок внутри документа.
+        </li>
+        <li><b>applets</b>. Массив аплетов Java.
+        </li>
+        <li><b>forms</b>. Массив форм в виде объектов.
+        </li>
+        <li><b>images</b>. Массив растровых изображений.
+        </li>
+        <li><b>embeds</b>. Массив объектов plug-in.
+        </li>
+        <li><b>lastModified</b>. Дата последнего изменения документа.
+        </li>
+        <li><b>cookie</b>. Значение cookie для текущего документа.</li>
+    </ul>
+
+    <h4>Пример</h4>
+    <pre><code ><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">Content-Type</span>
+          <span class="attribute">content</span>=<span class="value">"text/html; charset=utf-8"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+        &lt;!--
+        document.bgColor=<span class="string">"FFFF00"</span>;
+        document.fgColor=<span class="string">"800080"</span>;
+        document.linkColor=<span class="string">"000000"</span>;
+        document.alinkColor=<span class="string">"FF0000"</span>;
+        document.vlinkColor=<span class="string">"0000FF"</span>;
+        <span class="comment">//--&gt;</span>
+    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span> <span class="attribute">lang</span>=<span class="value">RU</span>&gt;</span>
+<span class="tag">&lt;<span class="title">H2</span>&gt;</span>Изменение
+    цвета фона, текста и ссылок<span class="tag">&lt;/<span class="title">H2</span>&gt;</span>
+<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"be.htm"</span>&gt;</span><span class="tag">&lt;<span class="title">img
+</span>        <span class="attribute">src</span>=<span class="value">"be.gif"</span> <span class="attribute">align</span>=<span class="value">"bottom"</span>&gt;</span>Кто это?<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;<span class="title">br</span>&gt;</span>
+<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"ba.htm"</span>&gt;</span><span class="tag">&lt;<span class="title">img
+</span>        <span class="attribute">src</span>=<span class="value">"ba.gif"</span> <span class="attribute">align</span>=<span class="value">"bottom"</span>&gt;</span>Кто это?<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+    </p>
+    <p>Объект document может содержать в
+        себе другие объекты, доступные как свойства:
+    </p>
+    <ul>
+        <li><b>anchor</b>. Локальная метка, определенная тегом <code>&lt;A&gt;</code>.
+        </li>
+        <li><b>form</b>. Форма, определенная тегом <code>&lt;FORM&gt;</code>.
+        </li>
+        <li><b>history</b>. Список посещенных URL.
+        </li>
+        <li><b>link</b>. Текст или изображение, играющие роль гипертекстовой ссылки,
+            созданной тегом <code>&lt;A&gt;</code>, в котором дополнительно заданы обработчики событий
+            <code>onClick</code> и <code>onMouseOver</code>.</li>
+    </ul>
+
+    <h3>Методы объекта document</h3>
+
+    <ul>
+        <li><b>сlear</b>. Удаление содержимого документа из окна просмотра.
+        </li>
+        <li><b>write</b>. Запись в документ произвольной HTML-конструкции.
+        </li>
+        <li><b>writeln</b>. Аналогичен <b>write</b>, но с добавлением символа перевода строки
+            в конец строки.
+        </li>
+        <li><b>open</b>. Открытие выходного потока для записи в HTML-документ данных
+            типа MIME при помощи методов <b>write</b> и <b>writeln</b>.
+        </li>
+        <li><b>close</b>. Закрытие потока данных, открытого методом <b>open</b>.
+            В окне будут отображены все изменения содержимого документа, сделанные
+            сценарием после открытия потока.</li>
+        <li><b>getElementById(a)</b> Получить объект по его ID</li>
+        <li><b>getElementsByTagName(tag)</b> Получить массив объектов по имени тега</li>
+    </ul>
+
+    <h3>Ссылки в документе</h3>
+
+    <p>Для каждой ссылки, размещенной в HTML-документе,
+        создается отдельный объект. Все такие объекты находятся в объекте <code>document</code>
+        как элементы массива <code>links</code>. Анализируя эти элементы,
+        сценарий JavaScript может определить свойства каждой ссылки в HTML-документе:
+    </p>
+    <ul>
+        <li><b>length</b>. Количество ссылок в HTML-документе,
+            т.е. количество элементов в массиве <code>links</code>.
+        </li>
+        <li><b>hash</b>. Имя локальной ссылки, если она определена в URL.
+        </li>
+        <li><b>host</b>. Имя узла и порт, указанные в URL.
+        </li>
+        <li><b>hostname</b>. Имя узла и доменное имя узла сети. Если доменное имя
+            недоступно, вместо него указывается адрес IP.
+        </li>
+        <li><b>href</b>. Полный URL.
+        </li>
+        <li><b>pathname</b>. Путь к объекту, указанный в URL.
+        </li>
+        <li><b>port</b>. Номер порта, использумого для передачи данных с сервером,
+            указанным в ссылке.
+        </li>
+        <li><b>protocol</b>. Строка названия протокола передачи данных
+            (включающая символ "двоеточие"), указанного в ссылке.
+        </li>
+        <li><b>search</b>. Строка запроса, указанная в URL после символа "?".
+        </li>
+        <li><b>target</b>. Имя окна, куда будет загружен документ при выполнении ссылки.
+            Это может быть имя существующего окна фрейма, определенного тегом
+            <code>&lt;FRAMESET&gt;</code>, или одно из зарезервированных имен - <b>_top</b>,
+            <b>_parent</b>, <b>_self</b>, <b>_blank</b>.</li>
+    </ul>
+
+    <h4>Пример</h4>
+    <pre><code ><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Content-Type"</span> <span class="attribute">content</span>=<span class="value">"text/html; charset=utf-8"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">P</span>&gt;</span><span class="tag">&lt;<span class="title">A</span> <span class="attribute">HREF</span>=<span class="value">"http://kdg.HtmlWeb.ru/"</span>
+      <span class="attribute">TARGET</span>=<span class="value">"_top"</span>&gt;</span>Моя страница<span class="tag">&lt;/<span class="title">A</span>&gt;</span>
+<span class="tag">&lt;<span class="title">P</span>&gt;</span><span class="tag">&lt;<span class="title">A</span> <span class="attribute">HREF</span>=<span class="value">"http://www.dstu.edu.ru/"</span>&gt;</span>Здесь учился<span class="tag">&lt;/<span class="title">A</span>&gt;</span>
+<span class="tag">&lt;<span class="title">P</span>&gt;</span><span class="tag">&lt;<span class="title">A</span> <span class="attribute">HREF</span>=<span class="value">"http://www.tnk-ug.ru/"</span>&gt;</span>Здесь работаю<span class="tag">&lt;/<span class="title">A</span>&gt;</span>
+<span class="tag">&lt;<span class="title">HR</span>&gt;</span>
+<span class="tag">&lt;<span class="title">H1</span>&gt;</span>Свойства ссылок<span class="tag">&lt;/<span class="title">H1</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    &lt;!--
+    <span class="comment">// Цикл по всем ссылкам</span>
+    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;document.links.length; i++)
+    {
+<span class="comment">// Разделительная линия</span>
+        document.write(<span class="string">"&lt;HR&gt;"</span>);
+<span class="comment">// Текст ссылки, выделенный жирным шрифтом</span>
+        <span class="keyword">var</span> Txt=document.links[i] + <span class="string">"&lt;br&gt;"</span>;
+        document.write(Txt.bold());
+<span class="comment">// Все свойства ссылки</span>
+        document.write(<span class="string">"host: "</span>.italics() + document.links[i].host +
+            <span class="string">"&lt;br&gt;"</span>);
+        document.write(<span class="string">"hostname: "</span>.italics() +
+            document.links[i].hostname + <span class="string">"&lt;br&gt;"</span>);
+        document.write(<span class="string">"href: "</span>.italics() + document.links[i].href +
+            <span class="string">"&lt;br&gt;"</span>);
+        document.write(<span class="string">"pathname: "</span>.italics() +
+            document.links[i].pathname + <span class="string">"&lt;br&gt;"</span>);
+        document.write(<span class="string">"port: "</span>.italics() + document.links[i].port +
+            <span class="string">"&lt;br&gt;"</span>);
+        document.write(<span class="string">"search: "</span>.italics() + document.links[i].search
+            + <span class="string">"&lt;br&gt;"</span>);
+        document.write(<span class="string">"target: "</span>.italics() + document.links[i].target
+            + <span class="string">"&lt;br&gt;"</span>);
+    }
+    <span class="comment">//--&gt;</span>
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+
+    </p>
+    <h2 id="Navigator">Объект navigator</h2>
+    <p>Информация о текущем браузере пользователя. Позволяет динамически подстроить отображение страницы в зависимости
+        от браузера.
+        Например, для мобильного телефона увеличить шрифт и перераспределить блоки с информацией.</p>
+
+    <h2>Изменение содержимого страницы</h2>
+    <p>Одной из часто встречающихся при разработке веб-приложений задач, является возможность добавления или удаления
+        элементов страницы.
+        Свойство <b>innerHTML</b> для любого элемента веб-страницы возвращает строку, содержащую HTML-код, заключенный
+        между открывающим и закрывающим тегами элемента.
+        Свойство <b>outerHTML</b> - аналогичное свойству innerHTML, но содержит весь HTML-код, включая внешние
+        открывающий и закрывающий теги элемента.
+        innerHTML может использоваться для замены содержимого элемента после формирования страницы в отличие от
+        document.write:
+    </p>
+    <pre><code ><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+    <span class="function"><span class="keyword">function</span> <span class="title">addText</span><span class="params">(id,txt)</span>{</span>
+        document.getElementById(id).innerHTML+=document.getElementById(txt).value + <span class="string">'&lt;br /&gt;'</span>;
+    }
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"str"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">form</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"text"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">value</span>=<span class="value">""</span> <span class="attribute">placeholder</span>=<span class="value">"Введите текст"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">onclick</span>=<span class="value">"addText('str','text')"</span> <span class="attribute">value</span>=<span class="value">"Нажми меня"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span></code></pre>
+
+    <br>
+    <p>Аналогично можно изменять содержимое страницы используя DOM-модель html-документа:</p>
+    <pre><code ><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+    <span class="function"><span class="keyword">function</span> <span class="title">addText2</span><span class="params">(id,txt)</span>{</span>
+        <span class="keyword">var</span> str=document.getElementById(txt).value;
+        <span class="keyword">var</span> o=document.getElementById(id);
+        o.appendChild(document.createTextNode(str));
+        o.appendChild(document.createElement(<span class="string">'br'</span>));
+    }
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"str2"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">form</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"text2"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">value</span>=<span class="value">""</span> <span class="attribute">placeholder</span>=<span class="value">"Введите текст"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">onclick</span>=<span class="value">"addText2('str2','text2')"</span> <span class="attribute">value</span>=<span class="value">"Нажми меня"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
+
+    <ul>
+        <li><b>appendChild</b> - добавляет детёныша внутрь объекта</li>
+        <li><b>createTextNode</b> - создает текстовый элемент</li>
+        <li><b>createElement</b> - создает тег</li>
+    </ul>
+
+    <h2 id="Cookie">Cookie</h2>
+
+    <p><b>Cookie</b> - это свойство HTML-документа. Представляет собой набор строковых параметров,
+        каждый из которых имеет имя и значение. Сценарий JavaScript может создавать cookie для
+        HTML-документа, определяя в нем произвольное количество параметров и задавая для них
+        произвольные значения. После создания такой набор параметров становится принадлежностью данного
+        конкретного HTML-документа и может быть проанализирован, изменен или удален
+        сценарием JavaScript.
+    </p>
+    <h3>Создание cookie</h3>
+
+    <p>В сценарии JavaScript cookie создается с помощью свойства <b>document.cookie</b>.
+        Пары имя-значение не могут содержать пробелов, запятых и точек с запятыми. Поэтому все эти
+        символы должны быть заменены на соответствующие escape-последовательности. JavaScript имеет
+        две функции, обрабатывающие escape-последовательности:
+        <b>encodeURIComponent</b> и <b>decodeURIComponent</b>.
+    </p>
+    <p>Пара имя-значение является единственным необходимым параметром при создании cookie.
+        Указание только пары имя-значение создает cookie, который сохраняется только на протяжении
+        текущего сеанса брaузера. При создании cookie можно задать дату его автоматического удаления.
+        В этой паре надо указать имя <b>expires</b> и значение в стандартном формате времени по Гринвичу
+        (GMT). Простейшим способом преобразования в формат GMT является использование одного из методов
+        встроенного класса Date: <b>toGMTString</b>. Кроме этого, создавая cookie, можно указать также
+        путь (<b>path</b>), домен (<b>domain</b>) и информацию безопасности(<b>secure</b>). Извлечь эту информацию
+        нельзя.
+
+    </p>
+    <h3>Удаление cookie</h3>
+
+    <p>Самый простой способ удаления cookie - установить для него такое время автоматического
+        удаления, которое уже прошло.
+
+    </p>
+    <h3>Практическое применение cookie</h3>
+
+    <ul>
+        <li>Индивидуальная настройки параметров Web-страниц.
+        </li>
+        <li>Хранение товара, выбранного посетителем виртуального
+            магазина. Можно выбрать товары на разных страницах, а потом сделать общий
+            заказ.
+        </li>
+        <li>Хранение текущего состояния сетевой игры.</li>
+    </ul>
+
+    <h4>Пример</h4>
+    <pre><code ><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Content-Type"</span> <span class="attribute">content</span>=<span class="value">"text/html; charset=utf-8"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    &lt;!--
+    <span class="function"><span class="keyword">function</span> <span class="title">parseCookie</span><span class="params">()</span> {</span>
+        <span class="comment">// Разделение cookie.</span>
+        <span class="keyword">var</span> cookieList = document.cookie.split(<span class="string">";"</span>);
+        <span class="comment">// Массив для каждого cookie в cookieList.</span>
+        <span class="keyword">var</span> cookieArray = <span class="keyword">new</span> Array();
+        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; cookieList.length; i++) {
+            <span class="comment">// Разделение пар имя-значение.</span>
+            <span class="keyword">var</span> name = cookieList[i].split(<span class="string">"="</span>);
+            <span class="comment">// Декодирование и добавление в cookie-массив.</span>
+            cookieArray[decodeURIComponent(name[<span class="number">0</span>].trim())] = decodeURIComponent(name[<span class="number">1</span>].trim());
+        }
+        <span class="keyword">return</span> cookieArray;
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">setCookie</span><span class="params">(visits)</span> {</span>
+        <span class="comment">/* Счетчик числа посещений и
+         определение срока хранения в 1 год. */</span>
+        <span class="keyword">var</span> expireDate = <span class="keyword">new</span> Date();
+
+        <span class="comment">// Установка даты автоматического удаления.</span>
+        expireDate.setYear(expireDate.getYear() + <span class="number">1</span>);
+        <span class="comment">// Сохранение числа посещений.</span>
+        document.cookie = <span class="string">"visits="</span> + encodeURIComponent(visits) +
+            <span class="string">"; expires="</span> + encodeURIComponent(expireDate.toGMTString()) + <span class="string">";"</span>;
+    }
+    <span class="keyword">if</span> (<span class="string">""</span> == document.cookie) {
+        <span class="comment">// Инициализация cookie.</span>
+        setCookie(<span class="number">1</span>);
+        document.write(<span class="string">"&lt;H3&gt;Поздравляю Вас с первым посещением моего сайта.&lt;/H3&gt;"</span>);
+    }
+    <span class="keyword">else</span> {
+        <span class="comment">// Анализ cookie.</span>
+        <span class="keyword">var</span> cookies = parseCookie();
+        <span class="comment">// Вывод приветствия, числа посещений и увеличение числа посещений на 1.</span>
+        document.write(<span class="string">"&lt;H3&gt;Рад снова видеть Вас на моем сайте! Число Ваших посещений - "</span> +cookies[<span class="string">'visits'</span>] + <span class="string">" !&lt;/H3&gt;"</span>);
+        <span class="comment">// Обновление cookie.</span>
+        setCookie(isNaN(cookies[<span class="string">'visits'</span>])? <span class="number">1</span> : (++cookies[<span class="string">'visits'</span>]));
+    }
+    <span class="comment">//--&gt;</span>
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+    </p>
+    <p>Данные cookie позволяют собирать определенную статистическую информацию
+        о посетителе, поэтому некоторые пользователи могут настраивать брaузеры на ограничение или
+        полное отключение возможности работы с cookie.
+
+    </p>
+    <h2 id="Events">Перехват и обработка событий</h2>
+    <p>Старая схема перехвата события не подразумевала, что у события может быть несколько обработчиков:</p>
+    <pre><code class="language-html javascript"><span class="comment">// Присвоить функцию свойству onload объекта Window.</span>
+<span class="comment">// Функция - обработчик события: она вызывается, когда документ будет загружен</span>
+window.onload = <span class="keyword">function</span>() {
+<span class="comment">// Отыскать элемент &lt;form&gt;</span>
+    <span class="keyword">var</span> elt = document.getElementById(<span class="string">"shipping_address"</span>);
+
+    <span class="comment">// Зарегистрировать обработчик события, который будет вызываться</span>
+    <span class="comment">// непосредственно перед отправкой формы</span>
+    elt.onsubmit = <span class="keyword">function</span>() { <span class="keyword">return</span> validate(<span class="keyword">this</span>); }
+}</code></pre>
+
+    <p>Новая схема перехвата и обработки событий:</p>
+    <pre><code ><span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"mybutton"</span>&gt;</span>Щелкните меня!<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+    <span class="keyword">var</span> b = document.getElementById(<span class="string">"mybutton"</span>);
+    b.onclick = <span class="keyword">function</span>() {
+        alert(<span class="string">"Спасибо, что щелкнули на мне!"</span>);
+    };
+
+    b.addEventListener(<span class="string">"click"</span>, <span class="keyword">function</span>() {alert(<span class="string">'Еще раз спасибо!'</span>)}, <span class="literal">false</span>);
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></pre>
+
+    <p>Вызов метода <b>addEventListener</b>() со строкой «click» в первом аргументе никак не влияет на значение свойства
+        onclick.
+        Во фрагменте, приведенном выше, щелчок на кнопке приведет к выводу двух диалоговых окон alert().
+        Но важнее то, что метод addEventListener() можно вызвать несколько раз и зарегистрировать с его помощью
+        несколько
+        функций-обработчиков для одного и того же типа события в том же самом объекте. При появлении события в объекте
+        будут вызваны все обработчики,
+        зарегистрированные для этого типа события, в порядке их регистрации.</p>
+    <p>Многократный вызов метода addEventListener() для одного и того же объекта с теми же самыми аргументами не дает
+        никакого
+        эффекта - функция-обработчик регистрируется только один раз и повторные вызовы не влияют на порядок вызова
+        обработчиков.</p>
+    <p>Парным к методу addEventListener() является метод <b>removeEventListener</b>(), который принимает те же три
+        аргумента, но не добавляет,
+        а удаляет функцию-обработчик из объекта. Это часто бывает удобно, когда необходимо зарегистрировать временный
+        обработчик события,
+        а затем удалить его в какой-то момент.</p>
+    <p>Internet Explorer версии ниже IE9 не поддерживает методы addEventListener() и removeEventListener()</p>
+    <p>При вызове обработчика событий ему передается объект события в виде единственного аргумента.
+        Свойства объекта события содержат дополнительную информацию о событии.
+        Свойство type, например, определяет тип возникшего события.
+        В IE версии 8 и ниже обработчикам событий, зарегистрированным установкой свойства, объект события при вызове не
+        передается.
+        Вместо этого объект события сохраняется в глобальной переменной window.event.
+        Для переносимости обработчики событий можно оформлять, как показано ниже, чтобы они использовали переменную
+        window.event при вызове без аргумента:</p>
+    <pre><code class="language-html javascript"><span class="function"><span class="keyword">function</span> <span class="title">handler</span><span class="params">(event)</span> {</span>
+    event = event || window.event;
+    <span class="comment">// Здесь находится реализация обработчика</span>
+}</code></pre>
+
+    <p>Объект события передается обработчикам событий, зарегистрированным с помощью метода attachEvent(), но они также
+        могут использовать переменную window.event</p>
+
+
+    <p>Для <b>отмены возникшего события</b> и прекращения его всплытия используйте:</p>
+    <pre><code class="language-html javascript"><span class="keyword">if</span>(e &amp;&amp; e.stopPropagation){e.stopPropagation();e.preventDefault();}       <span class="comment">// для DOM-совместимых браузеров</span>
+<span class="keyword">else</span> <span class="keyword">if</span>(window.event)window.event.cancelBubble=<span class="literal">true</span>; <span class="comment">//для IE</span></code></pre>
+    <div class="next"><a href="../lectures.html">К содержанию</a></div>
+    <br>
+</div>
+<div id="vis">
+    <div class="font">
+        Размер шрифта:</div>
+    <div class="fontA" onclick="fonta()">А</div>
+    <div class="fontAA" onclick="fontaa()">А</div>
+    <div class="fontAAA" onclick="fontaaa()">А</div>
+    <div class="color">Цвет сайта:</div>
+    <div class="colorW" onclick="clwhite()">A</div>
+    <div class="colorBK" onclick="clblack()">A</div>
+    <div class="colorBE" onclick="clblue()">A</div>
+    <div class="imgOnOff">Изображение:</div>
+    <div class="imgOn" onclick="imgon()">Вкл.</div>
+    <div class="imgOff" onclick="imgoff()">Выкл.</div>
+    <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

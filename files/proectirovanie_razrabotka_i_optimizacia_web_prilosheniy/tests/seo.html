@@ -1,0 +1,164 @@
+<title>SEO тест</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<script src="../../js/md5.js"></script>
+<script src="../../js/test_js.js"></script>
+<div class="body">
+    <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+        <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff"
+                d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+            </path>
+        </svg>
+    </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+    <p class="name">
+        Проектирование, разработка и оптимизация веб-приложений
+    </p>
+    <div class="links">
+        <a href="../../../index.html" class="link">Главная</a>
+        <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+        <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+        <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+        <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+    </div>
+</div>
+<div class="content">
+    <h1>Тест по SEO оптимизации сайта</h1>
+    <div class="test_question" id="test_question1">
+        <h3>1. Линкбэйтинг – это...</h3>
+        <p><input type="radio" id="question1" name="question1" value="s11">Покупка ссылок с хорошими показателями на
+            биржах</p>
+        <p><input type="radio" id="question1" name="question1" value="s12">Правила размещения ссылок на сайте</p>
+        <p><input type="radio" id="question1" name="question1" value="s13">Создание контента для сайта, который будет
+            заставлять людей ссылаться на него</p>
+        <p><input type="radio" id="question1" name="question1" value="s14">Особая схема внутренней перелинковки сайта
+        </p>
+        <div class="c_answer" id="c_answer1"></div>
+    </div>
+    <div class="test_question" id="test_question2">
+        <h3>2. Что такое «контент»?</h3>
+        <p><input type="radio" id="question2" name="question2" value="s21">Это реклама в поисковой выдаче</p>
+        <p><input type="radio" id="question2" name="question2" value="s22">Это тексты на сайте</p>
+        <p><input type="radio" id="question2" name="question2" value="s23">Это текст на сайте, разбитый в определенные
+            блоки: новости, акции, статьи и т.д.</p>
+        <p><input type="radio" id="question2" name="question2" value="s24">Это вся информация, которая есть на сайте:
+            тексты, картинки, музыка и др.</p>
+        <div class="c_answer" id="c_answer2"></div>
+    </div>
+    <div class="test_question" id="test_question3">
+        <h3>3. Какой тег поможет вам избавиться на сайте от дублированного контента, указывая поисковику предпочитаемую
+            версию URL-адреса для страницы?</h3>
+        <p><input type="radio" id="question3" name="question3" value="s31">Сколько было отказов на сайте</p>
+        <p><input type="radio" id="question3" name="question3" value="s32">&lt;link rel="canonical"
+            href="http://адрес"/&gt;</p>
+        <p><input type="radio" id="question3" name="question3" value="s33">С каких источников трафика пользователи
+            попадали на сайт в отчетном периоде</p>
+        <p><input type="radio" id="question3" name="question3" value="s34">301-редирект</p>
+        <div class="c_answer" id="c_answer3"></div>
+    </div>
+    <div class="test_question" id="test_question4">
+        <h3>4. Какой из предложенных способов позволяет повлиять на сниппет сайта в Яндекс?</h3>
+        <p><input type="radio" id="question4" name="question4" value="s41">Заказав рекламу в Яндекс.Директе</p>
+        <p><input type="radio" id="question4" name="question4" value="s42">Сниппет в Яндексе можно изменить с помощью
+            тега Description</p>
+        <p><input type="radio" id="question4" name="question4" value="s43">С помощью разметки Schema.org</p>
+        <p><input type="radio" id="question4" name="question4" value="s44">Сниппет? А что это вообще такое?</p>
+        <div class="c_answer" id="c_answer4"></div>
+    </div>
+    <div class="test_question" id="test_question5">
+        <h3>5. Выберите пример корректного написания тега Title для главной страницы сайта, продвигаемой по запросам
+            «доставка цветов по Москве», «недорогие свадебные букеты».</h3>
+        <p><input type="radio" id="question5" name="question5" value="s51">Магазин Стрела Амура предлагает свадебные
+            букеты и доставку цветов по Москве</p>
+        <p><input type="radio" id="question5" name="question5" value="s52">Свадебные букеты недорого, заказ букетов,
+            доставка цветов по Москве</p>
+        <p><input type="radio" id="question5" name="question5" value="s53">Магазин Стрела Амура в Москве</p>
+        <p><input type="radio" id="question5" name="question5" value="s54">Доставка цветов по Москве: недорогие
+            свадебные букеты – цветочный магазин Стрела Амура</p>
+        <div class="c_answer" id="c_answer5"></div>
+    </div>
+    <div class="test_question" id="test_question6">
+        <h3>6. Для чего используется атрибут ALT?</h3>
+        <p><input type="radio" id="question6" name="question6" value="s61">Атрибут ALT прописывается к картинкам, чтобы
+            поисковые роботы могли их прочитать</p>
+        <p><input type="radio" id="question6" name="question6" value="s62">Атрибут ALT прописывается в коде сайта, чтобы
+            поисковые роботы могли лучше индексировать внутренние страницы</p>
+        <p><input type="radio" id="question6" name="question6" value="s63">Атрибут ALT используется для верстки меню
+            сайта, чтобы оно одинаково отображалось в разных браузерах</p>
+        <p><input type="radio" id="question6" name="question6" value="s64">Атрибут ALT прописывается на сайте, чтобы
+            поисковые системы знали, что текст оптимизирован</p>
+        <div class="c_answer" id="c_answer6"></div>
+    </div>
+    <div class="test_question" id="test_question7">
+        <h3>7. Что такое CTA?</h3>
+        <p><input type="radio" id="question7" name="question7" value="s71">Это показатель системы текстовой аналитики, с
+            помощью которого можно оценить плотность ключевых слов в тексте</p>
+        <p><input type="radio" id="question7" name="question7" value="s72">Это отношение числа переходов по ссылке к
+            общему числу показов</p>
+        <p><input type="radio" id="question7" name="question7" value="s73">Это показатель уровня повторно вернувшихся на
+            сайт пользователей</p>
+        <p><input type="radio" id="question7" name="question7" value="s74">Это призыв к действию, который побуждает
+            клиента совершить на сайте целевое действие</p>
+        <div class="c_answer" id="c_answer7"></div>
+    </div>
+    <div class="test_question" id="test_question8">
+        <h3>8. Что означает понятие «тошнота текста»?</h3>
+        <p><input type="radio" id="question8" name="question8" value="s81">Этот показатель отвечает за допустимое
+            количество символов на одной html-странице сайта. Его минимальная граница составляет 500 символов, а
+            максимальная – 4500.</p>
+        <p><input type="radio" id="question8" name="question8" value="s82">Это показатель уникальности текста для сайта.
+            Он определяется специальными сервисами.</p>
+        <p><input type="radio" id="question8" name="question8" value="s83">Он показывает спамность страницы, уровень
+            плотности ключевых слов и частоту употребления ключевых запросов. Определить его можно с помощью специальных
+            сервисов.</p>
+        <p><input type="radio" id="question8" name="question8" value="s84">Нет такого понятия</p>
+        <div class="c_answer" id="c_answer8"></div>
+    </div>
+    <div class="test_question" id="test_question9">
+        <h3>9. С помощью какого инструмента можно закрепить авторские права на свой текст в Яндексе?</h3>
+        <p><input type="radio" id="question9" name="question9" value="s91">Robots.txt</p>
+        <p><input type="radio" id="question9" name="question9" value="s92">Яндекс.Метрика</p>
+        <p><input type="radio" id="question9" name="question9" value="s93">Google Analytics</p>
+        <p><input type="radio" id="question9" name="question9" value="s94">Яндекс.Вебмастер</p>
+        <div class="c_answer" id="c_answer9"></div>
+    </div>
+    <div class="test_question" id="test_question10">
+        <h3>10. Выберите из предложенных ключевых фраз ту, по которой есть смысл продвигать сайт компании, занимающейся
+            продажей ноутбуков в Москве на проспекте Вернадского без возможности доставки</h3>
+        <p><input type="radio" id="question10" name="question10" value="s101">Среди предложенных нет верного варианта
+        </p>
+        <p><input type="radio" id="question10" name="question10" value="s102">Ноутбуки в Москве</p>
+        <p><input type="radio" id="question10" name="question10" value="s103">Купить ноутбук</p>
+        <p><input type="radio" id="question10" name="question10" value="s104">Ноутбуки проспект Вернадского купить</p>
+        <div class="c_answer" id="c_answer10"></div>
+    </div>
+    <div class="test_check" onclick="test_check_seo()">
+        <h3>Завершить</h3>
+    </div>
+    <div class="test_rez">
+        <h3 id="rez">
+            <h3>
+    </div>
+    <div class="next"><a href="../tests.html">К содержанию</a></div>
+</div>
+<div id="vis">
+    <div class="font">
+        Размер шрифта:</div>
+    <div class="fontA" onclick="fonta()">А</div>
+    <div class="fontAA" onclick="fontaa()">А</div>
+    <div class="fontAAA" onclick="fontaaa()">А</div>
+    <div class="color">Цвет сайта:</div>
+    <div class="colorW" onclick="clwhite()">A</div>
+    <div class="colorBK" onclick="clblack()">A</div>
+    <div class="colorBE" onclick="clblue()">A</div>
+    <div class="imgOnOff">Изображение:</div>
+    <div class="imgOn" onclick="imgon()">Вкл.</div>
+    <div class="imgOff" onclick="imgoff()">Выкл.</div>
+    <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

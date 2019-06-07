@@ -1,0 +1,249 @@
+<title>jQuery UI Взаимодействия</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+   <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+      <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+         <path fill="#ffffff"
+            d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+         </path>
+      </svg>
+   </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+   <p class="name">
+      Проектирование, разработка и оптимизация веб-приложений
+   </p>
+   <div class="links">
+      <a href="../../../index.html" class="link">Главная</a>
+      <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+      <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+      <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+      <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+   </div>
+</div>
+<div class="content">
+   <h1>Методы взаимодействия jQuery UI</h1>
+   <p>С помощью методов взаимодействия Вы можете создавать элементы, которые можно перетаскивать мышкой, которые могут
+      изменять
+      размер, которые можно сортировать и которые можно выделять мышкой. </p>
+   <h1>Перетаскиваемые элементы</h1>
+   <p>С помощью метода <b>draggable</b> Вы можете сделать выбранный элемент перетаскиваемым.</p>
+   <p><b>Синтаксис</b></p>
+
+   <pre>
+$("селектор").draggable({опция1:значение1, опцияN:значениеN})
+</pre>
+
+   <p>С помощью опций, которые передаются методу draggable Вы можете настраивать дополнительные аспекты поведения
+      перетаскиваемых элементов.</p>
+   <p>Всем перетаскиваемым элементам назначается класс <b>ui-draggable</b> и дополнительно класс
+      <b>ui-draggable-dragging</b> во время перетаскивания.</p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function() {
+   $("div").draggable();
+});
+</pre>
+
+   <p>С помощью опции <b>axis</b> Вы можете определить направление оси, по которой можно перетаскивать элемент.</p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function() {
+   $("#drag1").draggable({axis:"x"});
+   $("#drag2").draggable({axis:"y"});
+});
+</pre>
+
+   <p>С помощью опции <b>cursor</b> Вы можете задать вид, который будет принимать указатель мыши во время перетаскивания
+      элемента.</p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function() {
+   $("#drag1").draggable({cursor:"move"});
+   $("#drag2").draggable({cursor:"help"});
+});
+</pre>
+
+   <p>С помощью опции <b>helper</b> Вы можете определить вид элемента-помощника.
+      Элемент-помощник отображается во время перетаскивания элемента.
+      По умолчанию во время перетаскивания отображается сам перетаскиваемый элемент. </p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function() {
+   $("#drag1").draggable({helper:"clone"});
+   $("#drag2").draggable({helper:function(event){return $("&lt;div&gt;Я элемент 
+   помощник.&lt;/div&gt;")}});
+});
+</pre>
+
+   <p>Опция <b>revert</b> определяет будет ли элемент возвращаться на изначальную позицию после завершения
+      перетаскивания.</p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function() {
+   $("#drag1").draggable({revert:true});
+});
+</pre>
+   <h1>Области для перетаскиваемых элементов</h1>
+   <p>С помощью метода <b>droppable</b> Вы можете определить область, в которую можно переместить перетаскиваемый
+      элемент.</p>
+   <p><b>Синтаксис</b></p>
+
+   <pre>
+$("селектор").droppable({опция1:значение1, опцияN:значениеN})
+</pre>
+
+   <p>С помощью опций, которые передаются методу droppable Вы можете настраивать дополнительные аспекты поведения
+      области для перетаскиваемых элементов.</p>
+   <p>Код функции переданный, в опции <b>drop</b> выполнится, когда перетаскиваемый элемент будет перетащен в область и
+      отпущен. </p>
+   <p>Код функции переданный, в опции <b>over</b> выполнится, когда перетаскиваемый элемент будет заведен в границы
+      области.</p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function(){
+   $("#drag1").draggable({stack:"#drop1"});
+   $("#drop1").droppable({
+      over:function(){
+         $("#drag1").css("background-color","#d7fa99");
+         $("#drop1").css("background-color","#d7fa99");
+      },
+      drop:function(){
+         $("#drag1").css("display","none");
+         $("#drop1").css("background-color","#c4f66f");
+         $("#drop1").html("Перемещение завершено успешно.");
+         alert("Вы перетащили элемент с id=drag1 в область с id=drop1.");
+      }
+   });
+});
+</pre>
+
+   <p>С помощью опции <b>accept</b> Вы можете указать элементы, которые будут приниматься областью.</p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function(){
+   $("#drag1").draggable({stack:"#drop1"});
+   $("#drag2").draggable({stack:"#drop1",revert:true});
+   $("#drop1").droppable({
+      accept:"#drag1",
+      over:function(){
+         $("#drag1").css("background-color","#d7fa99");
+         $("#drop1").css("background-color","#d7fa99");
+      },
+      drop:function(){
+         $("#drag1").css("display","none");
+         $("#drop1").css("background-color","#c4f66f");
+         $("#drop1").html("Перемещение завершено успешно.");
+      }
+   });
+});
+</pre>
+
+   <h1>Растягиваемые элементы</h1>
+   <p>С помощью метода <b>resizable</b> Вы можете сделать элементы растягиваемыми.</p>
+   <p><b>Синтаксис</b></p>
+
+   <pre>
+$("селектор").resizable({опция1:значение1, опцияN:значениеN})
+</pre>
+
+   <p>С помощью опций, которые передаются методу resizable Вы можете настраивать дополнительные аспекты поведения
+      растягиваемых элементов.</p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function(){
+   $("#resize1").resizable();
+});
+</pre>
+
+   <p>Если опция <b>animate</b> имеет значение true размер элемента будет изменятся анимировано.</p>
+   <p>С помощью опции <b>helper</b> Вы можете задать вид помощника, с помощью которого пользователь будет узнавать о
+      текущем размере окна во время растягивания.</p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function(){
+   $("#resize1").resizable({animate:true,helper:"ui-state-highlight"});
+});
+</pre>
+
+   <h1>Выделяемые элементы</h1>
+   <p>С помощью метода <b>selectable</b> Вы можете превратить группу элементов в список выбора.</p>
+   <p><b>Синтаксис</b></p>
+
+   <pre>
+$("селектор").selectable({опция1:значение1, опцияN:значениеN})
+</pre>
+
+   <p>С помощью опций, которые передаются методу selectable Вы можете настраивать дополнительные аспекты поведения
+      выделяемых элементов.</p>
+   <p>С помощью классов <b>.ui-selecting</b> и <b>.ui-selected</b> Вы можете настроить оформление выбираемых и выбранных
+      элементы.</p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function(){
+   $("#select1").selectable();
+});
+</pre>
+
+   <h1>Сортируемые элементы</h1>
+   <p>С помощью метода <b>sortable</b> Вы можете сделать элементы списка сортируемыми.</p>
+   <p><b>Синтаксис</b></p>
+
+   <pre>
+$("селектор").sortable({опция1:значение1, опцияN:значениеN})
+</pre>
+
+   <p>С помощью опций, которые передаются методу sortable Вы можете настраивать дополнительные аспекты поведения
+      сортируемых списков.</p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function(){
+   $("#sort1").sortable();
+});
+</pre>
+
+   <p>Вы можете связать два сортируемых списка. Элементы одного связанного списка можно перемещать в другой связанный
+      список.</p>
+   <p>Для того, чтобы воспользоваться этой возможностью необходимо задать связываемым спискам одинаковый класс и указать
+      его в опции <b>connectWith</b>.</p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function(){
+   $("#sort1,#sort2").sortable({connectWith:".connect"});
+});
+</pre>
+   <div class="next"><a href="jquery11.html">Следующая лекция</a></div>
+   <br>
+</div>
+<div id="vis">
+   <div class="font">
+      Размер шрифта:</div>
+   <div class="fontA" onclick="fonta()">А</div>
+   <div class="fontAA" onclick="fontaa()">А</div>
+   <div class="fontAAA" onclick="fontaaa()">А</div>
+   <div class="color">Цвет сайта:</div>
+   <div class="colorW" onclick="clwhite()">A</div>
+   <div class="colorBK" onclick="clblack()">A</div>
+   <div class="colorBE" onclick="clblue()">A</div>
+   <div class="imgOnOff">Изображение:</div>
+   <div class="imgOn" onclick="imgon()">Вкл.</div>
+   <div class="imgOff" onclick="imgoff()">Выкл.</div>
+   <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

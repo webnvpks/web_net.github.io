@@ -1,0 +1,115 @@
+<title>jQuery CSS</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+   <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+      <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+         <path fill="#ffffff"
+            d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+         </path>
+      </svg>
+   </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+   <p class="name">
+      Проектирование, разработка и оптимизация веб-приложений
+   </p>
+   <div class="links">
+      <a href="../../../index.html" class="link">Главная</a>
+      <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+      <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+      <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+      <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+   </div>
+</div>
+<div class="content">
+   <h1>Управление стилями в jQuery </h1>
+   <p>jQuery имеет группу различных методов значительно упрощающих оформление элементов.</p>
+   <p>Одним из самых важных методов в этой группе является метод <b>css()</b>.</p>
+   <p>С помощью метода css Вы можете узнавать текущие или устанавливать новые значения свойств оформления элементов.</p>
+   <p><b>Синтаксис:</b></p>
+
+   <pre>
+//Узнаем значение указанного CSS свойства выбранного элемента
+<b>$("селектор").css("свойство");</b>
+//Установим новое значение указанному CSS свойству выбранного элемента
+<b>$("селектор").css("свойство","значение");</b>
+//Установим произвольные значения нескольким CSS свойствам выбранного элемента
+<b>$("селектор").css({свойство1:значение1, свойствоN:значениеN});</b>
+</pre>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function(){
+
+   $("#but1").click(function(){
+      alert($("#par1").css("color"));
+   });
+   $("#but2").click(function(){
+      $("#par2").css("color","red");
+   });
+   $("#but3").click(function(){
+      $("#par3").css({"font-size":"27px","color":"red","font-family":"Arial"});
+   });
+   $("#text1").focus(function(){
+      $("#text1").val("");
+   });
+   $("#but4").click(function(){
+      $("#par4").css("font-size",$("#text1").val()+"px");
+   });
+
+});
+</pre>
+
+   <p>С помощью метода <b>addClass</b> Вы можете добавить указанный класс выбранному элементу
+      (данный метод, добавляя новый класс, не удаляет и не заменяет существующие).</p>
+   <p>С помощью метода <b>removeClass</b> Вы можете удалить указанный класс у выбранного элемента.</p>
+   <p>Метод <b>toggleClass</b> позволяет переключатся между удалением и добавлением класса выбранного элемента.</p>
+   <p><b>Синтаксис:</b></p>
+   <pre>
+//Добавим указанный класс выбранному элементу
+<b>$("селектор").addClass("имя_класса");</b>
+//Удалим указанный класс у выбранного элемента
+<b>$("селектор").removeClass('имя_класса');</b>
+//При первом вызове указанный класс будет добавлен, а при втором удален.
+<b>$("селектор").toggleClass('имя_класса');</b>
+</pre>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function(){
+
+   $("#but1").click(function(){
+      $("#par1").addClass("blp");
+   });
+   $("#but2").click(function(){
+      $("#par1").removeClass("blp");
+   });
+   $("#but3").click(function(){
+      $("#par1").toggleClass("blp");
+   });
+
+});
+</pre>
+   <div class="next"><a href="jquery7.html">Следующая лекция</a></div>
+   <br>
+</div>
+<div id="vis">
+   <div class="font">
+      Размер шрифта:</div>
+   <div class="fontA" onclick="fonta()">А</div>
+   <div class="fontAA" onclick="fontaa()">А</div>
+   <div class="fontAAA" onclick="fontaaa()">А</div>
+   <div class="color">Цвет сайта:</div>
+   <div class="colorW" onclick="clwhite()">A</div>
+   <div class="colorBK" onclick="clblack()">A</div>
+   <div class="colorBE" onclick="clblue()">A</div>
+   <div class="imgOnOff">Изображение:</div>
+   <div class="imgOn" onclick="imgon()">Вкл.</div>
+   <div class="imgOff" onclick="imgoff()">Выкл.</div>
+   <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

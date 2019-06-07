@@ -1,0 +1,234 @@
+<title>PHP Создание функций</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+
+<div class="body">
+	<p class="vision" title="Версия для слабовидящих" onclick="cl()">
+		<svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+			<path fill="#ffffff"
+				d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+			</path>
+		</svg>
+	</p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+	<p class="name">
+		Проектирование, разработка и оптимизация веб-приложений
+	</p>
+	<div class="links">
+		<a href="../../../index.html" class="link">Главная</a>
+		<a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+		<a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+		<a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+		<a href="../tests.html" class="link" title="Тесты">Тесты</a>
+	</div>
+</div>
+<div class="content">
+	<h1>Функции в PHP</h1>
+
+	<p>В PHP существует две основные формы функций: встроенные и пользовательские.
+	</p>
+	<p>Для определения пользовательской функции используется ключевое слово
+		<b>function</b>.
+	</p>
+	<h4>Пример 1</h4>
+	<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Определение и вызов функции&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+function заголовок ($str, $n)
+{
+  echo  "&lt;H$n&gt;$str&lt;/H$n&gt;";
+}
+заголовок ("Часть", 1);
+заголовок ("Глава", 2);
+заголовок ("Раздел", 3);
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+	<p>Начиная с версии PHP 4.0 можно использовать значения аргументов,
+		подставляемые по умолчанию.
+	</p>
+	<h4>Пример 2</h4>
+	<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Функция со значением аргумента по умолчанию&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+function заголовок ($str, $n = 2)
+{
+  echo  "&lt;H$n&gt;$str&lt;/H$n&gt;";
+}
+заголовок ("Часть", 1);
+заголовок ("Глава");
+заголовок ("Раздел", 3);
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+	<p><b>Примечание:</b> Указанный ниже код будет отрабатывать не так, как Вы возможно ожидаете.
+		Переменная $full во всех случаях будет true.
+	</p>
+	<pre>fun($ar, false);
+function fun($row, $full = true){ ... }<p></p>
+</pre>
+
+	<h2>Передача аргумента по ссылке</h2>
+	<p>Аргументы можно передавать <b>по ссылке</b>. Тогда все изменения, сделанные
+		с аргументом в теле функции, отразятся на самой переменной.
+	</p>
+	<h4>Пример 3</h4>
+	<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Передача аргумента по ссылке&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+function add ( &amp;$a, $b )
+{
+  $a += $b;
+  $b += $b;
+}
+$af = 10;
+$bf = 6;
+echo "af = $af; bf = $bf";
+add ( $af, $bf );
+echo "&lt;br&gt;После вызова функции:&lt;br&gt;";
+echo "af = $af; bf = $bf";
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+	<h2>Возврат значений</h2>
+	<p>Для возврата значений из функции используется оператор <b>return</b>. Можно
+		вернуть несколько значений, если применить список <b><a href="/php/function/list.php">list()</a></b>.
+	</p>
+	<h4>Пример 4</h4>
+	<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Функция, возвращающая список значений&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+function ФИО()
+{
+  return array ("Иванов", "Иван", "Иванович");
+}
+<b>list</b> ($фамилия, $имя, $отчество) = ФИО();
+echo "&lt;table&gt;";
+echo "&lt;tr&gt;&lt;td&gt;фамилия: &lt;td&gt;$фамилия";
+echo "&lt;tr&gt;&lt;td&gt;имя: &lt;td&gt;$имя";
+echo "&lt;tr&gt;&lt;td&gt;отчество: &lt;td&gt;$отчество&lt;/table&gt;";
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+	<h2>Динамические функции</h2>
+	<p>В PHP можно использовать <b>динамические функции</b>. Это означает, что
+		если некоторой переменной присвоено имя функции, то с этой переменной можно
+		обращаться точно так же, как с самой функцией.
+	</p>
+	<h4>Пример 5</h4>
+	<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Переменные функции&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+function funct1 ()
+{
+	echo "Мы внутри функции funct1( );&lt;br&gt;";
+}
+function funct2 ()
+{
+	echo "Мы внутри функции funct2( );&lt;br&gt;";
+}
+$myfunct = "funct1";
+$myfunct();
+$myfunct = "funct2";
+$myfunct();
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+	<h2>Глобальные переменные</h2>
+	<p>Чтобы переменная, созданная вне функции, была доступна внутри функции,
+		надо объявить ее глобальной с помощью инструкции <b>global</b>.
+	</p>
+	<h4>Пример 6</h4>
+	<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Доступ к глобальной переменной&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+$gg = 45;
+function funct ()
+{
+	global $gg;
+	echo "Глобальная переменная имеет значение - $gg";
+}
+funct ();
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+	<h2>Статические переменные</h2>
+	<p>Чтобы переменная сохраняла свое значение между вызовами функции, нужно
+		объявить ее статической с помощью инструкции <b>static</b>.
+	</p>
+	<h4>Пример 7</h4>
+	<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Сохранение значения переменной между вызовами функции&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+function funct (&amp;str)
+{
+	static $ss = 0;
+	$ss++;
+	echo "&lt;h2&gt;$ss. $str&lt;/h2&gt;";
+}
+funct ("Понедельник");
+echo "Король гулял в парке";
+funct ("Вторник");
+echo "Король охотился";
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+	<p>Была создана и проинициализирована переменная <tt>$ss</tt>.
+		По отношению к функции <tt>funct( )</tt> эта переменная останется локальной.
+		При втором и последующих вызовах функции <tt>funct( )</tt> инициализация
+		игнорируется, а запоминается последнее присвоенное значение. </p>
+	<div class="next"><a href="php5.html">Следующая лекция</a></div><br>
+</div>
+<div id="vis">
+	<div class="font">
+		Размер шрифта:</div>
+	<div class="fontA" onclick="fonta()">А</div>
+	<div class="fontAA" onclick="fontaa()">А</div>
+	<div class="fontAAA" onclick="fontaaa()">А</div>
+	<div class="color">Цвет сайта:</div>
+	<div class="colorW" onclick="clwhite()">A</div>
+	<div class="colorBK" onclick="clblack()">A</div>
+	<div class="colorBE" onclick="clblue()">A</div>
+	<div class="imgOnOff">Изображение:</div>
+	<div class="imgOn" onclick="imgon()">Вкл.</div>
+	<div class="imgOff" onclick="imgoff()">Выкл.</div>
+	<div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

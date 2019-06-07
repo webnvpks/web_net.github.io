@@ -1,0 +1,274 @@
+<title>PHP Оптимизация</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+    <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+        <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff"
+                d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+            </path>
+        </svg>
+    </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+    <p class="name">
+        Проектирование, разработка и оптимизация веб-приложений
+    </p>
+    <div class="links">
+        <a href="../../../index.html" class="link">Главная</a>
+        <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+        <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+        <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+        <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+    </div>
+</div>
+<div class="content">
+    <h1>Ускорение PHP-программ</h1>
+
+    <p>Как без особых усилий заставить <strong>PHP</strong>-код работать на порядок
+        <strong>быстрее</strong> ? Перед тем как задаваться вопросами кеширования и
+        масштабирования стоит попробовать оптимизировать код. Есть ряд несложных правил:</p>
+    <ul>
+        <li><strong>Выносите функции и вычисления из циклов.</strong> Такое:
+            <pre class="adb"><code class="language-php"><span class="variable">$ar</span>=<span class="keyword">array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">4</span>);
+<span class="keyword">for</span>(<span class="variable">$i</span>=<span class="number">0</span>;<span class="variable">$i</span>&lt;count(<span class="variable">$ar</span>);<span class="variable">$i</span>++){
+    <span class="variable">$a</span>=<span class="number">12342</span>+sqrt(<span class="variable">$b</span>)/<span class="number">12123</span>+<span class="variable">$i</span>;
+}</code></pre>
+            Замените на
+            <pre class="adb"><code class="language-php"><span class="variable">$ar</span>=<span class="keyword">array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">4</span>);
+<span class="variable">$e</span>=<span class="number">12342</span>+sqrt(<span class="variable">$b</span>)/<span class="number">12123</span>;
+<span class="variable">$c</span>=count(<span class="variable">$ar</span>);
+<span class="keyword">for</span>(<span class="variable">$i</span>=<span class="number">0</span>;<span class="variable">$i</span>&lt;<span class="variable">$c</span>;<span class="variable">$i</span>++){
+    <span class="variable">$a</span>=<span class="variable">$e</span>+<span class="variable">$i</span>;
+}</code></pre>
+            Альтернативный вариант:
+            <pre class="adb"><code class="language-php"><span class="keyword">for</span>(<span class="variable">$i</span>=count(<span class="variable">$ar</span>)-<span class="number">1</span>;<span class="variable">$i</span>&gt;=<span class="number">0</span>;<span class="variable">$i</span>--){
+
+}</code></pre>
+        </li>
+        <li><strong>Выносите переменные из строк.</strong> Примерно так:<em> <strong>
+                    &lt;?php $x="test=".$test; ?&gt;</strong> </em>, это на 25-40% быстрее.</li>
+        <li><strong>Имена переменных должны быть короче 7 символов.</strong> Это
+            быстрее на 15%.</li>
+        <li><strong>В массивах не стоит обращаться к элементам по имени и без
+                кавычек.</strong> Особенно в многомерных. Сэкономите 40%.</li>
+        <li>А если <strong>обращение к элементу массива вынести из строки</strong>
+            <em>(как в пункте 1)</em>, то можно сэкономить ещё 25-30%.</li>
+        <li><strong>Используйте Perl-ориентированные регулярные выражения. </strong>
+            Или хотя бы сравнивайте их с POSIX-аналогами по скорости выполнения.
+            Скорость может отличаться до 200% на разных запросах.</li>
+        <li><strong>SizeOf()</a> быстрее Count()</a></strong>, а в циклах sizeof лучше
+            вообще заменить на переменную, for и while практически не отличимы, <strong>
+                для перебора простых индексных массивов нужно использовать for или while</strong>,
+            а <strong>для ассоциативных массивов - foreach</strong>. Плюс 30% при
+            соблюдении.</li>
+        <li>Для чтения файла <strong>file()</a> быстрее, чем fopen()</a>+цикл</strong>.
+            Ускорение до 40%.</li>
+    </ul>
+
+    <h2>Еще про оптимизацию....</h2>
+    <p>При вставке кусков PHP-кода в HTML страницы всегда используйте полные открывающие и закрывающие скобки &lt;?php и
+        ?&gt;!
+        Это обезопасит Вас от вариаций настройки php.ini short_open_tag на разных серверах и возможно сэкономит много
+        времени
+        при переносе или загрузке проектов на разные сервера.
+
+    </p>
+    <p>Старайтесь использовать функцию вывода echo</a> вместо
+        printf</a> и sprintf</a> там где возможно.
+        Нет надобности использовать эти функции , так как они выполняются медленней потому,
+        что созданы для интерпретации и вывода строки с ее обработкой, подстановкой значений,
+        в отформатированном виде. О чем и говорит буква f в конце названия этих 2-х функций.
+
+    </p>
+    <p>Плохо:
+    </p>
+    <pre>sprintf('мама');
+printf('папа');
+</pre>
+
+    <p>Хорошо:
+    </p>
+    <pre>echo 'мама';
+echo 'папа';
+</pre>
+
+    <p>По тем же причинам используйте одинарные кавычки там где это возможно и пользуйтесь оператором "." для склейки
+        строк,
+        вместо прямой подстановки переменный в строку, заключенную в кавычки.
+
+    </p>
+    <p>Лучший вариант(самый быстрый)
+
+    </p>
+    <pre>echo 'Вес равен: '.$weight;
+</pre>
+
+    <p>Худший вариант(медленный):
+
+    </p>
+    <pre>echo "Вес равен: $weight";
+</pre>
+
+    <p>Если Вам нужно проверить не равно ли возвращенное значение функции нулю
+        (а функция сама по себе возвращает только положительные или только отрицательные значения),
+        то лучше использовать оператор сравнения. Он выполняется быстрей, нежели конкретное сравнение значений.
+
+    </p>
+    <p>Плохо:
+
+    </p>
+    <pre>$i = 0;
+if ($i != 0)
+ {
+     //Не равно
+ }
+else
+ {
+     //Равно
+ }
+</pre>
+
+    <p>Хорошо:
+
+    </p>
+    <pre>$i = 0;
+if ($i &gt; 0)
+ {
+     //Не равно
+ }
+ else
+ {
+     //Равно
+ }
+</pre>
+
+    <p>Нужно также учитывать, что если строка принимает только пустое значения,
+        либо пользовательские строковые данные, то вместо сравнения строки со строкой,
+        для выявления ее пустоты, так же можно использовать сравнение с нулем, которые выполнится быстрее.</p>
+
+    <p>Для проверки строки на пустоту используйте функцию trim($str)</a>;
+        Она не только проверит заполнена ли строка,
+        но также обрежет несущественные символы - пробелы (табуляции, white-spaces) и вернет положительное значение,
+        в случае если в строке ей действительно какие то значимые символы.
+
+    </p>
+    <p>Плохо:
+
+    </p>
+    <pre>if ($str != '')
+ {
+     //обработка строки
+ }
+</pre>
+
+    <p>Надо:
+
+    </p>
+    <pre>if (trim($str))
+ {
+     //обработка строки
+ }
+</pre>
+
+    <p>Для получения данных из форм методом Get и Post лучше использовать следующий минимальный набор самописных
+        функций:
+
+    </p>
+    <pre>GetParam ($array, $value, $default = '')
+ {
+     return (isset($array[$value])) ? $array[$value] : $default;
+ }
+
+GetParamSafe ($array, $value, $default = '')
+ {
+     return (isset($array[$value])) ? addslashes($array[$value]) : $default;
+ }
+</pre>
+
+    <p>Функция GetParam($_POST, 'myvar', 'empty') к примеру коректно получит данные из $_POST['myvar'],
+        и в случае если $_POST переменная не существует вернет значение по умолчанию, без всяких Waring и Notice.
+        Фунция GetParamSafe($_POST, 'myvar', 'empty') делает ту же операцию, только возвращает экранированную
+        переменную.
+        Для защиты от SQL инъекций к примеру. А данная конструкция позволяет получить целочисленное число из $_POST.
+
+    </p>
+    <pre>intval(GetParam($_POST, 'myvar', 'empty')):
+</pre>
+
+    <p>В случае если в массиве $_POST лежало совсем не число функия вернет 0;
+
+    </p>
+    <p>Для простого сравнения строк не используйте preg_match()</a> или preg_match_all()</a>.
+        Используйте strstr()</a> и strpos()</a>.
+
+    </p>
+    <p>При получении строк из базы данных (MySQL к примеру) старайтесь использовать функцию <a
+            href="/php/function/mysql_fetch_object.php">mysql_fetch_object</a>.
+        К примеру при изменении кода запроса с
+
+    </p>
+    <pre>$query = "SELECT field7, field3 FROM mytable WHERE id = 5"
+</pre>
+    <p>на</p>
+    <pre>$query = "SELECT * FROM mytable WHERE id = 5"
+</pre>
+
+    <p>код вывода строки полученной из этих запросов</p>
+
+    <pre>$row = mysql_fetch_array(mysql_query($query));
+echo $row[0].'--&gt;'.$row[1]; //перестанет работать, в то время, как
+</pre>
+
+    <pre>$row = mysql_fetch_object(mysql_query($query));
+echo $row-&gt;field7.'--&gt;'.$row-&gt;field3; // останется работоспособным.
+</pre>
+
+    <p>При использовании сессий для авторизации на сайте, храните в сессии хотя бы IP-адрес, с которого был совершен
+        вход.
+        Так же проверяйте IP входа с текущим IP адресом каждый раз при выполнении закрытого скрипта.
+        Например если злоумышленнику удастся украсть название сессии, то войти он в закрытую часть уже не сможет.
+        Потому что в общем случае у него будет другой IP-адрес.
+
+    </p>
+    <p>При формировании больших запросов вставки данных в БД через insert все строчки старайтесь поместить в один-три
+        insert'а.
+        Выполнение каждой строчки отдельно не только загрузит сервер БД, но и задержит работу Вашего скрипта.
+
+    </p>
+    <p>В случае если необходимо в разных местах (разных классах) одной системы использовать одни и те же сложно
+        вычисляемые
+        данные (например которые достаются из БД через запрос с последющей обработкой строк),
+        старайтесь их вычислять единожды, хранить глобально для всей системы и передавать в класс(скрипт) один раз,
+        непосредственно при создании класса (подключении скрипта)
+
+    </p>
+    <p>При больших нагрузках на Web-сервер задумайтесь над использованием стандартных решений для включения
+        кэша(кэш-технологии).
+        Например бесплатный PHP класс JCache_Lite_Function.
+
+    </p>
+    <p>При проектировании/разработке больших систем отдавайте предпочтение Объектно-Ориентированному программированию
+        с использование шаблонов проектирования. Наиболее частые шаблоны: MVC, PageController, BodyHandler, Fabric...
+    </p>
+    <div class="next"><a href="php14.html">Следующая лекция</a></div><br>
+</div>
+<div id="vis">
+    <div class="font">
+        Размер шрифта:</div>
+    <div class="fontA" onclick="fonta()">А</div>
+    <div class="fontAA" onclick="fontaa()">А</div>
+    <div class="fontAAA" onclick="fontaaa()">А</div>
+    <div class="color">Цвет сайта:</div>
+    <div class="colorW" onclick="clwhite()">A</div>
+    <div class="colorBK" onclick="clblack()">A</div>
+    <div class="colorBE" onclick="clblue()">A</div>
+    <div class="imgOnOff">Изображение:</div>
+    <div class="imgOn" onclick="imgon()">Вкл.</div>
+    <div class="imgOff" onclick="imgoff()">Выкл.</div>
+    <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

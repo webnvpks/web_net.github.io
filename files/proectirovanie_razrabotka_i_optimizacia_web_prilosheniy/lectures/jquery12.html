@@ -1,0 +1,271 @@
+<title>jQuery UI Эффекты</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+   <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+      <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+         <path fill="#ffffff"
+            d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+         </path>
+      </svg>
+   </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+   <p class="name">
+      Проектирование, разработка и оптимизация веб-приложений
+   </p>
+   <div class="links">
+      <a href="../../../index.html" class="link">Главная</a>
+      <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+      <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+      <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+      <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+   </div>
+</div>
+<div class="content">
+   <h1>Эффекты jQuery UI</h1>
+   <p>Возможность применения различных эффектов к элементам была и в jQuery.
+      С помощью эффектов jQuery Вы, например, могли заставить абзац постепенно пропадать или появляться, применять к
+      элементам
+      анимацию и многое другое. </p>
+   <p>Эффекты jQuery UI значительно расширяют эти возможности. Теперь можно заставить элементы пропадать или появляться
+      пятнадцатью разными способами.</p>
+   <p>В анимации Вы можете использовать свойства изменения цвета фона, текста и границ элементов.</p>
+   <p>jQuery UI также расширяет базовую функциональность jQuery для манипулирования классами оформления.</p>
+
+   <h1>Скрытие и отображение элементов с помощью эффектов jQuery UI</h1>
+   <p>В jQuery UI можно использовать 15 различных эффектов для скрытия и отображения элементов на страницах.</p>
+   <p>Эффекты в jQuery UI могут использоваться со следующими методами:</p>
+   <ul>
+      <li><b>effect</b> - позволяет применяет указанный эффект к элементу</li>
+      <li><b>hide</b> - позволяет скрыть элемент с указанным эффектом</li>
+      <li><b>show</b> - позволяет отобразить элемент с указанным эффектом</li>
+   </ul>
+
+   <p><b>Синтаксис:</b></p>
+
+   <pre>
+effect(эффект,опции,скорость,функция)
+hide(эффект,опции,скорость,функция)
+show(эффект,опции,скорость,функция)
+</pre>
+
+   <p><b>эффект</b> указывает название эффекта, который будет применен. Некоторые эффекты (такие как scale, transfer и
+      size) для своего вызова требуют задания дополнительных <i>опций</i>.</p>
+   <p><b>скорость</b> указывает скорость применения эффекта в миллисекундах (1000 миллисекунд = 1 секунда).</p>
+   <p><b>функция</b> задает функцию, код которой будет выполнен после завершения применения эффекта.</p>
+   <p>Эффекты jQuery UI приведены в таблице ниже:</p>
+   <table>
+      <tr>
+         <th>Название эффекта</th>
+         <th>Описание</th>
+      </tr>
+      <tr>
+         <td><b>Blind</b></td>
+         <td>Эффект "Ослепление".</td>
+      </tr>
+      <tr>
+         <td><b>Bounce</b></td>
+         <td>Эффект "Отскок".</td>
+      </tr>
+      <tr>
+         <td><b>Clip</b></td>
+         <td>Эффект "Отсекание".</td>
+      </tr>
+      <tr>
+         <td><b>Drop</b></td>
+         <td>Эффект "Падение".</td>
+      </tr>
+      <tr>
+         <td><b>Explode</b></td>
+         <td>Эффект "Взрыв".</td>
+      </tr>
+      <tr>
+         <td><b>Fade</b></td>
+         <td>Эффект "Выцветание".</td>
+      </tr>
+      <tr>
+         <td><b>Fold</b></td>
+         <td>Эффект "Складка".</td>
+      </tr>
+      <tr>
+         <td><b>Highlight</b></td>
+         <td>Эффект "Освещение".</td>
+      </tr>
+      <tr>
+         <td><b>Puff</b></td>
+         <td>Эффект "Рассеивание".</td>
+      </tr>
+      <tr>
+         <td><b>Pulsate</b></td>
+         <td>Эффект "Пульсирование".</td>
+      </tr>
+      <tr>
+         <td><b>Scale</b></td>
+         <td>Эффект "Масштабирование". С помощью опции <b>percent:проценты</b> Вы можете задать на сколько процентов от
+            текущего размера необходимо уменьшить или увеличить элемент.</td>
+      </tr>
+      <tr>
+         <td><b>Shake</b></td>
+         <td>Эффект "Тряска".</td>
+      </tr>
+      <tr>
+         <td><b>Slide</b></td>
+         <td>Эффект "Скольжение".</td>
+      </tr>
+      <tr>
+         <td><b>Size</b></td>
+         <td>Эффект "Калибровка". С помощью опции <b>to:</b> и включенных в нее опций <b>width:ширина_в_пикселях</b> и
+            <b>height:высота_в_пикселях</b> Вы можете задать
+            размеры, до которых необходимо "откалибровать" текущий элемент.</td>
+      </tr>
+      <tr>
+         <td><b>Transfer</b></td>
+         <td>Эффект "Переход". С помощью опции <b>to:id_или_class_элемента</b> Вы можете указать элемент, в который
+            перейдет текущий элемент. С помощью опции <b>className:имя_класса</b> Вы можете
+            оформить эффект перехода с помощью CSS.</td>
+      </tr>
+   </table>
+   <p>Увидеть все эффекты не требующие дополнительных опций для вызова в действии можно в следующем примере:</p>
+
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function() {
+   $("#but1").click(function(){
+      $("#testcontainer").hide($("#effect1").val(),{},1000 );
+   });
+   $("#but2").click(function(){
+      $("#testcontainer").show($("#effect1").val(),{},1000 );
+   });
+});
+</pre>
+
+   <p>В следующем примере Вы можете увидеть использование эффектов требующих для вызова дополнительных опций.</p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function() {
+   $("#effect1").change(function(){
+      if ($("#effect1").val()==="scale"){
+         $("#scalecont").css("display","block");
+         $("#transfercont").css("display","none");
+         $("#sizecont").css("display","none");}
+      else if ($("#effect1").val()==="transfer"){
+         $("#transfercont").css("display","block");
+         $("#scalecont").css("display","none");
+         $("#sizecont").css("display","none");}
+      else if ($("#effect1").val()==="size"){
+         $("#sizecont").css("display","block");
+         $("#transfercont").css("display","none");
+         $("#scalecont").css("display","none");}
+   });
+   $("#but1").click(function(){
+      var options={};
+      if ($("#effect1").val()==="scale"){
+         var options={percent:50};
+         options.percent=$("#scalepercent").val();}        
+      else if ($("#effect1").val()==="transfer"){
+         var options={to:"#but1", className:"transfer-effect"}
+         options.to=$("#trans1").val();
+         options.className=$("#trans2").val();}       
+      else if ($("#effect1").val()==="size"){
+         var options={to:{width:200,height:200}};
+         options.to.width=$("#size1").val();
+         options.to.height=$("#size2").val();}
+      $("#testcontainer").effect($("#effect1").val(), options ,1000);
+   });
+});
+</pre>
+
+   <h1>jQuery UI анимация</h1>
+   <p>jQuery UI расширяет возможности jQuery анимации. Теперь Вы можете создавать анимацию, которая может манипулировать
+      цветом. </p>
+   <p>В анимации теперь могут быть использованы следующие CSS свойств:
+      <ul>
+         <li>backgroundColor</li>
+         <li>borderColor</li>
+         <li>borderBottomColor</li>
+         <li>borderLeftColor</li>
+         <li>borderRightColor</li>
+         <li>borderTopColor</li>
+         <li>color</li>
+         <li>outlineColor</li>
+      </ul>
+   </p>
+
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function() {
+   $("#but1").click(function(){
+      $("#testcontainer").animate({
+         borderColor:"#EA3B53",
+         borderWidth:3,
+         backgroundColor:"#97D400",
+         width:500,
+         height:160},1500);
+   });
+});
+</pre>
+
+   <h1>Манипуляции с CSS оформлением</h1>
+   <p>Эффекты jQuery UI расширяют базовую функциональность jQuery для манипулирования с классами.</p>
+   <p>Теперь переключение между различными оформлениями элемента будет происходить анимировано.</p>
+   <p><b>Синтаксис:</b></p>
+
+   <pre>
+/* Добавит новый класс элементу с анимированным переходом между 
+различными состояниями оформления */
+<b>addClass(имя_класса, продолжительность_перехода)</b>
+/* Удалит указанный класс у элемента с анимированным переходом между 
+различными состояниями оформления */
+<b>removeClass(имя_класса, продолжительность_перехода)</b>
+/* Удалит указанный класс если он присутствует и добавит его если он 
+отсутствует с анимированным переходом между различными состояниями оформления */
+<b>toggleClass(имя_класса, продолжительсть_перехода)</b>
+/* Переключится с класса указанного в первом параметре на второй с 
+анимированным переходом между различными состояниями оформления */
+<b>switchClass(класс, новый_класс, продолжительность_перехода)</b>
+</pre>
+
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function(){
+   $("#but1").click(function(){
+      $(".el1").addClass("newclass",1000);
+   });
+   $("#but2").click(function(){
+      $(".el1").removeClass("newclass",1000);
+   });
+   $("#but3").click(function(){
+      $(".el1").toggleClass("newclass",1000);
+   });
+   $("#but4").click(function(){
+      $(".el1").switchClass("el1","newclass");
+   });
+});
+</pre>
+   <div class="next"><a href="jquery13.html">Следующая лекция</a></div>
+   <br>
+</div>
+<div id="vis">
+   <div class="font">
+      Размер шрифта:</div>
+   <div class="fontA" onclick="fonta()">А</div>
+   <div class="fontAA" onclick="fontaa()">А</div>
+   <div class="fontAAA" onclick="fontaaa()">А</div>
+   <div class="color">Цвет сайта:</div>
+   <div class="colorW" onclick="clwhite()">A</div>
+   <div class="colorBK" onclick="clblack()">A</div>
+   <div class="colorBE" onclick="clblue()">A</div>
+   <div class="imgOnOff">Изображение:</div>
+   <div class="imgOn" onclick="imgon()">Вкл.</div>
+   <div class="imgOff" onclick="imgoff()">Выкл.</div>
+   <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

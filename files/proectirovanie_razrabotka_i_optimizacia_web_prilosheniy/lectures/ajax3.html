@@ -1,0 +1,211 @@
+<title>Создание Ajax-приложения</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+  <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+    <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#ffffff"
+        d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+      </path>
+    </svg>
+  </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+  <p class="name">
+    Проектирование, разработка и оптимизация веб-приложений
+  </p>
+  <div class="links">
+    <a href="../../../index.html" class="link">Главная</a>
+    <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+    <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+    <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+    <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+  </div>
+</div>
+<div class="content">
+  <h1>Создание Ajax-приложения</h1>
+  <p>Первым шагом надо создать XML-файл с данными. Назовем этот файл <b>data.xml.</b>
+  </p>
+  <p><b><i>data.xml</i></b>
+  </p>
+  <pre>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;root&gt;
+&lt;data&gt;
+  Это некоторые данные, которые хранятся в XML-файле
+  и были получены JavaScript-ом.
+&lt;/data&gt;
+&lt;/root&gt;
+</pre>
+
+  <p>Теперь создадим простенькую Web-страничку, содержащую данные для примера.
+    Это страница с JavaScript-ом, и пользователи будут запрашивать ее для того, чтобы
+    увидеть технологию Ajax в действии. Назовем этот файл <b>ajax.html</b>.
+  </p>
+  <p><b><i>ajax.html</i></b>
+  </p>
+  <pre>&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html;charset=utf-8"?&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Разработка Web-приложений с помощью технологии Ajax&lt;/h1&gt;
+&lt;p&gt;Эта страница демонстрирует использование Ajax-технологии
+(Асинхронных Javascript и XML) для обновления содержания страницы
+посредством чтения удаленного файла динамически - без перезагрузки
+страницы. Обратите внимание эта операция невозможна при отключенном
+JavaScript-е.
+&lt;/p&gt;
+&lt;p id="xmlData"&gt;Это данные по умолчанию.
+&lt;a href="data.xml" title="Обзор данных XML файла."
+	onclick="ajaxRead('data.xml');return false"&gt;
+Обзор XML данных&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+  <p>Обратите внимание: для пользователей с отключенным JavaScript вставлена ссылка к
+    файлу <b>data.xml</b>. Для пользователей с включенным JavaScript-ом будет
+    вызвана функция <b>ajaxRead</b>.
+
+  </p>
+  <p>Теперь напишем скрипт, который и будет получать данные из файла XML. Его надо
+    будет вставить в нашу Web-страницу в области <b>head</b>.
+
+  </p>
+  <pre>&lt;script type="text/javascript"&gt;
+&lt;!--
+function ajaxRead(file){
+var xmlObj = null;
+</pre>
+
+  <p>Далее идет обязательная часть скрипта - проверка доступности методов.
+    Все браузеры описывают объект по-своему. При наличии <b>window.XMLHttpRequest</b>
+    (для Mozilla, Netscape 7 и Safari 1.2) создаем экземпляр объекта
+    <b>XMLHttpRequest</b>.
+    Если этот метод недоступен, проверяем наличие <b>window.ActiveXObject</b>
+    (для Internet Explorer 5+) и создаем экземпляр объекта <b>ActiveXObject</b>.
+    Если браузер не предоставляет ни одну из проверяемых возможностей, то заканчиваем
+    функцию и возвращаемся.
+
+  </p>
+  <pre>if(window.XMLHttpRequest){
+	xmlObj = new XMLHttpRequest();
+} else if(window.ActiveXObject){
+	xmlObj = new ActiveXObject("Microsoft.XMLHTTP");
+} else {
+	return;
+}
+</pre>
+
+  <p>При каждом изменении состояния объекта <b>XMLHttpRequest</b> происходит событие
+    <b>onreadystatechange</b>. Если состояние изменяется мы используем конструкцию
+  </p>
+  <pre>xmlObj.onreadystatechange = function(){ : }. </pre>
+  <p>С помощью <b>if</b> убеждаемся, что данные доступны, затем запускаем функцию
+    обновления. Она имеет два параметра: <b>ID</b> элемента в Web-странице
+    (обновляемый элемент в текущей Web-странице) и данные для заполнения этого элемента.
+    Обновляться будет тег <b>p</b>, имеющий атрибут <b>id="xmlData"</b>. С помощью
+    свойства <b>responseXML</b> объявляем, что это XML-файл. <b>xmlObj.responseXML</b>
+    является объектом DOM. Этот объект можно интерпретировать как объект <b>document</b>
+    удаленного XML-файла. Другими словами, <b>xmlObj.responseXML</b> - это объект
+    <b>document</b>, если бы запускали скрипт в самом файле <b>data.xml</b>.
+    Через метод <b>getElementsByTagName</b> ищем данные по имени тега. В данном случае
+    это первый тег с именем <b>data</b>. Конструкция
+  </p>
+  <pre> xmlObj.responseXML.getElementsByTagName('data')[0]</pre>
+  <p>выделяет только узел.
+    Чтобы выделить содержимое узла используется свойство <b>firstChild.data</b>.</p>
+  <pre>xmlObj.onreadystatechange = function(){
+if(xmlObj.readyState == 4){
+	updateObj('xmlData',
+	xmlObj.responseXML.getElementsByTagName('data')[0].firstChild.data);
+     // updateObj('xmlData', xmlObj.responseText ); // если не XML документ
+}
+}
+</pre>
+  <p>Методом <b>open</b> открываем соединение с сервером с указанием типа передачи
+    данных GET, URL файла данных (в нашем случае переменная <b>file</b>, которая была
+    отослана как параметр функции <b>ajaxRead</b> - <b>data.xml</b>) и асинхронности
+    (по умолчанию).
+  </p>
+  <pre>xmlObj.open ('GET', file);</pre>
+  <p>В последней строке просто отсылаем пустую строку на сервер. Иначе состояние
+    объекта <b>XMLHttpRequest</b> никогда не станет равным 4, то есть не будет
+    "завершено", и страничку нельзя будет обновить. Для POST-запроса отправили бы данные.
+  </p>
+  <pre>xmlObj.send ('');
+}</pre>
+  <p>Функция обновления <b>updateObj</b> с помощью <b>getElementById</b> ищет узел
+    по указанному <b>ID</b> и заменяет его содержимое. Ее первый параметр <b>obj</b>
+    - <b>ID</b> обновляемого объекта; второй параметр <b>d</b>ata - новые данные,
+    которые должны быть помещены в обновляемый объект <b>obj</b>.
+  </p>
+  <pre>function updateObj(obj, data){
+document.getElementById(obj). innerHTML = "&lt;b&gt;"+data+"&lt;/b&gt;"; }
+//-&gt;&lt;/script&gt;
+</pre>
+
+  </p>
+  <p>Пример использования для разных браузеров:
+  </p>
+  <pre>function loadHTML(sURL)
+{
+  var request=null;
+
+  // пытаемся создать объект для MSXML 2 и старше
+  if(!request) try {
+    request=new ActiveXObject('Msxml2.XMLHTTP');
+  } catch (e){}
+
+  // не вышло... попробуем для MSXML 1
+  if(!request) try {
+    request=new ActiveXObject('Microsoft.XMLHTTP');
+  } catch (e){}
+
+  // не вышло... попробуем для Mozilla
+  if(!request) try {
+    request=new XMLHttpRequest();
+  } catch (e){}
+
+  if(!request)
+    // ничего не получилось...
+    return "";
+
+  // делаем запрос
+  request.open('GET', sURL, false);
+  request.send(null);
+
+  // возвращаем текст
+  return request.responseText;
+}
+</pre>
+
+  <h2>Получение части данных</h2>
+  <p>У объекта XMLHTTPRequest есть состояние readyState=3, при котором ответ находится в процессе загрузки, и уже
+    полученная часть может быть прочитана в responseText.
+    У большинства браузеров(кроме IE, который изобрел свой объект <a style="color:blue" href="http://msdn.microsoft.com"
+      target="_blank">XDomainRequest</a>) состояние interactive можно использовать для передачи сообщений с сервера не
+    закрывая соединение.</p>
+  <p>Для IE от версии 8 испольуйте XDomainRequest вместо new ActiveXObject('MSXML2.XMLHTTP'), но этот класс работает
+    несколько иначе, чем XmlHTTPRequest.</p>
+  <div class="next"><a href="ajax4.html">Следующая лекция</a></div><br>
+</div>
+<div id="vis">
+  <div class="font">
+    Размер шрифта:</div>
+  <div class="fontA" onclick="fonta()">А</div>
+  <div class="fontAA" onclick="fontaa()">А</div>
+  <div class="fontAAA" onclick="fontaaa()">А</div>
+  <div class="color">Цвет сайта:</div>
+  <div class="colorW" onclick="clwhite()">A</div>
+  <div class="colorBK" onclick="clblack()">A</div>
+  <div class="colorBE" onclick="clblue()">A</div>
+  <div class="imgOnOff">Изображение:</div>
+  <div class="imgOn" onclick="imgon()">Вкл.</div>
+  <div class="imgOff" onclick="imgoff()">Выкл.</div>
+  <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

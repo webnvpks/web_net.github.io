@@ -1,0 +1,350 @@
+<title>PHP Формы</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+  <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+    <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#ffffff"
+        d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+      </path>
+    </svg>
+  </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+  <p class="name">
+    Проектирование, разработка и оптимизация веб-приложений
+  </p>
+  <div class="links">
+    <a href="../../../index.html" class="link">Главная</a>
+    <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+    <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+    <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+    <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+  </div>
+</div>
+<div class="content">
+  <h1>Работа с формами</h1>
+  <p>Для передачи данных от пользователя Web-страницы на сервер используются
+    HTML-формы. Для работы с формами в PHP предусмотрен ряд специальных средств.
+
+  </p>
+  <h2>Предварительно определенные переменные</h2>
+  <p>В PHP существует ряд предварительно определенных переменных, которые
+    не меняются при выполнении всех приложений в конкретной среде. Их также
+    называют переменными окружения или переменными среды. Они отражают установки
+    среды Web-сервера Apache, а также информацию о запросе данного браузера. Есть
+    возможность получить значения URL, строки запроса и других элементов
+    HTTP-запроса.
+  </p>
+  <p>Все предварительно определенные переменные содержатся в ассоциативном
+    массиве <span class="ffc">$GLOBALS</span>. Кроме переменных окружения этот массив содержит
+    также глобальные переменные, определенные в программе.
+  </p>
+  <h4>Пример 1</h4>
+  <pre class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">title</span>&gt;</span>Просмотр массива $GLOBALS<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="pi">&lt;?php
+  $a = "Hello!";
+  foreach ( $GLOBALS as $key=&gt;$value )
+    echo "\$GLOBALS[\"$key\"] == $value&lt;br&gt;";
+?&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+  <p>В результате на экране появится список всех глобальных переменных,
+    включая переменные окружения. Наиболее часто используемые из них:</p>
+  <table class="tbl tbl1">
+    <tbody>
+      <tr>
+        <th style="width:30%">Переменная</th>
+        <th>Описание</th>
+        <th>Cодержание</th>
+      </tr>
+      <tr>
+        <td>$_SERVER['HTTP_USER_AGENT']</td>
+        <td>Название и версия клиента</td>
+        <td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98
+          Safari/537.36</td>
+      </tr>
+      <tr>
+        <td>$_SERVER['REMOTE_ADDR']</td>
+        <td>IP-адрес</td>
+        <td>31.173.241.82</td>
+      </tr>
+      <tr>
+        <td>getenv('HTTP_X_FORWARDED_FOR')</td>
+        <td>Внутренний IP-адрес клиента</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>$_SERVER['REQUEST_METHOD']</td>
+        <td>Метод запроса (<span class="fcc">GET</span> или <span class="fcc">POST</span>)</td>
+        <td>GET</td>
+      </tr>
+      <tr>
+        <td>$_SERVER['QUERY_STRING']</td>
+        <td>При запросе <span class="fcc">GET</span> закодированные данные, передаваемые вместе с URL</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>$_SERVER['REQUEST_URL']</td>
+        <td>Полный адрес клиента, включая строку запроса</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>$_SERVER['HTTP_REFERER']</td>
+        <td>Адрес страницы, с которой был сделан запрос</td>
+        <td>https://htmlweb.ru/php/php6.php</td>
+      </tr>
+      <tr>
+        <td>$_SERVER['PHP_SELF']</td>
+        <td>Путь к выполняемой программе</td>
+        <td>/index.php</td>
+      </tr>
+      <tr>
+        <td>$_SERVER['SERVER_NAME']</td>
+        <td>Домен</td>
+        <td>htmlweb.ru</td>
+      </tr>
+      <tr>
+        <td>$_SERVER['REQUEST_URI']</td>
+        <td>Путь</td>
+        <td>/php/php_form.php</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Обработка ввода пользователя</h2>
+  <p>PHP-программу обработки ввода можно отделить от HTML-текста, содержащего
+    формы ввода, а можно расположить на одной странице.
+  </p>
+  <h4>Пример 2</h4>
+  <pre class="adb"><code class="language-html xml"><span class="pi">&lt;?php
+if ( ! isset( $cardnumber ) )
+   $m = "Введите номер карточки";
+elseif ( $cardnumber == "" )
+   $m = "Ваш номер пуст!";
+else
+   $m = "Ваш номер: $cardnumber";
+?&gt;</span>
+<span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">title</span>&gt;</span>Пример обработки ввода<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">h1</span>&gt;</span><span class="pi">&lt;?php echo $m?&gt;</span><span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+<span class="tag">&lt;<span class="title">form</span> <span class="attribute">name</span>=<span class="value">"form1"</span> <span class="attribute">action</span>=<span class="value">"&lt;?=$_SERVER['PHP_SELF']?&gt;"</span> <span class="attribute">method</span>=<span class="value">"post"</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">p</span>&gt;</span>Номер карточки:
+      <span class="tag">&lt;<span class="title">input</span> <span class="attribute">name</span>=<span class="value">"cardnumber"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">size</span>=<span class="value">"20"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+  <p>Здесь отсутствует кнопка передачи данных, т.к. форма, состоящая из одного
+    поля, передается автоматически при нажатии клавиши &lt;Enter&gt;.
+  </p>
+  <p>При обработки элемента с многозначным выбором для доступа ко всем выбранным
+    значениям нужно к имени элемента добавить пару квадратных скобок. Для выбора нескольких эллементов следует
+    удерживать клавишу Ctrl.</p>
+
+  <h4>Пример 3.1</h4>
+  <p>Файл ex.htm</p>
+  <pre class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">title</span>&gt;</span>Список<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">form</span> <span class="attribute">name</span>=<span class="value">"form1"</span> <span class="attribute">action</span>=<span class="value">"ex1.php"</span> <span class="attribute">method</span>=<span class="value">"post"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">select</span> <span class="attribute">name</span>=<span class="value">"Item[]"</span> <span class="attribute">size</span>=<span class="value">5</span> <span class="attribute">multiple</span>&gt;</span>
+<span class="tag">&lt;<span class="title">option</span>&gt;</span>Чай
+<span class="tag">&lt;<span class="title">option</span>&gt;</span>Кофе
+<span class="tag">&lt;<span class="title">option</span>&gt;</span>Молоко
+<span class="tag">&lt;<span class="title">option</span>&gt;</span>Ветчина
+<span class="tag">&lt;<span class="title">option</span>&gt;</span>Сыр
+<span class="tag">&lt;/<span class="title">select</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"ВВОД"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+  <h4>Пример 3.2</h4>
+  <p>Файл ex.php</p>
+  <pre class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">title</span>&gt;</span>Обработка списка из файла ex1.htm<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="pi">&lt;?php
+echo "Ваш заказ: &lt;p&gt;&lt;ul&gt;";
+foreach ( $Item as $value )   echo "&lt;li&gt;$value";
+echo "&lt;/ul&gt;";
+?&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+  <h4>Пример 4. Прием значений от checkbox-флажков</h4>
+  <pre class="adb"><code class="language-html xml"><span class="pi">&lt;?php
+if (@$_REQUEST['doGo']) {
+  foreach (@$_REQUEST['known'] as $k=&gt;$v) {
+    if($v) echo "Вы знаете язык программирования $k!&lt;br&gt;";
+    else echo "Вы не знаете языка программирования $k. &lt;br&gt;";
+  }
+}
+?&gt;</span>
+<span class="tag">&lt;<span class="title">form</span> <span class="attribute">action</span>=<span class="value">"&lt;?=$_SERVER['SCRIPT_NAME']?&gt;"</span> <span class="attribute">method</span>=<span class="value">"post"</span>&gt;</span>
+Какие языки программирования вы знаете?<span class="tag">&lt;<span class="title">br</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">hidden</span> <span class="attribute">name</span>=<span class="value">"known[PHP]"</span> <span class="attribute">value</span>=<span class="value">"0"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">checkbox</span> <span class="attribute">name</span>=<span class="value">"known[PHP]"</span> <span class="attribute">value</span>=<span class="value">"1"</span>&gt;</span> PHP<span class="tag">&lt;<span class="title">br</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">hidden</span> <span class="attribute">name</span>=<span class="value">"known[Perl]"</span> <span class="attribute">value</span>=<span class="value">"0"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">checkbox</span> <span class="attribute">name</span>=<span class="value">"known[Perl]"</span> <span class="attribute">value</span>=<span class="value">"1"</span>&gt;</span> Perl<span class="tag">&lt;<span class="title">br</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">submit</span> <span class="attribute">name</span>=<span class="value">"doGo"</span> <span class="attribute">value</span>=<span class="value">"Go!"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span></code></pre>
+
+  <h4>Пример 5</h4>
+  <pre class="adb"><code class="language-html xml"><span class="pi">&lt;?php // Модель скрипта, принимающего текст от пользователя.
+if (@$_REQUEST['text'])
+  echo htmlspecialchars($_REQUEST['text'])."&lt;hr&gt;";
+?&gt;</span>
+<span class="tag">&lt;<span class="title">form</span> <span class="attribute">action</span>=<span class="value">"&lt;?=$_SERVER['SCRIPT_NAME']?&gt;"</span> <span class="attribute">method</span>=<span class="value">"post"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">textarea</span> <span class="attribute">name</span>=<span class="value">"text"</span> <span class="attribute">cols</span>=<span class="value">"60"</span> <span class="attribute">rows</span>=<span class="value">"10"</span>&gt;</span>
+<span class="tag">&lt; ?=<span class="value">@htmlspecialchars($_REQUEST['text'])?</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">textarea</span>&gt;</span><span class="tag">&lt;<span class="title">br</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span></code></pre>
+  <p>Можно обрабатывать формы, не заботясь о фактических именах полей.</p>
+  <p>Для этого можно использовать (в зависимости от метода передачи)
+    ассоциативный массив <span class="fcc">$HTTP_GET_VARS</span> или <span class="fcc">$HTTP_POST_VARS</span>.
+    Эти массивы содержат пары имя/значение для каждого элемента переданной формы. Если Вам все равно,
+    Вы можете использовать ассоциативный массив <span class="fcc">$_REQUEST</span>.</p>
+
+  <h4>Пример 6</h4>
+  <pre class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">title</span>&gt;</span>Обработка произвольного ввода
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;независимо от метода передачи<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="pi">&lt;?php
+$params = ( $_SERVER['REQUEST_METHOD'] == "GET" )
+   ? $HTTP_GET_VARS : $HTTP_POST_VARS;
+  foreach ( $params as $key=&gt;$value )
+    echo "$key == $value&lt;br&gt;";
+?&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+  <h4>Пример 7. Обработка нажатия на кнопку с использованием оператора '@'.</h4>
+  <pre class="adb"><code class="language-html xml"><span class="pi">&lt;?php
+if (@$_REQUEST['submit']) echo "Кнопка нажата!"
+?&gt;</span>
+<span class="tag">&lt;<span class="title">form</span> <span class="attribute">action</span>=<span class="value">"&lt;?=$_SERVER['SCRIPT_NAME']?&gt;"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">name</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"Go!"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span></code></pre>
+  <p>С помощью функции <span class="fcc">header()</span>, послав браузеру заголовок
+    <span class="fcc">"Location"</span>, можно перенаправить пользователя на новую страницу.</p>
+  <p>Например:</p>
+  <pre
+    class="adb"><code class="language-html xml"><span class="pi">&lt;? header("Location: ex2.php"); ?&gt;</span></code></pre>
+
+  <h2>Передача файла на сервер. UpLoad</h2>
+  <p>PHP позволяет передавать на сервер файлы. HTML-форма, предназначенная для
+    передачи файла, должна содержать аргумент <span class="fcc">enctype="multipart/form-data"</span>.
+  </p>
+  <p>Кроме того в форме перед полем для копирования файла должно находиться
+    скрытое поле с именем <span class="fcc">max_file_size</span>. В это скрытое поле должен
+    быть записан максимальный размер передаваемого файла (обычно не больше 2 Мбайт).
+  </p>
+  <p>Само поле для передачи файла - обычный элемент <span class="fcc">INPUT</span> с аргументом <span
+      class="fcc">type="file"</span>.
+  </p>
+  <p>Например:
+  </p>
+  <pre class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">form</span> <span class="attribute">enctype</span>=<span class="value">"multipart/form-data"</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">action</span>=<span class="value">"&lt;?echo $_SERVER['PHP_SELF']?&gt;"</span> <span class="attribute">method</span>=<span class="value">"post"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"hidden"</span> <span class="attribute">name</span>=<span class="value">"max_file_size"</span> <span class="attribute">value</span>=<span class="value">"51200"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"file"</span> <span class="attribute">name</span>=<span class="value">"myfile"</span>&gt;</span><span class="tag">&lt;<span class="title">br</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"ВВОД"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span></code></pre>
+  <p>После того, как файл передан на сервер, он получает уникальное имя и
+    сохраняется в каталоге для временных файлов. Полный путь к файлу записывается в
+    глобальную переменную, имя которой совпадает с именем поля для передачи этого
+    файла. Кроме этого PHP сохраняет еще некоторую дополнительную информацию о
+    переданном файле в других глобальных переменных:
+
+  </p>
+  <p></p>
+  <table class="tbl tbl1">
+    <tbody>
+      <tr>
+        <th style="width:33%">Переменная</th>
+        <th>Описание</th>
+      </tr>
+      <tr>
+        <td>$_FILES['userfile']['name'] </td>
+        <td> оригинальное имя файла, такое, каким его видел пользователь, выбирая файл</td>
+      </tr>
+      <tr>
+        <td>$_FILES['userfile']['type'] </td>
+        <td> mime/type файла, к примеру, может быть image/gif; это поле полезно сохранить, если Вы хотите предоставлять
+          интерфейс для скачивания загруженных файлов</td>
+      </tr>
+      <tr>
+        <td>$_FILES['userfile']['size'] </td>
+        <td> размер загруженного файла</td>
+      </tr>
+      <tr>
+        <td>$_FILES['userfile']['tmp_name'] </td>
+        <td> полный путь к временному файлу на диске</td>
+      </tr>
+      <tr>
+        <td>$_FILES['userfile']['error'] </td>
+        <td>код ошибки, который равен 0, если операция прошла успешно</td>
+      </tr>
+    </tbody>
+  </table>
+  <h4>Пример 8</h4>
+  <pre class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">title</span>&gt;</span>Обработка переданного файла<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="pi">&lt;?php
+if ( isset( $_FILES['userfile']['tmp_name'] ) )
+  {
+   echo "путь: ".$_FILES['userfile']['tmp_name']."&lt;br&gt;";
+   echo "имя: ".$_FILES['userfile']['name']."&lt;br&gt;";
+   echo "размер: ".$_FILES['userfile']['size']."&lt;br&gt;";
+   echo "тип: ".$_FILES['userfile']['type']."&lt;br&gt;";
+  }
+
+?&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">form</span> <span class="attribute">enctype</span>=<span class="value">"multipart/form-data"</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">action</span>=<span class="value">"&lt;?echo $_SERVER['PHP_SELF']?&gt;"</span> <span class="attribute">method</span>=<span class="value">"post"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"hidden"</span> <span class="attribute">name</span>=<span class="value">"max_file_size"</span> <span class="attribute">value</span>=<span class="value">"51200"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"file"</span> <span class="attribute">name</span>=<span class="value">"userfile"</span>&gt;</span><span class="tag">&lt;<span class="title">br</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"ВВОД"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+  <div class="next"><a href="php8.html">Следующая лекция</a></div><br>
+</div>
+<div id="vis">
+  <div class="font">
+    Размер шрифта:</div>
+  <div class="fontA" onclick="fonta()">А</div>
+  <div class="fontAA" onclick="fontaa()">А</div>
+  <div class="fontAAA" onclick="fontaaa()">А</div>
+  <div class="color">Цвет сайта:</div>
+  <div class="colorW" onclick="clwhite()">A</div>
+  <div class="colorBK" onclick="clblack()">A</div>
+  <div class="colorBE" onclick="clblue()">A</div>
+  <div class="imgOnOff">Изображение:</div>
+  <div class="imgOn" onclick="imgon()">Вкл.</div>
+  <div class="imgOff" onclick="imgoff()">Выкл.</div>
+  <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

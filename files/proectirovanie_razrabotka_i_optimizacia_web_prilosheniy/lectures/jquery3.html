@@ -1,0 +1,173 @@
+<title>jQuery События</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+   <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+      <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+         <path fill="#ffffff"
+            d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+         </path>
+      </svg>
+   </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+   <p class="name">
+      Проектирование, разработка и оптимизация веб-приложений
+   </p>
+   <div class="links">
+      <a href="../../../index.html" class="link">Главная</a>
+      <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+      <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+      <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+      <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+   </div>
+</div>
+<div class="content">
+   <h1>Обработчики событий jQuery </h1>
+   <p><b>Обработчики событий</b> - это функции, код которых исполняется только после совершения определенных действий.
+   </p>
+   <p>Обработчики событий присутствовали и в JavaScript, но jQuery облегчает их использование и расширяет их
+      функциональность.</p>
+   <p>Примеры действий, после которых выполняются обработчики:</p>
+   <ul>
+      <li>Курсор мыши наведен на элемент;</li>
+      <li>Веб-страница или картинка полностью загружена;</li>
+      <li>Изменено содержимое поля формы;</li>
+      <li>HTML форма отправлена;</li>
+      <li>Нажата клавиша на клавиатуре;</li>
+   </ul>
+
+   <p><b>Общий вид определения обработчиков jQuery:</b></p>
+
+   <pre>$(селектор).обработчик_события(function(){код_обработчика_события});</pre>
+
+   <h1>Обработчики событий jQuery в действии </h1>
+   <p>Код обработчика <b>mouseover</b> будет выполнен, когда курсор мыши будет наведен на элемент.</p>
+   <p>Код обработчика <b>mouseout</b> будет выполнен, когда курсор мыши будет выведен из границ элемента.</p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function(){
+  
+   $("p").mouseover(function(){$("p").css("color","green")});
+   $("p").mouseout(function(){$("p").css("color","black")});
+
+});
+</pre>
+
+   <p>Код обработчика <b>click</b> будет выполнен после одинарного щелчка мыши на элементе.</p>
+   <p>Код обработчика <b>dblclick</b> будет выполнен после двойного щелчка мыши на элементе.</p>
+
+   <p> Пример </p>
+   <pre>
+$(document).ready(function(){
+
+   $("#but1").click(function(){alert("Вы нажали один раз на первую кнопку!");});
+   $("#but2").dblclick(function(){alert("Вы нажали два раза на вторую кнопку!");});
+
+});
+</pre>
+
+   <p>Код обработчика <b>focus()</b> будет выполнен, когда элемент станет активным.</p>
+   <p>Код обработчика <b>blur()</b> будет выполнен, когда элемент перестанет быть активным.</p>
+   <p>Код обработчика <b>change()</b> будет выполнен, при изменении содержимого элемента.</p>
+   <p>
+   </p>
+   <p> Пример </p>
+   <pre>
+$(document).ready(function(){
+
+   $("#el1").focus(function(){$(this).attr("value","")});
+   $("#el1").blur(function(){$(this).attr("value","Введите ФИО")});
+   $("#el2").change(function(){ alert("Содержимое данного элемента было изменено.") });
+
+});
+</pre>
+
+   <p>С помощью jQuery Вы можете также вызывать обработчики событий привязанные к элементу. </p>
+   <p>Например: <b>$('#test').blur()</b> вызовет обработчик blur у элемента с id='test'.</p>
+   <p> Пример </p>
+   <pre>$(document).ready(function(){
+  
+// Зададим обработчик события, который будет выводить сообщение при нажатии на кнопку с id=but1
+   $("#but1").click(function(){alert("Вы нажали на кнопку с id=but1")});
+// Вызовем обработчик click у элемента с id='but1'
+   $("#but1").click();
+
+});</pre>
+
+   <h1>Объект event</h1>
+   <p><b>Объект event</b> содержит информацию о произошедшем событии. </p>
+   <p>Объект event создается для каждого произошедшего события, но для того, чтобы иметь возможность обращаться к его
+      свойствам и методам его
+      необходимо явно передать в обработчик события.</p>
+   <p><b>Синтаксис:</b></p>
+
+   <pre>$(селектор).событие(function(event){код_обработчика_события});</pre>
+
+   <p>После того, как объект event был передан обработчику события, Вы можете обращаться к его свойствам и методам.</p>
+   <p>В примере ниже с помощью объекта event мы будем выводить координаты, на которых находился курсор мыши во время
+      того, как произошло событие.</p>
+   <p> Пример </p>
+   <pre>$(document).ready(function(){
+  
+   $("#square").click(function(event){
+      $("#coord").css("display","block");
+      $("#x").html(event.pageX);
+      $("#y").html(event.pageY);
+   });
+
+});</pre>
+
+   <h1>Управление обработчиками событий</h1>
+   <p>Метод jQuery <b>one()</b> позволяет создавать обработчики, которые могут быть вызваны лишь один раз.</p>
+   <p> Пример </p>
+   <pre>$(document).ready(function(){
+
+   $("#but1").one("click",function(){alert("Вы нажали на кнопку с id=but1")});
+
+});</pre>
+
+   <p>Метод jQuery <b>toggle()</b> позволяет переключаться между различными обработчиками событий по щелчку мыши.</p>
+
+   <p> Пример </p>
+   <pre>$(document).ready(function(){
+
+   $("#but1").click(function(){
+      $("#par1").css("color","black");
+      $("#par1").css("font-size","1em");
+   });
+   $("#par1").toggle(function(){
+      $("#par1").css("color","green");
+      $("#par1").css("font-size","10px");},function(){
+      $("#par1").css("color","red");
+      $("#par1").css("font-size","20px");},function(){
+      $("#par1").css("color","blue");
+      $("#par1").css("font-size","30px");},function(){
+      $("#par1").css("color","black");
+      $("#par1").css("font-size","1em");
+   });
+
+});</pre>
+   <div class="next"><a href="jquery4.html">Следующая лекция</a></div>
+   <br>
+</div>
+<div id="vis">
+   <div class="font">
+      Размер шрифта:</div>
+   <div class="fontA" onclick="fonta()">А</div>
+   <div class="fontAA" onclick="fontaa()">А</div>
+   <div class="fontAAA" onclick="fontaaa()">А</div>
+   <div class="color">Цвет сайта:</div>
+   <div class="colorW" onclick="clwhite()">A</div>
+   <div class="colorBK" onclick="clblack()">A</div>
+   <div class="colorBE" onclick="clblue()">A</div>
+   <div class="imgOnOff">Изображение:</div>
+   <div class="imgOn" onclick="imgon()">Вкл.</div>
+   <div class="imgOff" onclick="imgoff()">Выкл.</div>
+   <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

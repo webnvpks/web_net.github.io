@@ -1,0 +1,113 @@
+<title>XML XSLT</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+    <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+        <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff"
+                d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+            </path>
+        </svg>
+    </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+    <p class="name">
+        Проектирование, разработка и оптимизация веб-приложений
+    </p>
+    <div class="links">
+        <a href="../../../index.html" class="link">Главная</a>
+        <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+        <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+        <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+        <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+    </div>
+</div>
+<div class="content">
+    <h1>XML XSLT</h1>
+    <p>Цель лабораторной работы: Познакомиться c языком преобразований XSLT.</p>
+    <p><strong>Задание:</strong>&nbsp;Взять в качестве исходного документа XML документ, созданый в лабораторной работе
+        №1. Используя Пример, представленый ниже, лекции и теоретические сведения, написать коммандный файл для
+        получения из XML документа, согласно XSL правил (необходимо также Вам создать), документа HTML, представляющего
+        в виде гипертекста указаную в первоначальном документе информацию.</p>
+    <p><strong>Замечание</strong>. Для работы потребуются инструментальные средства: любой текстовый редактор (подойдет
+        блокнот), парсер XSLT шаблонов Xalan (<a href="https://bdpx.github.io/xml/dist/xalan-j_2_7_1-bin.zip"
+            target="_blank">скачать</a>),</p>
+    <p><strong>Практический пример.</strong></p>
+    <p>Пусть имеется созданый XML документ.</p>
+    <pre>&lt;?xml version="1.0"?&gt;
+&lt;sonnet type="Shakespearean"&gt;
+&lt;author&gt;
+&nbsp;  &lt;lastName&gt;Shakespeare&lt;/lastName&gt;
+&nbsp;  &lt;firstName&gt;William&lt;/firstName&gt;
+&nbsp;  &lt;nationality&gt;British&lt;/nationality&gt;
+&nbsp;  &lt;yearOfBirth&gt;1564&lt;/yearOfBirth&gt;
+ &nbsp;  &lt;yearOfDeath&gt;1616&lt;/yearOfDeath&gt;
+&lt;/author&gt;
+&lt;title&gt;Sonnet 130&lt;/title&gt;
+&lt;lines&gt;
+&nbsp;  &lt;line&gt;My mistress' eyes are nothing like the sun,&lt;/line&gt;
+&nbsp;  &lt;line&gt;Coral is far more red than her lips red.&lt;/line&gt;
+&nbsp;  &lt;line&gt;If snow be white, why then her breasts are dun,&lt;/line&gt;
+&nbsp;  &lt;line&gt;If hairs be wires, black wires grow on her head.&lt;/line&gt;
+&nbsp;  &lt;line&gt;I have seen roses damasked, red and white,&lt;/line&gt;
+&nbsp;  &lt;line&gt;But no such roses see I in her cheeks.&lt;/line&gt;
+&nbsp;  &lt;line&gt;And in some perfumes is there more delight&lt;/line&gt;
+&nbsp;  &lt;line&gt;Than in the breath that from my mistress reeks.&lt;/line&gt;
+&nbsp;  &lt;line&gt;I love to hear her speak, yet well I know&lt;/line&gt;
+&nbsp;  &lt;line&gt;That music hath a far more pleasing sound.&lt;/line&gt;
+&nbsp;  &lt;line&gt;I grant I never saw a goddess go,&lt;/line&gt;
+&nbsp;  &lt;line&gt;My mistress when she walks, treads on the ground.&lt;/line&gt;
+&nbsp;  &lt;line&gt;And yet, by Heaven, I think my love as rare&lt;/line&gt;
+&nbsp;  &lt;line&gt;As any she belied with false compare.&lt;/line&gt;
+&lt;/lines&gt;
+&lt;/sonnet&gt;</pre>
+    <p>Для преобразования в HTML мы создали шаблон</p>
+    <pre>&lt;?xml version="1.0" ?&gt;
+&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"&gt;
+&lt;xsl:template match="/sonnet"&gt;
+&lt;html&gt;&lt;head&gt;&lt;title&gt;Shakespearean sonnet&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;xsl:apply-templates/&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;/xsl:template&gt;
+&lt;xsl:template match="author"&gt;
+&lt;h1&gt;&lt;xsl:value-of select="lastName"/&gt;,&lt;xsl:value-of select="firstName"/&gt;
+(&lt;xsl:value-of select="yearOfBirth"/&gt;-&lt;xsl:value-of select="yearOfDeath"/&gt;),
+&lt;xsl:value-of select="nationality"/&gt;&lt;/h1&gt;&lt;br/&gt;&lt;hr/&gt;
+&lt;/xsl:template&gt;
+&lt;xsl:template match="lines"&gt;
+&lt;xsl:for-each select="line"&gt;
+&nbsp;  &lt;xsl:value-of select="."/&gt;&lt;br/&gt;
+&lt;/xsl:for-each&gt;
+&lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;</pre>
+    <p>Пусть исходный XML документ, а также XSL шаблоны находятся в одной текущей директории. Соответсвенно в
+        поддиректории&nbsp;<em>classes</em>&nbsp;находятся класс&nbsp;<strong>xalan</strong>&nbsp;в директории с таким
+        же названиями.</p>
+    <p>Тогда комманда для преобразования могут выглядеть следующим образом:</p>
+    <p><code> java -cp classes\xalan\xalan.jar org.apache.xalan.xslt.Process -IN sonnet.xml -XSL sonnetrules.xsl -OUT sonnet_tesult_html.htm </code><br /><br />
+    </p>
+    <p>Получаем результирующий файл</p>
+    <p class="img"><img src="xml5_pic1.png" alt="" /></p>
+    <div class="next"><a href="../laboratornie.html">К содержанию</a></div>
+</div>
+<div id="vis">
+    <div class="font">
+        Размер шрифта:</div>
+    <div class="fontA" onclick="fonta()">А</div>
+    <div class="fontAA" onclick="fontaa()">А</div>
+    <div class="fontAAA" onclick="fontaaa()">А</div>
+    <div class="color">Цвет сайта:</div>
+    <div class="colorW" onclick="clwhite()">A</div>
+    <div class="colorBK" onclick="clblack()">A</div>
+    <div class="colorBE" onclick="clblue()">A</div>
+    <div class="imgOnOff">Изображение:</div>
+    <div class="imgOn" onclick="imgon()">Вкл.</div>
+    <div class="imgOff" onclick="imgoff()">Выкл.</div>
+    <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>

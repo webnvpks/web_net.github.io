@@ -1,0 +1,777 @@
+<title>PHP Объектное программирование</title>
+<link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/css.css">
+<meta charset="utf-8">
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/vision_js.js"></script><script src="../../js/slide_js.js"></script>
+<div class="body">
+    <p class="vision" title="Версия для слабовидящих" onclick="cl()">
+        <svg width="50" height="50" viewBox="0 0 1750 1750" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff"
+                d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z">
+            </path>
+        </svg>
+    </p>
+</div>
+<div class="header"></div>
+<div class="hat"><div class="sandwich" onclick="OpenMenu()">>>></div>
+    <p class="name">
+        Проектирование, разработка и оптимизация веб-приложений
+    </p>
+    <div class="links">
+        <a href="../../../index.html" class="link">Главная</a>
+        <a href="../lectures.html" class="link" title="Лекции">Лекции</a>
+        <a href="../video.html" class="link" title="Видео-уроки">Видео-уроки</a>
+        <a href="../laboratornie.html" class="link" title="Лабораторные работы">Лабораторные работы</a>
+        <a href="../tests.html" class="link" title="Тесты">Тесты</a>
+    </div>
+</div>
+<div class="content">
+    <h1>Объектное программирование</h1>
+    <h3>Объектно-ориентированное программирование (ООП) на PHP</h3>
+    <p>Объект - это набор специальных переменных - <i>свойств</i> и специальных
+        функций - <i>методов</i>.
+        То, что в процедурном программировании называлось переменной — в ООП называется свойство.
+        То, что в процедурном программировании называлось функцией — в ООП называется методом класса.
+        Созданные на основе класса объекты называются экземплярами класса или просто объекты.</p>
+    <p>Обращение из метода к свойствам только через служебное слово $this: $this-&gt;name; (обратите внимание на
+        отсутствие знака доллара перед name)
+        Обращение внутри метода к другому методу тоже через $this: $this-&gt;foo();
+        Для доступа к свойствам и методам объекта служит оператор "-&gt;":
+        <code>$this-&gt;name;</code> (обратите внимание на отсутствие знака доллара перед name)<br>
+        Обращение внутри метода к другому методу тоже через $this: <code>$this-&gt;foo();</code>.
+        Объект создается с помощью оператора <b>new</b> на основании
+        шаблона, называемого <i>классом</i>.
+        Класс определяется ключевым словом <b>class</b>.
+    </p>
+    <h4 id="ex1">Пример 1</h4>
+    <pre class="adb"><code class="language-html php">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Класс со свойством и методом&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<span class="preprocessor">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> класс<span class="title">N1</span>
+{</span>
+    <span class="keyword">public</span> $имя = <span class="string">"Маша"</span>; <span class="comment">// - это свойство класса доступное снаружи класса</span>
+    <span class="keyword">private</span> <span class="variable">$Private_name</span>;     <span class="comment">// - это свойство доступно только методам класса</span>
+    <span class="keyword">protected</span> <span class="variable">$Protected_name</span>;  <span class="comment">// это свойство доступно методам собственного класса, а также методам наследуемых классов</span>
+    <span class="function"><span class="keyword">function</span> Привет<span class="params">()</span> // - это метод класса
+    {</span>
+        <span class="keyword">echo</span> <span class="string">"&lt;H1&gt;"</span>.<span class="variable">$this</span>-&gt;имя.<span class="string">"! Привет!&lt;/H1&gt;"</span>;
+    }
+    <span class="function"><span class="keyword">function</span> Пока<span class="params">( <span class="variable">$a</span> )</span>
+    {</span>
+        <span class="variable">$this</span>-&gt;имя = <span class="variable">$a</span>;
+        <span class="keyword">echo</span> <span class="string">"&lt;H1&gt;"</span>.<span class="variable">$this</span>-&gt;имя.<span class="string">"! Пока!&lt;/H1&gt;"</span>;
+    }
+}
+<span class="variable">$obj</span> = <span class="keyword">new</span> классN1();
+<span class="variable">$obj</span>-&gt;Привет();
+<span class="variable">$obj</span>-&gt;имя = <span class="string">"Миша"</span>;
+<span class="variable">$obj</span>-&gt;Привет();
+<span class="variable">$obj</span>-&gt;Пока(<span class="string">"Яша"</span>);
+<span class="variable">$obj</span>-&gt;Привет();
+<span class="preprocessor">?&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <p><b>Модификаторы доступа в ООП</b>:</p>
+    <ul>
+        <li><b>public</b> — позволяет иметь доступ к свойствам и методам из любого места (глобальная область)</li>
+        <li><b>protected</b> — доступ к родительскому и наследуемому классу (область класса наследника)</li>
+        <li><b>private</b> — доступ только из класса, в котором объявлен сам элемент (область самого класса)</li>
+    </ul>
+    <p>Метод по умолчанию — public. У свойств значения модификатора по умолчанию нет.</p>
+
+    <h3>Константы класса в ООП</h3>
+    <pre
+        class="adb"><code class="language-html javascript"><span class="keyword">const</span> NAME = <span class="number">2</span>;</code></pre>
+    <p>Таким образом можно создавать константы и вне класса. Это именно константы класса, они не принадлежат ни одному
+        объекту, они общие на все объекты, поэтому использование внутри метода:
+    </p>
+    <pre class="adb"><code class="language-html php"><span class="function"><span class="keyword">function</span> <span class="title">printname</span><span class="params">()</span>{</span>
+    <span class="keyword">echo</span> <span class="keyword">self</span>::NAME;
+}</code></pre>
+    <p>self — это сам класс!</p>
+    <p>Обращение вне класса (можно вызывать из глобальной области видимости без инициализации экземпляра класса):</p>
+    <pre
+        class="adb"><code class="language-html css"><span class="tag">echo</span> <span class="tag">OurClass</span><span class="pseudo">::NAME</span>;</code></pre>
+
+    <h3>this и self</h3>
+    <p>Внутри класса использована специальная переменная <b>this</b>. Это указатель,
+        с помощью которого объект может ссылаться на самого себя.</p>
+    <p>Для обращения к статическим методам используется <b>self::</b></p>
+    <p>Методу <tt>Пока</tt> передан аргумент точно так же, как и обычной функции.
+        При вызове этого метода объект меняет свое свойство <tt>имя</tt>.</p>
+
+    <p>Конструктор — это метод, который автоматически вызывается при создании нового объекта:
+        <code>public function __construct(){}</code>.
+        При инициализации6 объекта через служебную конструкцию new, PHP ищет <code>__construct</code> и если он есть, то
+        вызывается.</p>
+    <p>Также можно создать метод, имя которого совпадает с именем класса, - такой метод также будет считаться
+        конструктором.
+        Конструктор может принимать аргументы, что значительно упрощает работу с классами.</p>
+
+
+    <h4 id="ex2">Пример 2</h4>
+    <pre class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Класс с конструктором<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="pi">&lt;?
+
+class классN2
+{
+    private $имя; // - это свойство класса НЕ доступное снаружи класса
+    function __construct( $a="Кто-то там" )
+    {
+        $this-&gt;имя = $a;
+    }
+    function Привет()
+    {
+        echo "&lt;H1&gt;".$this-&gt;имя."! Привет!&lt;/H1&gt;";
+    }
+}
+
+$obj0 = new классN2();
+$obj1 = new классN2("Миша");
+$obj2 = new классN2("Маша");
+$obj0-&gt;Привет();
+$obj1-&gt;Привет();
+$obj2-&gt;Привет();
+?&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+    <p>Сложив все, изложенное выше, можно создать более осмысленный класс.
+        Например, класс, который будет располагать данные в виде таблицы с
+        поименнованными столбцами.
+    </p>
+    <h4 id="ex3">Пример 3</h4>
+    <pre class="adb"><code class="language-html php">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Класс Table&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<span class="preprocessor">&lt;?php</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">Table</span>
+{</span>
+    <span class="keyword">private</span> <span class="variable">$headers</span> = [];
+    <span class="keyword">private</span> <span class="variable">$data</span> = [];
+    <span class="function"><span class="keyword">function</span> <span class="title">Table</span> <span class="params">( <span class="variable">$headers</span> )</span>
+    {</span>
+        <span class="variable">$this</span>-&gt;headers = <span class="variable">$headers</span>;
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">addRow</span> <span class="params">( <span class="variable">$row</span> )</span>
+    {</span>
+        <span class="variable">$tmp</span> = [];
+        <span class="keyword">foreach</span> ( <span class="variable">$this</span>-&gt;headers <span class="keyword">as</span> <span class="variable">$header</span> )
+        {
+            <span class="keyword">if</span> ( ! <span class="keyword">isset</span>( <span class="variable">$row</span>[<span class="variable">$header</span>] )) <span class="variable">$row</span>[<span class="variable">$header</span>] = <span class="string">""</span>;
+            <span class="variable">$tmp</span>[] = <span class="variable">$row</span>[<span class="variable">$header</span>];
+        }
+        array_push ( <span class="variable">$this</span>-&gt;data, <span class="variable">$tmp</span> );
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">output</span> <span class="params">()</span>
+    {</span>
+        <span class="keyword">echo</span> <span class="string">"&lt;PRE&gt;&lt;B&gt;"</span>;
+        <span class="keyword">foreach</span> ( <span class="variable">$this</span>-&gt;headers <span class="keyword">as</span> <span class="variable">$header</span> ) <span class="keyword">echo</span> <span class="string">"$header  "</span>;
+        <span class="keyword">echo</span> <span class="string">"&lt;/B&gt;&lt;BR&gt;"</span>;
+        <span class="keyword">foreach</span> ( <span class="variable">$this</span>-&gt;data <span class="keyword">as</span> <span class="variable">$y</span> )
+        {
+            <span class="keyword">foreach</span> ( <span class="variable">$y</span> <span class="keyword">as</span> <span class="variable">$x</span> ) <span class="keyword">echo</span> <span class="string">"$x  "</span>;
+            <span class="keyword">echo</span> <span class="string">"&lt;BR&gt;"</span>;
+        }
+        <span class="keyword">echo</span> <span class="string">"&lt;/PRE&gt;"</span>;
+    }
+}
+
+<span class="variable">$test</span> = <span class="keyword">new</span> Table (<span class="keyword">array</span>(<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>));
+<span class="variable">$test</span>-&gt;addRow(<span class="keyword">array</span>(<span class="string">"a"</span>=&gt;<span class="number">1</span>,<span class="string">"b"</span>=&gt;<span class="number">3</span>,<span class="string">"c"</span>=&gt;<span class="number">2</span>));
+<span class="variable">$test</span>-&gt;addRow(<span class="keyword">array</span>(<span class="string">"b"</span>=&gt;<span class="number">1</span>,<span class="string">"a"</span>=&gt;<span class="number">3</span>));
+<span class="variable">$test</span>-&gt;addRow(<span class="keyword">array</span>(<span class="string">"c"</span>=&gt;<span class="number">1</span>,<span class="string">"b"</span>=&gt;<span class="number">3</span>,<span class="string">"a"</span>=&gt;<span class="number">4</span>));
+<span class="variable">$test</span>-&gt;output();
+<span class="preprocessor">?&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <p>Свойства класса <tt>Table</tt> - массив имен столбцов таблицы и двумерный
+        массив строк данных. Конструктор класса <tt>Table</tt> получает массив имен
+        столбцов таблицы. Метод <tt>addRow</tt> добавляет в таблицу новую строку данных.
+        Метод <tt>output</tt> выводит таблицу на экран.</p>
+
+    <h3>Скрытые свойства и методы</h3>
+    <p>Свойства и методы класса могут быть как открытыми (public), так и скрытыми (private).
+        Скрытые свойства и методы недоступны извне класса, т.е. из сценария, в котором используется данный класс, или из
+        другого класса.</p>
+
+    <h2>Наследование</h2>
+    <p>На основе существующих классов можно создавать новые, используя <i>механизм
+            наследования</i>. Механизм наследования - это использование определенного ранее
+        класса в качестве родительского. При этом набор свойств и методов родительского
+        класса можно расширять. Имейте в виду, что производный класс имеет только
+        одного родителя.
+
+    </p>
+    <p>Чтобы создать новый класс, наследующий поведение существующего класса,
+        надо использовать ключевое слово <tt>extends</tt> в его объявлении.
+        Например:
+    </p>
+    <pre>class классN2 extends классN1
+   {
+   .......
+    }
+</pre>
+    <p>Здесь <tt>классN1</tt> - родительский класс, <tt>классN2</tt> - производный.
+    </p>
+    <p>Если производный класс не содержит собственного конструктора, то при создании
+        его объекта используется конструктор родительского класса. Если в производном
+        класса существует собственный конструктор, то конструктор родительского класса
+        не вызывается. При необходимости вызвать конструктор родительского класса это
+        надо сделать явно. Например:
+    </p>
+    <pre>классN1::классN1();
+</pre>
+    <p>Производный класс будет иметь все свойства и методы родительского класса.
+        Но их можно и переопределить в производном классе.
+    </p>
+    <h4 id="ex4">Пример 4</h4>
+    <pre class="adb"><code class="language-html xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Переопределение метода родительского класса<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="pi">&lt;?php
+class классN3
+{
+    public $имя = "Маша";
+    function Привет()
+    {
+        echo "&lt;H1&gt;".$this-&gt;имя."! Привет!&lt;/H1&gt;";
+    }
+}
+class классN4 extends классN3
+{
+    function Привет()
+    {
+        echo "&lt;H1&gt;".$this-&gt;имя."! Какая встреча!&lt;/H1&gt;";
+    }
+}
+$obj = new классN4();
+$obj-&gt;Привет();
+?&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+    <p>Метод <tt>Привет</tt> переопределен для производного класса.
+        Свойство <tt>имя</tt> наследуется от родительского.</p>
+
+    <p>Начиная с 4-й версии PHP, в объекте производного класса можно вызвать метод
+        родительского класса, который был переопределен.
+    </p>
+    <h4 id="ex5">Пример 5</h4>
+    <pre class="adb"><code class="language-html php">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Вызов метода родительского класса&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<span class="preprocessor">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> класс<span class="title">N5</span>
+{</span>
+    <span class="keyword">public</span> $имя = <span class="string">"Маша"</span>;
+    <span class="function"><span class="keyword">function</span> Привет<span class="params">()</span>
+    {</span>
+        <span class="keyword">echo</span> <span class="string">"&lt;H1&gt;"</span>.<span class="variable">$this</span>-&gt;имя.<span class="string">"! Привет!&lt;/H1&gt;"</span>;
+    }
+    <span class="function"><span class="keyword">function</span> Пока<span class="params">()</span>
+    {</span>
+        <span class="keyword">echo</span> <span class="string">"&lt;H1&gt;"</span>.<span class="variable">$this</span>-&gt;имя.<span class="string">", пока!&lt;/H1&gt;"</span>;
+    }
+
+}
+
+<span class="comment">/**
+ * Class классN6
+ */</span>
+<span class="class"><span class="keyword">class</span> класс<span class="title">N6</span> <span class="keyword">extends</span> класс<span class="title">N5</span>
+{</span>
+    <span class="comment">/**
+     *
+     */</span>
+    <span class="function"><span class="keyword">function</span> Привет<span class="params">()</span>
+    {</span>
+        <span class="keyword">echo</span> <span class="string">"&lt;H1&gt;"</span>.<span class="variable">$this</span>-&gt;имя.<span class="string">"! Какая встреча!&lt;/H1&gt;"</span>;
+        классN5::Привет();
+    }
+}
+<span class="variable">$obj</span> = <span class="keyword">new</span> классN6();
+<span class="variable">$obj</span>-&gt;Привет();
+<span class="variable">$obj</span>-&gt;Пока();
+<span class="preprocessor">?&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <p>Итак, производный класс может наследовать, переопределять и дополнять
+        свойства и методы другого класса.
+    </p>
+    <p>В следующем примере создан класс <tt>HTMLTable</tt>, основанный на классе
+        <tt>Table</tt> из примера 3. Новый класс формирует данные, сохраненные
+        методом <tt>addRow</tt> родительского класса, и выводит их в HTML-таблицу.
+        Свойства <tt>$cellpadding</tt> и <tt>$bgcolor</tt> дают возможность
+        изменять соответствующие аргументы, при этом переменной <tt>$cellpadding</tt>
+        присваивается значение по умолчанию, равное 2.
+    </p>
+    <h4 id="ex6">Пример 6</h4>
+    <pre class="adb"><code class="language-html php">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Классы Table и HTMLTable&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<span class="preprocessor">&lt;?php</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">Tables</span>
+{</span>
+    <span class="keyword">public</span> <span class="variable">$headers</span> = [];
+    <span class="keyword">public</span> <span class="variable">$data</span> = [];
+    <span class="function"><span class="keyword">function</span> <span class="title">Tables</span><span class="params">( <span class="variable">$headers</span> )</span>
+    {</span>
+        <span class="variable">$this</span>-&gt;headers = <span class="variable">$headers</span>;
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">addRow</span> <span class="params">( <span class="variable">$row</span> )</span>
+    {</span>
+        <span class="variable">$tmp</span> = [];
+        <span class="keyword">foreach</span> ( <span class="variable">$this</span>-&gt;headers <span class="keyword">as</span> <span class="variable">$header</span> )
+        {
+            <span class="keyword">if</span> ( ! <span class="keyword">isset</span>( <span class="variable">$row</span>[<span class="variable">$header</span>] )) <span class="variable">$row</span>[<span class="variable">$header</span>] = <span class="string">""</span>;
+            <span class="variable">$tmp</span>[] = <span class="variable">$row</span>[<span class="variable">$header</span>];
+        }
+        array_push ( <span class="variable">$this</span>-&gt;data, <span class="variable">$tmp</span> );
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">output</span> <span class="params">()</span>
+    {</span>
+        <span class="keyword">echo</span> <span class="string">"&lt;PRE&gt;&lt;B&gt;"</span>;
+        <span class="keyword">foreach</span> ( <span class="variable">$this</span>-&gt;headers <span class="keyword">as</span> <span class="variable">$header</span> ) <span class="keyword">echo</span> <span class="string">"$header  "</span>;
+        <span class="keyword">echo</span> <span class="string">"&lt;/B&gt;&lt;BR&gt;"</span>;
+        <span class="keyword">foreach</span> ( <span class="variable">$this</span>-&gt;data <span class="keyword">as</span> <span class="variable">$y</span> )
+        {
+            <span class="keyword">foreach</span> ( <span class="variable">$y</span> <span class="keyword">as</span> <span class="variable">$x</span> ) <span class="keyword">echo</span> <span class="string">"$x  "</span>;
+            <span class="keyword">echo</span> <span class="string">"&lt;BR&gt;"</span>;
+        }
+        <span class="keyword">echo</span> <span class="string">"&lt;/PRE&gt;"</span>;
+    }
+}
+
+<span class="class"><span class="keyword">class</span> <span class="title">HTMLTable</span> <span class="keyword">extends</span> <span class="title">Tables</span>
+{</span>
+    <span class="keyword">public</span> <span class="variable">$cellpadding</span> = <span class="string">"2"</span>;
+    <span class="keyword">public</span> <span class="variable">$bgcolor</span>;
+    <span class="function"><span class="keyword">function</span> <span class="title">HTMLTable</span> <span class="params">( <span class="variable">$headers</span>, <span class="variable">$bg</span>=<span class="string">"FFFFFF"</span> )</span>
+    {</span>
+        Tables::Tables( <span class="variable">$headers</span> );
+        <span class="variable">$this</span>-&gt;bgcolor = <span class="variable">$bg</span>;
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">setCellpadding</span> <span class="params">( <span class="variable">$padding</span> )</span>
+    {</span>
+        <span class="variable">$this</span>-&gt;cellpadding = <span class="variable">$padding</span>;
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">output</span> <span class="params">()</span>
+    {</span>
+        <span class="keyword">echo</span> <span class="string">"&lt;table cellpadding='"</span>.<span class="variable">$this</span>-&gt;cellpadding.<span class="string">"'&gt;&lt;tr&gt;"</span>;
+        <span class="keyword">foreach</span> ( <span class="variable">$this</span>-&gt;headers <span class="keyword">as</span> <span class="variable">$header</span> )
+            <span class="keyword">echo</span> <span class="string">"&lt;th bgcolor='"</span>.<span class="variable">$this</span>-&gt;bgcolor.<span class="string">"'&gt;"</span>.<span class="variable">$header</span>;
+        <span class="keyword">foreach</span> ( <span class="variable">$this</span>-&gt;data <span class="keyword">as</span> <span class="variable">$y</span> )
+        {
+            <span class="keyword">echo</span> <span class="string">"&lt;tr&gt;"</span>;
+            <span class="keyword">foreach</span> ( <span class="variable">$y</span> <span class="keyword">as</span> <span class="variable">$x</span> )
+                <span class="keyword">echo</span> <span class="string">"&lt;td bgcolor='"</span>.<span class="variable">$this</span>-&gt;bgcolor.<span class="string">"'&gt;$x"</span>;
+        }
+        <span class="keyword">echo</span> <span class="string">"&lt;/table&gt;"</span>;
+    }
+}
+
+<span class="variable">$test</span> = <span class="keyword">new</span> HTMLTable ( <span class="keyword">array</span>(<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>), <span class="string">"#00FFFF"</span> );
+<span class="variable">$test</span>-&gt;setCellpadding ( <span class="number">7</span> );
+<span class="variable">$test</span>-&gt;addRow(<span class="keyword">array</span>(<span class="string">"a"</span>=&gt;<span class="number">1</span>,<span class="string">"b"</span>=&gt;<span class="number">3</span>,<span class="string">"c"</span>=&gt;<span class="number">2</span>));
+<span class="variable">$test</span>-&gt;addRow(<span class="keyword">array</span>(<span class="string">"b"</span>=&gt;<span class="number">1</span>,<span class="string">"a"</span>=&gt;<span class="number">3</span>));
+<span class="variable">$test</span>-&gt;addRow(<span class="keyword">array</span>(<span class="string">"c"</span>=&gt;<span class="number">1</span>,<span class="string">"b"</span>=&gt;<span class="number">3</span>,<span class="string">"a"</span>=&gt;<span class="number">4</span>));
+<span class="variable">$test</span>-&gt;output();
+<span class="preprocessor">?&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <p>Обратите внимание на то, что значение свойства <tt>сellpadding</tt>
+        меняется с помощью отдельного метода <tt>setCellpadding</tt>. Конечно,
+        значения свойств можно менять непосредственно, вне объекта:
+    </p>
+    <pre>$test-&gt;сellpadding = 7 ;
+</pre>
+    <p>Но это считается дурным тоном, т.к. в сложных объектах при изменении
+        одного из свойств могут изменяться и другие свойства.
+    </p>
+
+    <p>Использовать или нет технику объектного программирования?
+        С одной стороны, проект, интенсивно использующий объектную технику, может
+        занимать слишком много ресурсов во время выполнения. С другой стороны,
+        правильно организованный объектный подход значительно сократит время
+        разработки и сделает программу более гибкой.</p>
+
+    <h3>Удаление объектов</h3>
+    <p>Удалить ранее созданный объект можно следующим образом:</p>
+    <pre>unset($objName);</pre>
+    <p>Ниже приведен пример, в котором объект класса Саг создается, а затем удаляется.</p>
+    <pre>$myCar = new Car;
+unset($myCar);</pre>
+    <p>После вызова функции unset() объект больше не существует.
+        В РНР имеется специальный метод __destruct(), который автоматически вызывается
+        при удалении объекта. Ниже приведен класс, содержащий этот метод.</p>
+    <pre class="adb"><code class="language-php"><span class="class"><span class="keyword">class</span> <span class="title">Bridge</span>
+{</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span>
+    {</span>
+        <span class="keyword">echo</span> <span class="string">"Мост разрушен"</span>;
+    }
+}
+<span class="variable">$bigBridge</span> = <span class="keyword">new</span> Bridge;
+<span class="keyword">unset</span>(<span class="variable">$bigBridge</span>);</code></pre>
+    <p>При создании объекта класса Bridge, а затем его удалении отобразится следующее сообщение:</p>
+    <pre>Мост разрушен</pre>
+    <p>Оно отображается вследствие вызова метода __destruct() при вызове функции unset().
+        При удалении объекта может потребоваться акрыть некоторые файлы или записать информацию в базу данных.</p>
+
+    <h3>Копирование (клонирование) объекта</h3>
+
+    <p>Клонирование объекта:</p>
+    <pre
+        class="adb"><code class="language-html php"><span class="variable">$a</span> = <span class="keyword">clone</span> <span class="variable">$b</span>;</code></pre>
+    <p>Конструктор не вызывается при клонировании, вызывается магический метод <code><b>__clone()</b>{}</code>.
+        Он НЕ принимает аргументов и к нему нельзя обратиться как к методу.</p>
+
+
+    <h3>Преобразование объекта в строку</h3>
+    <p>Для конвертации объекта в строку, и обратно, используются следующие функции:<br>
+        <b>serialize()</b> - принимает объект и возвращает строковое представление его класса и свойств;<br>
+        <b>unserialize()</b> - принимает строку, созданную при помощи serialize(), и возвращает объект.<br>
+    </p>
+    <p>serialize() и unserialize() работают со всеми типами данных, но они не работают с ресурсами.</p>
+    <p>Специальные методы для обслуживания функций serialize() и unserialize():<br>
+        <b>__sleep()</b> - вызывается строго перед тем, как объект сериализуется с помощью функции serialize().
+        Функция __sleep() должна будет вернуть список полей класса, которые функция serialize() включит в возвращаемую
+        строку.
+        Вы можете использовать это для того, чтобы исключить ненужные поля из строкового представления объекта.
+        Например:
+    </p>
+    <pre class="adb"><code class="language-php"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__sleep</span><span class="params">()</span> {</span>   <span class="comment">// почистить</span>
+    <span class="keyword">return</span> array_keys( get_object_vars( <span class="variable">$this</span> ) );
+}</code></pre>
+    <p><b>__wakeup()</b> - вызывается сразу после того, как объект десериализуется с помощью unserialize().</p>
+
+    <h3>Абстрактный класс</h3>
+    <p><b>Абстрактный класс</b> - это класс, который не может быть реализован, то есть, вы не сможете создать объект
+        класса, если он абстрактный.
+        Вместо этого вы создаете дочерние классы от него и спокойно создаете объекты от этих дочерних классов.
+        Абстрактные классы представляют собой шаблоны для создания классов.</p>
+    <pre class="adb"><code class="language-php"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> {</span>
+
+    <span class="keyword">private</span> <span class="variable">$firstName</span> = <span class="string">""</span>;
+    <span class="keyword">private</span> <span class="variable">$lastName</span> = <span class="string">""</span>;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setName</span><span class="params">( <span class="variable">$firstName</span>, <span class="variable">$lastName</span> )</span> {</span>
+    <span class="variable">$this</span>-&gt;firstName = <span class="variable">$firstName</span>;
+    <span class="variable">$this</span>-&gt;lastName = <span class="variable">$lastName</span>;
+    }
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getName</span><span class="params">()</span> {</span>
+    <span class="keyword">return</span> <span class="string">"$this-&gt;firstName $this-&gt;lastName"</span>;
+    }
+
+    <span class="keyword">abstract</span> <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">showWelcomeMessage</span><span class="params">()</span>;
+    /*  абстрактный метод <span class="title">showWelcomeMessage</span><span class="params">()</span>.
+    Так как он абстрактный, в нем нет ни строчки кода, это просто его объявление.
+    Любой дочерний класс обязан добавить и описать метод <span class="title">showWelcomeMessage</span><span class="params">()</span> */
+}</span></code></pre>
+
+    <h3>Интерфейс</h3>
+    <p><b>Интерфейс</b> - это шаблон, который задает поведение одного или более классов.
+        Вот основные отличия между интерфейсами и абстрактными классами:</p>
+    <ul>
+        <li>Ни один метод не может быть описан в интерфейсе. Они все абстрактны. В абстрактном классе могут быть и не
+            абстрактные методы.</li>
+        <li>Интерфейс не может содержать полей - только методы.</li>
+        <li>Класс имплементирует интерфейс, и класс наследует или расширяет другой класс.</li>
+        <li>Класс может имплементировать несколько интерфейсов одновременно. Этот же класс может наследовать другой
+            класс. Но у дочернего класса может быть только один супер-класс (абстрактный или нет).</li>
+    </ul>
+    <pre class="adb"><code class="language-php"><span class="keyword">interface</span> MyInterface {
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">aMethod</span><span class="params">()</span>;
+    <span class="title">public</span> <span class="title">function</span> <span class="title">anotherMethod</span><span class="params">()</span>;
+}
+
+<span class="title">class</span> <span class="title">MyClass</span> <span class="title">implements</span> <span class="title">MyInterface</span> {</span>
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">aMethod</span><span class="params">()</span> {</span>
+        <span class="comment">// (имплементация метода)</span>
+    }
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">anotherMethod</span><span class="params">()</span> {</span>
+        <span class="comment">// (имплементация метода)</span>
+    }
+}</code></pre>
+
+    <h3>Методы-перехватчики (магические методы)</h3>
+
+    <ul>
+        <li><b>__get</b>($property) - вызывается при обращении к неопределенному свойству</li>
+        <li><b>__set</b>($property,$value) - вызывается, когда неопределенному свойству присваивается значение</li>
+        <li><b>__unset</b>($property) - вызывается, когда функция unset() вызывается для неопределенного свойства</li>
+        <li><b>__isset</b>($property) - вызывается, когда функция isset() вызывается для неопределенного свойства</li>
+        <li><b>__call</b>($method,$arg array) - вызывается при обращении к неопределенному методу</li>
+        <li><b>__callStatic</b>($method,$arg array) - вызывается при обращении к неопределенному статическому методу
+        </li>
+        <li><b>__toString</b>() - Вызывается, если есть попытка вывести объект, как строку.</li>
+        <li><b>__debugInfo</b>() - В PHP 5.6 был добавлен новый магический метод, который позволяет менять свойства и
+            значения объекта, когда он печатается с помощью функции var_dump(класс).</li>
+        <li><b>__invoke</b>() - для вызова объекта как функции. <a href="#invoke">Пример</a></li>
+    </ul>
+
+    <h4>Пример использования необъявленных свойств класса</h4>
+    <h5>Где и зачем могут быть использованны методы-перехватчики?</h5>
+    <p>Например есть у вас таблица в базе данных, называется user
+        и есть в ней некие поля, например id, name, email, phone, password, avatar
+        И Вы создали класс на для работы с юзерами, так его и назвали - User</p>
+    <p>Какие свойства будут у данного класса? Если вы сделаете такие же как в БД - id, name, email и так далее,
+        то получается что при каждом изменении базы данных - вам нужно менять код в классе User, как то не очень удобно.
+        Добавили вы например поле site - значит нужно его добавлять и в класс User, ну и так далее.<br>
+        Используя же методы __get() и __set() Вы можете это всё автоматизировать.
+        У вас в классе User вообще не будет ни одного свойства из БД, у нас есть допустим только одно $data - мы туда
+        взяли, да и загрузили всё что есть в базе данных на данного пользователя.
+        А потом, когда программист что то запрашивает, например $user-&gt;email мы просто в __get() методе можете
+        посмотреть - если мы такую информацию загрузили из БД, и она лежит в $data['email'] - то вот мы её вам и
+        возвращаем.
+        А в __set() наоборот. Есть такое поле в БД? Значит присвоим ему новое значение.</p>
+    <pre class="adb"><code class="language-html php"><span class="comment">/**
+ * Class User
+ *<span class="phpdoc"> @property</span>-read integer id текущего пользователя
+ *<span class="phpdoc"> @property</span>-write String site возвращает ссылку на сайт пользователя
+ */</span>
+<span class="class"><span class="keyword">class</span> <span class="title">User</span>
+{</span>
+    <span class="keyword">private</span> <span class="variable">$data</span>;
+    <span class="keyword">private</span> <span class="variable">$f_write</span>=<span class="keyword">false</span>;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__set</span><span class="params">(<span class="variable">$name</span>, <span class="variable">$value</span>)</span> {</span>
+        <span class="variable">$this</span>-&gt;data[<span class="variable">$name</span>] = <span class="variable">$value</span>;
+        <span class="variable">$this</span>-&gt;f_write=<span class="keyword">true</span>; <span class="comment">// признак, что нужно сохранить данные</span>
+    }
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span><span class="params">(<span class="variable">$name</span>)</span> {</span>
+        <span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="variable">$data</span>)){
+            <span class="comment">// читаем запись из БД в data</span>
+        }
+        <span class="keyword">return</span> <span class="variable">$this</span>-&gt;data[<span class="variable">$name</span>];
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span>
+    {</span>
+        <span class="keyword">if</span>(!<span class="keyword">empty</span>(<span class="variable">$data</span>)&amp;&amp;<span class="variable">$this</span>-&gt;f_write){
+            <span class="comment">// сохраняем изменения в БД</span>
+        }
+    }
+}
+
+<span class="variable">$user</span>=<span class="keyword">new</span> User();
+<span class="variable">$user</span>-&gt;site=<span class="string">'http://kdg.htmlweb.ru/'</span>;        <span class="comment">//присваеваем переменной</span>
+<span class="keyword">echo</span> <span class="variable">$user</span>-&gt;site;        <span class="comment">//выводим значение переменной</span>
+<span class="comment">// записываем в БД. Можно это явно не делать, т.к. при окончании работы скрипта это поизойдет автоматически</span>
+<span class="keyword">unset</span>(<span class="variable">$user</span>);</code></pre>
+
+    <h4>Пример использование необъявленного свойства класса как элемент массива</h4>
+    <p>Обратите внимание на то, что из __get возвращается ссылка:</p>
+    <pre class="adb"><code class="language-html php"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> {</span>
+    <span class="keyword">private</span> <span class="variable">$data</span> = [];
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__set</span><span class="params">(<span class="variable">$name</span>, <span class="variable">$value</span>)</span> {</span>
+        <span class="variable">$this</span>-&gt;data[<span class="variable">$name</span>] = <span class="variable">$value</span>;
+    }
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> &amp; <span class="title">__get</span><span class="params">(<span class="variable">$name</span>)</span> {</span>
+        <span class="keyword">return</span> <span class="variable">$this</span>-&gt;data[<span class="variable">$name</span>];
+    }
+}
+
+<span class="variable">$foo</span> = <span class="keyword">new</span> Foo();
+<span class="variable">$foo</span>-&gt;bar[<span class="number">2</span>] = <span class="string">'lol'</span>;
+var_dump(<span class="variable">$foo</span>-&gt;bar);</code></pre>
+
+    <h4>Использоватние перехватчиков обращения к необъявленным методам класса</h4>
+    <pre class="adb"><code class="language-php"><span class="class"><span class="keyword">class</span> <span class="title">OurClass</span>
+{</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span><span class="params">(<span class="variable">$name</span>,array <span class="variable">$params</span>)</span>
+    {</span>
+        <span class="keyword">echo</span> <span class="string">'Вы хотели вызвать $Object-&gt;'</span>.<span class="variable">$name</span>.<span class="string">', но его не существует,
+                и сейчас выполняется '</span>.__METHOD__.<span class="string">'()'</span>;
+        <span class="keyword">return</span>;
+    }
+
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">__callStatic</span><span class="params">(<span class="variable">$name</span>,array <span class="variable">$params</span>)</span>
+    {</span>
+        <span class="keyword">echo</span> <span class="string">'Вы хотели вызвать '</span>.__CLASS__.<span class="string">'::'</span>.<span class="variable">$name</span>.<span class="string">', но его не существует,
+                и сейчас выполняется '</span>.__METHOD__.<span class="string">'()'</span>;
+        <span class="keyword">return</span>;
+    }
+}
+
+<span class="variable">$Object</span>=<span class="keyword">new</span> OurClass;
+<span class="variable">$Object</span>-&gt;DynamicMethod();
+OurClass::StaticMethod();</code></pre>
+
+    <p>Пример обхода закрытых метов класса:</p>
+    <pre
+        class="adb"><code class="language-php"><span class="class"><span class="keyword">class</span> <span class="title">_byCallStatic</span>{</span>
+  <span class="comment">// Пример обхода "закрытых" методов класса,</span>
+  <span class="comment">// при использовании метода "__callStatic()" для вызова статического метода.</span>
+  <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">__callStatic</span><span class="params">(<span class="variable">$_name</span>, <span class="variable">$_param</span>)</span> {</span>
+    <span class="keyword">return</span> call_user_func_array(<span class="string">'static::'</span>. <span class="variable">$_name</span>, <span class="variable">$_param</span>);
+  }
+  <span class="keyword">private</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">_newCall</span><span class="params">()</span>{</span> <span class="keyword">echo</span> <span class="string">'Method: '</span>. __METHOD__; }
+}
+<span class="keyword">echo</span> _byCallStatic::_newCall(<span class="number">114</span>, <span class="string">'Integer'</span>, <span class="number">157</span>); <span class="comment"># Результат: Method: _byCallStatic::_newCall</span></code></pre>
+
+    <p>Как вызвать через статический метод любой динамический:</p>
+    <pre class="adb"><code class="language-php"><span class="comment">/**
+ * Class o
+ *<span class="phpdoc"> @method</span> static void __f(int $a1 = 1)
+ */</span>
+<span class="class"><span class="keyword">class</span> <span class="title">o</span>
+{</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">__callStatic</span><span class="params">(<span class="variable">$method</span>, <span class="variable">$args</span>)</span>
+    {</span>
+        <span class="variable">$class</span> = get_called_class();
+        <span class="variable">$obj</span> = <span class="keyword">new</span> <span class="variable">$class</span>(<span class="variable">$args</span>[<span class="number">0</span>]);
+        <span class="variable">$method</span> = substr(<span class="variable">$method</span>, <span class="number">2</span>);
+        <span class="variable">$pass</span> = array_slice(<span class="variable">$args</span>,<span class="number">1</span>);
+        <span class="variable">$reflection</span> = <span class="keyword">new</span> ReflectionMethod(<span class="variable">$obj</span>, <span class="variable">$method</span>);
+        <span class="keyword">return</span> <span class="variable">$reflection</span>-&gt;invokeArgs(<span class="variable">$obj</span>, <span class="variable">$pass</span>);
+    }
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">(<span class="variable">$a1</span> = <span class="number">1</span>)</span> {</span>
+        var_dump(<span class="string">'oo'</span>, func_get_args());
+    }
+}
+<span class="class"><span class="keyword">class</span> <span class="title">a</span> <span class="keyword">extends</span> <span class="title">o</span>
+{</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">(<span class="variable">$a1</span> = <span class="number">1</span>, <span class="variable">$a2</span> = <span class="number">2</span>)</span> {</span> var_dump(<span class="string">'aa'</span>, <span class="variable">$a1</span> ); }
+}
+<span class="class"><span class="keyword">class</span> <span class="title">b</span> <span class="keyword">extends</span> <span class="title">o</span>
+{</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">(<span class="variable">$b1</span> = <span class="number">1</span>)</span> {</span> var_dump(<span class="string">'bb'</span>, <span class="variable">$b1</span>); }
+}
+a::__f(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);
+b::__f(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>);</code></pre>
+
+    <h3 id="invoke">Как использовать объект как функцию?</h3>
+    <pre
+        class="adb"><code class="language-html php"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span>
+{</span>
+    <span class="keyword">private</span> <span class="variable">$name</span>;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">(<span class="variable">$dogName</span> = <span class="string">'Тузик'</span>)</span> {</span>
+        <span class="variable">$this</span>-&gt;name = <span class="variable">$dogName</span>;
+    }
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span><span class="params">()</span> {</span>
+        <span class="variable">$args</span> = func_get_args();
+        <span class="keyword">echo</span> <span class="string">'Собака получила: '</span> . implode(<span class="string">' и '</span>, <span class="variable">$args</span>);
+    }
+}
+
+<span class="variable">$dog</span> = <span class="keyword">new</span> Dog(<span class="string">'Мухтар'</span>);
+<span class="variable">$dog</span>(<span class="string">'кость'</span>, <span class="string">'поводок'</span>);</code></pre>
+
+    <h3>Как обращаться к объекту как к массиву?</h3>
+    <p>Для этого необходимо создать такой объект который реализует интерфейс ArrayAccess из SPL.
+        Следующий пример реализует объект доступ к данным которого можно получать как в стиле обращения к массиву, так и
+        через получение свойств:</p>
+    <pre class="adb"><code class="language-php"><span class="class"><span class="keyword">class</span> <span class="title">MyArray</span> <span class="title">implements</span> <span class="title">ArrayAccess</span>
+{</span>
+    <span class="keyword">protected</span> <span class="variable">$arr</span> = <span class="keyword">array</span>();
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">offsetSet</span><span class="params">(<span class="variable">$key</span>, <span class="variable">$value</span>)</span> {</span>
+        <span class="variable">$this</span>-&gt;arr[<span class="variable">$key</span>] = <span class="variable">$value</span>;
+    }
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">offsetUnset</span><span class="params">(<span class="variable">$key</span>)</span> {</span>
+        <span class="keyword">unset</span>(<span class="variable">$this</span>-&gt;arr[<span class="variable">$key</span>]);
+    }
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">offsetGet</span><span class="params">(<span class="variable">$key</span>)</span> {</span>
+        <span class="keyword">return</span> <span class="variable">$this</span>-&gt;arr[<span class="variable">$key</span>];
+    }
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">offsetExists</span><span class="params">(<span class="variable">$key</span>)</span> {</span>
+        <span class="keyword">return</span> <span class="keyword">isset</span>(<span class="variable">$this</span>-&gt;arr[<span class="variable">$key</span>]);
+    }
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span><span class="params">(<span class="variable">$key</span>)</span>
+    {</span>
+        <span class="keyword">return</span> <span class="variable">$this</span>-&gt;offsetGet(<span class="variable">$key</span>);
+    }
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__set</span><span class="params">(<span class="variable">$key</span>, <span class="variable">$val</span>)</span>
+    {</span>
+        <span class="variable">$this</span>-&gt;offsetSet(<span class="variable">$key</span>, <span class="variable">$val</span>);
+    }
+}
+<span class="variable">$a</span> = <span class="keyword">new</span> MyArray();
+<span class="variable">$a</span>[<span class="string">'whoam'</span>] = <span class="string">'Я значение массива, или объекта? &lt;br/ &gt;'</span>;
+<span class="keyword">echo</span> <span class="variable">$a</span>[<span class="string">'whoam'</span>];
+<span class="keyword">echo</span> <span class="variable">$a</span>-&gt;whoam;</code></pre>
+
+    <h3>Автозагрузка классов</h3>
+    <p>Файлы автозагружаемых классов обычно располагаются в общем месте, например в /include/class/. Имя файла
+        формируется в формате ИМЯ_КЛАССА.php.
+        Данный код необходимо подключить во все PHP-скрипты:</p>
+    <pre class="adb"><code class="language-html php">spl_autoload_register(<span class="function"><span class="keyword">function</span> <span class="params">(<span class="variable">$class_name</span>)</span> {</span>
+    <span class="comment">//echo "Autoload ".$class_name;</span>
+    <span class="variable">$file</span> = <span class="variable">$_SERVER</span>[<span class="string">'DOCUMENT_ROOT'</span>] . <span class="string">"/include/class/"</span> . strtolower(<span class="variable">$class_name</span>) . <span class="string">'.php'</span>;
+    <span class="keyword">if</span> (file_exists(<span class="variable">$file</span>) == <span class="keyword">false</span>) {
+        <span class="keyword">if</span>(<span class="variable">$GLOBALS</span>[<span class="string">'DEBUG'</span>]) <span class="keyword">echo</span> <span class="string">"Нет файла "</span>.<span class="variable">$file</span>;
+        <span class="keyword">return</span> <span class="keyword">false</span>;
+    }
+    <span class="keyword">include_once</span>(<span class="variable">$file</span>);
+    <span class="keyword">return</span> <span class="keyword">true</span>;
+});</code></pre>
+
+    <p>Для автоподгрузки классов можно также использовать определение функции __autoload();</p>
+
+    <h3>Обработка исключений в ООП</h3>
+    <p>Для обработки некритических ошибок используются исключения(Exception).</p>
+    <pre class="adb"><code class="language-html php"><span class="keyword">try</span> {
+    <span class="variable">$a</span> = <span class="number">1</span>;
+    <span class="variable">$b</span> = <span class="number">0</span>;
+    <span class="keyword">if</span>(<span class="variable">$b</span> == <span class="number">0</span>)
+        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="keyword">Exception</span> (<span class="string">"деление на ноль!"</span>);
+    <span class="variable">$c</span> = <span class="variable">$a</span>/<span class="variable">$b</span>;
+} <span class="keyword">catch</span> (<span class="keyword">Exception</span> <span class="variable">$e</span>) {
+    <span class="keyword">echo</span> <span class="variable">$e</span>-&gt;getMessage();
+    <span class="keyword">echo</span> <span class="variable">$e</span>-&gt;getLine();
+}</code></pre>
+    <p>Exception — встроенный класс. Если попали в throw, то код ниже не выполняется и осуществляется переход к блоку
+        catch.</p>
+    <p>Блок try-catch используется как в процедурном, так и в ООП программировании. Он используется для отлова ошибок —
+        большой блок try с множеством throw и все отлавливаются в одном месте — блоке catch.</p>
+    <p>Exception можно наследовать, желательно при этом перезагрузить конструктор:</p>
+    <pre class="adb"><code class="language-html php"><span class="class"><span class="keyword">class</span> <span class="title">MyException</span> <span class="keyword">extends</span> <span class="title">Exception</span> {</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">(<span class="variable">$msg</span>)</span>{</span>
+        <span class="keyword">parent</span>::__construct(<span class="variable">$msg</span>);
+    }
+}</code></pre>
+    <p>Блоков catch может быть несколько — для каждого класса наследника Exception.</p>
+    <div class="next"><a href="php7.html">Следующая лекция</a></div><br>
+</div>
+<div id="vis">
+    <div class="font">
+        Размер шрифта:</div>
+    <div class="fontA" onclick="fonta()">А</div>
+    <div class="fontAA" onclick="fontaa()">А</div>
+    <div class="fontAAA" onclick="fontaaa()">А</div>
+    <div class="color">Цвет сайта:</div>
+    <div class="colorW" onclick="clwhite()">A</div>
+    <div class="colorBK" onclick="clblack()">A</div>
+    <div class="colorBE" onclick="clblue()">A</div>
+    <div class="imgOnOff">Изображение:</div>
+    <div class="imgOn" onclick="imgon()">Вкл.</div>
+    <div class="imgOff" onclick="imgoff()">Выкл.</div>
+    <div id="exit" onclick="clc()" title="Закрыть">Обычная версия</div>
+</div>
